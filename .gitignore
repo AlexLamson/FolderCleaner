@@ -4,3 +4,10 @@
 *.jar
 *.war
 *.ear
+
+# Lists Folder #
+*.txt
+!lists/example blacklist.txt
+!lists/example whitelist.txt
+!lists/example cachefolderlist.txt
+!lists/example historyfolderlist.txt
