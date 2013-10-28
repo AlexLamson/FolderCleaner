@@ -1,0 +1,8 @@
+png
+gif
+jpg
+jpeg
+bmp
+mp4
+avi
+mkv
