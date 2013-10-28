@@ -52,4 +52,23 @@ public class Cypher
 	{
 		return (char)( ch + cypherShift );
 	}
+	
+	//change all non-letters to spaces and remove any repeated spaces to one space
+	public static String cleanString(String inString)
+	{
+		String outString = "";
+		
+		for(int i = 0; i < inString.length(); i++)
+		{
+			char c = inString.charAt(i);
+			if( !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) )
+				c = ' ';
+			outString = outString + c;
+			if(outString.endsWith("  "))
+				outString = outString.substring(0, outString.length()-1);
+		}
+		
+		outString = outString.trim();
+		return outString;
+	}
 }
