@@ -5,6 +5,10 @@
 *.war
 *.ear
 
+# Project Files #
+.classpath
+.project
+
 # Lists Folder #
 *.txt
 !lists/ExampleBlacklist.txt
@@ -15,3 +19,12 @@
 
 # Links #
 *.lnk
+
+# OS generated files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

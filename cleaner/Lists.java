@@ -7,7 +7,6 @@ public class Lists
 	public static File listsDir = new File("lists/");
 	public static MatchList blacklist = new MatchList();
 	public static MatchList whitelist = new MatchList();
-	public static MatchList extensions = new MatchList();
 	public static FolderList folders = new FolderList();
 	
 	public static void main(String[] args)
@@ -43,10 +42,6 @@ public class Lists
 			else if(file.getName().endsWith("Whitelist.txt"))
 			{
 				whitelist.addList(file);
-			}
-			else if(file.getName().endsWith("Extensions.txt"))
-			{
-				extensions.addList(file);
 			}
 			else if(file.getName().endsWith("Folders.txt"))
 			{
