@@ -15,7 +15,7 @@ public class Lists
 //		for(String str : blackList)
 //			System.out.println("~"+str);
 		
-		for(String str : blacklist.getAllUnrestictedContents())
+		for(String str : blacklist.getUnrestictedContents())
 		{
 			System.out.println(str);
 		}
@@ -37,15 +37,15 @@ public class Lists
 		{
 			if(file.getName().endsWith("Blacklist.txt"))
 			{
-				blacklist.addList(file);
+				blacklist.addFile(file);
 			}
 			else if(file.getName().endsWith("Whitelist.txt"))
 			{
-				whitelist.addList(file);
+				whitelist.addFile(file);
 			}
 			else if(file.getName().endsWith("Folders.txt"))
 			{
-				folders.addList(file);
+				folders.addFile(file);
 			}
 			else
 			{
@@ -56,7 +56,6 @@ public class Lists
 	
 	public static boolean shouldMarkFile(String str)
 	{
-		
 		
 		return false;
 	}

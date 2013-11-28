@@ -22,7 +22,7 @@ public class FolderList extends MatchList
 	public void addList(String folderPathString)
 	{
 		File folderPath = new File(folderPathString);
-		super.addList(folderPath);
+		super.addFile(folderPath);
 		
 		// remove the labels from each item from the contents and move them to the listTypes ArrayList
 		for(int i = 0; i < listPaths.size(); i++)

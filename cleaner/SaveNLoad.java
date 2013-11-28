@@ -93,19 +93,8 @@ public class SaveNLoad
 	
 	public static void printFiles(File folder)
 	{
-		for (File fileEntry : folder.listFiles())
-		{
-			if (fileEntry.isDirectory())
-			{
-				System.out.println("~"+fileEntry.getName());
-			}
-			else
-			{
-				String name = fileEntry.getName();
-				
-				System.out.println(name);
-			}
-		}
+		for(File f : getFiles(folder))
+			System.out.println(f.getName());
 	}
 	
 	public static ArrayList<File> getFiles(File folder)
