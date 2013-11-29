@@ -15,10 +15,12 @@ public class Lists
 //		for(String str : blackList)
 //			System.out.println("~"+str);
 		
-		for(String str : blacklist.getUnrestictedContents())
-		{
-			System.out.println(str);
-		}
+//		String testString = "-junk1-/filename@$#here.txt";
+//		System.out.println(testString);
+//		System.out.println(cleanString(testString));
+		
+//		for(String str : blacklist.getUnrestictedContents())
+//			System.out.println(str);
 		
 //		System.out.println("!~OBFUSCATED~!");
 //		for(String str : obfuscate(blackList))
@@ -54,8 +56,60 @@ public class Lists
 		}
 	}
 	
+	//change to lowercase & replace all special characters with spaces (except last period)
+	public static String cleanString(String str)
+	{
+//		replace special characters with spaces to avoid bad matches
+		boolean foundLastPeriod = false, foundLastSlash = false;
+		char[] newString = new char[str.length()];
+		for(int i = str.length()-1; i > 0; i--)
+		{
+			char c = str.charAt(i);
+			if(foundLastSlash)
+				newString[i] = ' ';
+			else if(Character.isLetterOrDigit(c))
+				newString[i] = c;
+			else
+			{
+				if(c == '.' && !foundLastPeriod && !foundLastSlash)
+				{
+					newString[i] = c;
+					foundLastPeriod = true;
+				}
+				else if(c == '/' && !foundLastSlash)
+				{
+					newString[i] = c;
+					foundLastSlash = true;
+				}
+				else
+					newString[i] = ' ';
+			}
+		}
+		String newStr = new String(newString).trim();
+		
+		newStr = newStr.toLowerCase();
+		
+		return newStr;
+	}
+	
 	public static boolean shouldMarkFile(String str)
 	{
+		boolean hasMAtch = false;
+		
+		if(blacklist.useMatchList)
+		{
+			
+		}
+		
+		if(blacklist.useMatchList)
+		{
+			
+		}
+		
+		if(blacklist.useMatchList)
+		{
+			
+		}
 		
 		return false;
 	}

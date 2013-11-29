@@ -37,24 +37,12 @@ public class MatchList
 		return allUnrestictedContents;
 	}
 	
+	//return true if any of the lines in all the enabled files are contained in String str
 	public boolean hasMatch(String str)
 	{
-//		replace special characters with spaces to avoid bad matches
-		char[] newString = new char[str.length()];
-		for(int i = 0; i < str.length(); i++)
-		{
-			char c = str.charAt(i);
-			if(Character.isLetterOrDigit(c))
-				newString[i] = ' ';
-			else
-				newString[i] = c;
-		}
-		str = new String(newString);
-		
-		str = str.toLowerCase();
 		for(int i = 0; i < files.size(); i++)
 			for(String match : files.get(i).getUnrestrictedContents())
-				if(str.contains(match))	//if item is a match
+				if(str.contains(match))
 					return true;
 		return false;
 	}
