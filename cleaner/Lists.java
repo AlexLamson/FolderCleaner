@@ -94,6 +94,6 @@ public class Lists
 	
 	public static boolean shouldMarkFile(String str)
 	{
-		return !whitelist.hasMatch(str) && folders.hasMatch(str) && blacklist.hasMatch(str);
+		return !whitelist.hasMatch(cleanString(str)) && folders.hasMatch(str) && blacklist.hasMatch(cleanString(str));
 	}
 }
