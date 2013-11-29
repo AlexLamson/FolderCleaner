@@ -40,6 +40,8 @@ public class MatchList
 	//return true if any of the lines in all the enabled files are contained in String str
 	public boolean hasMatch(String str)
 	{
+		if(!useMatchList)
+			return false;
 		for(int i = 0; i < files.size(); i++)
 			for(String match : files.get(i).getUnrestrictedContents())
 				if(str.contains(match))

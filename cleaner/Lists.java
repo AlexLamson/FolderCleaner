@@ -94,23 +94,6 @@ public class Lists
 	
 	public static boolean shouldMarkFile(String str)
 	{
-		boolean hasMAtch = false;
-		
-		if(blacklist.useMatchList)
-		{
-			
-		}
-		
-		if(blacklist.useMatchList)
-		{
-			
-		}
-		
-		if(blacklist.useMatchList)
-		{
-			
-		}
-		
-		return false;
+		return !whitelist.hasMatch(str) && folders.hasMatch(str) && blacklist.hasMatch(str);
 	}
 }
