@@ -28,15 +28,18 @@ public class ListFile
 				listContents.add(str);
 		
 		useList.makeTrue();
-		
-		System.out.println("+ "+listPath.getName());
 	}
 	
 	public ArrayList<String> getUnrestrictedContents()
 	{
 		if(useList.isTrue())
-			return listContents;
+			return getContents();
 		return new ArrayList<String>();
+	}
+	
+	public ArrayList<String> getContents()
+	{
+		return listContents;
 	}
 	
 	public boolean equals(Object obj)

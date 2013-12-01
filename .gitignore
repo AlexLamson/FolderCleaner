@@ -11,11 +11,7 @@
 
 # Lists Folder #
 *.txt
-!lists/ExampleBlacklist.txt
-!lists/ExampleWhitelist.txt
-!lists/ExampleCachefolder.txt
-!lists/ExampleHistoryfolder.txt
-!lists/ExampleExtensions.txt
+!lists/Example*.txt
 
 # Links #
 *.lnk

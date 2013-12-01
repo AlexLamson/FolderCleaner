@@ -17,6 +17,18 @@ public class MatchList
 	public void addFile(File path)
 	{
 		files.add(new ListFile(path));
+		
+		String type = Lists.getFileType(path.getName());
+		String name = path.getName().substring(0, path.getName().length() - (type.length() + 4));
+//		System.out.println( type + "   \t+ " + name );
+//		System.out.println( "+ " + name + " " + type);
+//		System.out.println( "+ " + name);
+		
+		String spaces = "";
+		for(int i = 0; i < 9-type.length(); i++)
+			spaces += " ";
+		
+		System.out.println( type + spaces + " + " + name );
 	}
 	
 	//returns -1 if not found
@@ -28,13 +40,22 @@ public class MatchList
 		throw new Exception("getListFile("+path+") file not found");
 	}
 	
-	public ArrayList<String> getUnrestictedContents()
+	public ArrayList<String> getUnrestrictedContents()
 	{
-		ArrayList<String> allUnrestictedContents = new ArrayList<String>();
+		ArrayList<String> allUnrestrictedContents = new ArrayList<String>();
 		for(int i = 0; i < files.size(); i++)
 			for(String s : files.get(i).getUnrestrictedContents())
-				allUnrestictedContents.add(s);
-		return allUnrestictedContents;
+				allUnrestrictedContents.add(s);
+		return allUnrestrictedContents;
+	}
+	
+	public ArrayList<String> getContents()
+	{
+		ArrayList<String> allContents = new ArrayList<String>();
+		for(int i = 0; i < files.size(); i++)
+			for(String s : files.get(i).getContents())
+				allContents.add(s);
+		return allContents;
 	}
 	
 	//return true if any of the lines in all the enabled files are contained in String str

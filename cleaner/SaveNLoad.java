@@ -29,6 +29,8 @@ public class SaveNLoad
 		for(File file : getFiles(folder))
 			System.out.println(file.getName());
 		
+//		System.out.println(getNumberOfFilesInFolder(folder));
+		
 //		for(File file : getFilesRecur(folder))
 //			System.out.println(file.getName());
 	}
@@ -88,7 +90,12 @@ public class SaveNLoad
 	
 	public static int getNumberOfFilesInFolder(String folderPath)
 	{
-		return new File(folderPath).listFiles().length;
+		return getNumberOfFilesInFolder(new File(folderPath));
+	}
+	
+	public static int getNumberOfFilesInFolder(File folderPath)
+	{
+		return folderPath.listFiles().length;
 	}
 	
 	public static void printFiles(File folder)
