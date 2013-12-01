@@ -67,7 +67,7 @@ public class Button extends Menu
 		int sX = xCenter - (int)(rect.getWidth()/2);
 		int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
 
-		g.setColor(Color.black);
+//		g.setColor(Color.black);
 		g.setColor(new Color(255-bgcolor.getRed(), 255-bgcolor.getGreen(), 255-bgcolor.getBlue()));
 		
 		g.drawString(str, sX, sY);

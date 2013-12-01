@@ -8,6 +8,9 @@ import java.awt.Graphics;
 
 public class Menu
 {
+	public static long maxID = 0;
+	public long ID = -1;
+	
 	public boolean placeholder = false, unsized = false;	//unsized = pixel dimensions not yet set
 	
 	public ArrayList<Menu> menus = new ArrayList<Menu>();
@@ -32,6 +35,7 @@ public class Menu
 	//a menu without pixel dimensions so they can be set by the upper menu (bool required so as not to conflict with other constructor)
 	public Menu(int xPos, int yPos, int xSize, int ySize, boolean bool)
 	{
+		assignID();
 		unsized = true;
 		this.xPos = xPos;
 		this.yPos = yPos;
@@ -42,11 +46,18 @@ public class Menu
 	
 	public Menu(int x, int y, int width, int height)
 	{
+		assignID();
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		setColor(new Color(random(0,255), random(0, 255), random(0,255)));
+	}
+	
+	public void assignID()
+	{
+		ID = maxID;
+		maxID++;
 	}
 	
 	public void setRowsCols(int rows, int cols)
