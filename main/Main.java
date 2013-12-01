@@ -18,7 +18,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import javax.swing.*;
 
-import menuSystem.ComplexMenu;
+import menusystem2.*;
 
 public class Main extends Applet implements Runnable
 {
@@ -50,7 +50,7 @@ public class Main extends Applet implements Runnable
 	private Image screen;
 	public static JFrame frame;
 	//put special objects here
-	public static ComplexMenu menu;
+	public static Menu menu;
 	
 	public Main()
 	{
@@ -66,21 +66,11 @@ public class Main extends Applet implements Runnable
 	public void start()
 	{
 		//defining objects
-		menu = new ComplexMenu(0, 0, pixel.width, pixel.height, 4, 6);
+		menu = new Menu(0, 0, pixel.width, pixel.height);
+		menu.setRowsCols(4, 6);
 		
-//		menu = new ComplexMenu(0, 0, pixel.width, pixel.height, 4, 6);
-//		menu.addButton(0, 0, 4, 1);
-//		menu.addButton(0, 1, 2, 2);
-//		menu.addButton(2, 1, 2, 2);
-//		menu.addButton(0, 3, 2, 1);
-//		menu.addButton(0, 4, 2, 1);
-//		menu.addButton(0, 5, 2, 1);
-//		menu.addButton(2, 3, 1, 1);
-//		menu.addButton(3, 3, 1, 1);
-//		menu.addButton(2, 4, 1, 1);
-//		menu.addButton(3, 4, 1, 1);
-//		menu.addButton(2, 5, 1, 1);
-//		menu.addButton(3, 5, 1, 1);
+		menu.fillMenu();
+		menu.addMenu(new Loader(1, 2, 5, 1, true));
 		
 		addKeyListener(new Listening());
 		addMouseListener(new Listening());

@@ -16,8 +16,7 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 		switch(key)
 		{
 		case KeyEvent.VK_SPACE:
-			System.out.println("menu has "+Main.menu.buttons.size()+" items");
-			Main.menu.cols++;
+			
 			break;
 		}
 	}
@@ -39,17 +38,14 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	{
 		Main.mse.setLocation(e.getX()/Main.pixelSize, e.getY()/Main.pixelSize);
 //		System.out.println(save);
-		if(Main.isMouseLeft)			//left click
+		if(Main.isMouseLeft)		//left click
 		{
-			
 		}
 		else if(Main.isMouseMiddle)	//middle click
 		{
-			
 		}
 		else if(Main.isMouseRight)	//right click
 		{
-			
 		}
 	}
 	
@@ -57,41 +53,43 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	{
 		Main.mse.setLocation(e.getX()/Main.pixelSize, e.getY()/Main.pixelSize);
 		
-		if(Main.isMouseLeft)			//left click
+		if(Main.isMouseLeft)		//left click
 		{
-			Main.menu.click(Main.mse);
 		}
 		else if(Main.isMouseMiddle)	//middle click
 		{
-			
 		}
 		else if(Main.isMouseRight)	//right click
 		{
-			Main.menu.rightClick(Main.mse);
 		}
+		
+		mouseChanged();
 	}
 	
 	public void mousePressed(MouseEvent e)
 	{
-		mouseToggle(e, true);
+		mouseToggled(e, true);
 		
-		if(Main.isMouseLeft)
+		if(Main.isMouseLeft)		//left click
 		{
-			Main.menu.click(Main.mse);
 		}
-		else if(Main.isMouseRight)
+		else if(Main.isMouseMiddle)	//middle click
 		{
-			Main.menu.rightClick(Main.mse);
 		}
+		else if(Main.isMouseRight)	//right click
+		{
+		}
+		
+		mouseChanged();
 	}
 
 	public void mouseReleased(MouseEvent e)
 	{
-		mouseToggle(e, false);
-		Main.menu.unpressAll();
+		mouseToggled(e, false);
+		mouseChanged();
 	}
 	
-	public static void mouseToggle(MouseEvent e, boolean toggle)
+	public static void mouseToggled(MouseEvent e, boolean toggle)
 	{
 		Main.mse.setLocation(e.getX()/Main.pixelSize, e.getY()/Main.pixelSize);
 		
@@ -103,6 +101,18 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 			Main.isMouseRight = toggle;
 	}
 	
+	//called when the press states in the menus need to be updated
+	public static void mouseChanged()
+	{
+//		System.out.println("mouse changed!");
+		
+		Main.menu.press1(Main.mse, Main.isMouseLeft);	//left click
+		
+		Main.menu.press2(Main.mse, Main.isMouseMiddle);	//middle click
+		
+		Main.menu.press3(Main.mse, Main.isMouseRight);	//right click
+	}
+	
 	public void mouseMoved(MouseEvent e)
 	{
 		Main.mse.setLocation(e.getX(), e.getY());
@@ -110,11 +120,11 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 
 	public void mouseWheelMoved(MouseWheelEvent e)
 	{
-		if(e.getWheelRotation() < 0)			//scrolled up
+		if(e.getWheelRotation() < 0)		//scrolled up
 		{
 			
 		}
-		else if(e.getWheelRotation() > 0)		//scrolled down
+		else if(e.getWheelRotation() > 0)	//scrolled down
 		{
 			
 		}
