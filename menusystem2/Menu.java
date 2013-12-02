@@ -9,7 +9,9 @@ import java.awt.Graphics;
 public class Menu
 {
 	public static long maxID = 0;
-	public long ID = -1;
+	public long ID = -1;			//id of the menu
+	
+	public static int indentation = 0;		//used in the printMenus method
 	
 	public boolean placeholder = false, unsized = false;	//unsized = pixel dimensions not yet set
 	
@@ -18,7 +20,7 @@ public class Menu
 	public int x = 0, y = 0, width = 0, height = 0;	//dimensions of menu in pixels
 	public int xPadding = 10, yPadding = 10;		//extra pixels between each row and column
 	
-	public int rows = 0, cols = 0;					//number of rows and columns in menu
+	public int rows = 1, cols = 1;					//number of rows and columns in menu
 	public int xPos = 0, yPos = 0, xSize = 1, ySize = 1;	//dimension in "button units"
 	
 	public Color bgcolor = new Color(255, 0, 255);	//background color of menu
@@ -83,8 +85,8 @@ public class Menu
 	{
 		if(menu.unsized)
 		{
-			menu.x = (int)(this.width*(1.0*menu.xPos/this.cols));
-			menu.y = (int)(this.height*(1.0*menu.yPos/this.rows));
+			menu.x = x + (int)(this.width*(1.0*menu.xPos/this.cols));
+			menu.y = y + (int)(this.height*(1.0*menu.yPos/this.rows));
 			menu.width = (int)(this.width*(1.0*menu.xSize/this.cols));
 			menu.height = (int)(this.height*(1.0*menu.ySize/this.rows));
 		}
@@ -100,9 +102,6 @@ public class Menu
 	
 	public void fillMenu()
 	{
-		int bWidth = width/cols;
-		int bHeight = height/rows;
-		
 		int num = 1;		//for the button labels
 		
 		for(int row = 0; row < rows; row++)
@@ -197,7 +196,27 @@ public class Menu
 			pressed3 = false;
 		}
 	}
-
+	
+	public void printMenus()
+	{
+		System.out.println(this);
+		
+		boolean indent = menus.size() > 0;
+		if(indent)
+			indentation++;
+		
+		for(int i = 0; i < menus.size(); i++)
+		{
+			if(indent)
+				for(int j = 0; j < indentation; j++)
+					System.out.print("| ");
+			menus.get(i).printMenus();
+		}
+		
+		if(indent)
+			indentation--;
+	}
+	
 	public void tick()
 	{
 		for(int i = 0; i < menus.size(); i++)

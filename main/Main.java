@@ -66,12 +66,11 @@ public class Main extends Applet implements Runnable
 	public void start()
 	{
 		//defining objects
+		
 		menu = new Menu(0, 0, pixel.width, pixel.height);
 		menu.setRowsCols(6, 10);
-		
-		menu.fillMenu();
-		
 		menu.setColor(Color.darkGray);
+		menu.fillMenu();
 		
 //		blue loader
 		Loader loader = new Loader(1, 2, 5, 1, true);
@@ -84,6 +83,45 @@ public class Main extends Applet implements Runnable
 		loader2.fgcolor = new Color(6, 176, 37);
 		loader2.bgcolor = new Color(230, 230, 230);
 		menu.addMenu(loader2);
+		
+		
+		
+//		menu = new Menu(0, 0, pixel.width, pixel.height);
+//		menu.setRowsCols(1, 4);
+//		menu.setColor(Color.darkGray);
+//		
+//		Menu sideBar = new Menu(0, 0, 1, 1, true);
+//		sideBar.setRowsCols(6, 2);
+//		menu.addMenu(sideBar);
+//		
+//		Button clean = new Button(0, 0, 2, 1, true, "clean");
+//		clean.bgcolor = Color.red;
+//		sideBar.addMenu(clean);
+//		
+//		Button scan = new Button(0, 1, 2, 1, true, "scan");
+//		scan.bgcolor = Color.green;
+//		sideBar.addMenu(scan);
+//		
+//		Button junk = new Button(0, 2, 2, 1, true, "junk");
+//		junk.bgcolor = Color.blue;
+//		sideBar.addMenu(junk);
+//		
+//		
+//		Menu results = new Menu(1, 0, 3, 1, true);
+//		results.setRowsCols(8, 2);
+//		menu.addMenu(results);
+//		
+//		Menu displayPanel = new Menu(0, 0, 1, 1, true);
+//		displayPanel.setRowsCols(1, 4);
+//		results.addMenu(displayPanel);
+//		
+//		Menu obj = new Menu(0, 0, 1, 1, true);
+//		displayPanel.addMenu(obj);
+//
+//		displayPanel.fillMenu();
+		
+		
+		
 		
 		addKeyListener(new Listening());
 		addMouseListener(new Listening());

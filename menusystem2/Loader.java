@@ -76,16 +76,17 @@ public class Loader extends Menu
 		g.setFont(f);
 		FontMetrics fm = g.getFontMetrics(f);
 		Rectangle2D rect = fm.getStringBounds(str, g);
-		
 		int xCenter = x + (width/2);
 		int yCenter = y + (height/2);
-		
 		int sX = xCenter - (int)(rect.getWidth()/2);
 		int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
-
-		g.setColor(Color.gray);
-//		g.setColor(new Color(255-bgcolor.getRed(), 255-bgcolor.getGreen(), 255-bgcolor.getBlue()));
 		
+		//put a box behind the percentage
+		g.setColor(new Color(200, 200, 200, 200));
+		g.fillRect(sX, sY-fm.getAscent(), (int)rect.getWidth(), (int)rect.getHeight());
+		
+		g.setColor(Color.black);
+//		g.setColor(new Color(255-bgcolor.getRed(), 255-bgcolor.getGreen(), 255-bgcolor.getBlue()));
 		g.drawString(str, sX, sY);
 		
 		//pass to lower menus

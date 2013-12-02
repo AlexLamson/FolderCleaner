@@ -60,16 +60,13 @@ public class Button extends Menu
 		g.setFont(f);
 		FontMetrics fm = g.getFontMetrics(f);
 		Rectangle2D rect = fm.getStringBounds(str, g);
-		
 		int xCenter = x + (width/2);
 		int yCenter = y + (height/2);
-		
 		int sX = xCenter - (int)(rect.getWidth()/2);
 		int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
 
 //		g.setColor(Color.black);
 		g.setColor(new Color(255-bgcolor.getRed(), 255-bgcolor.getGreen(), 255-bgcolor.getBlue()));
-		
 		g.drawString(str, sX, sY);
 		
 		for(int i = 0; i < menus.size(); i++)

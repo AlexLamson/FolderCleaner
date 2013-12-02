@@ -16,7 +16,7 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 		switch(key)
 		{
 		case KeyEvent.VK_SPACE:
-			
+			Main.menu.printMenus();
 			break;
 		}
 	}
