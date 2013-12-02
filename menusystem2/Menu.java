@@ -108,7 +108,7 @@ public class Menu
 		{
 			for(int col = 0; col < cols; col++)
 			{
-				addMenu(new Button(col*bWidth, row*bHeight, bWidth, bHeight, "Button "+num));
+				addMenu(new Button(col*bWidth, row*bHeight, bWidth, bHeight, "Box "+num));
 //				addMenu(new Loader(col*bWidth, row*bHeight, bWidth, bHeight));
 				num++;
 			}

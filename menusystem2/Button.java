@@ -25,12 +25,12 @@ public class Button extends Menu
 	}
 	
 	//positive amount = brighter, negative = darker
-	public Color changeColor(Color color, int amount)
+	public static Color changeColor(Color color, int amount)
 	{
 		return makeColor(color.getRed()+amount, color.getGreen()+amount, color.getBlue()+amount);
 	}
 	
-	public Color makeColor(int r, int g, int b)
+	public static Color makeColor(int r, int g, int b)
 	{
 		r = capRange(r);
 		g = capRange(g);
@@ -38,7 +38,7 @@ public class Button extends Menu
 		return new Color(r, g, b);
 	}
 	
-	public int capRange(int num)
+	public static int capRange(int num)
 	{
 		if(num < 0)
 			num = 0;

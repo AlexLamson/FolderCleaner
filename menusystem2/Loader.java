@@ -10,7 +10,7 @@ import main.Main;
 
 public class Loader extends Menu
 {
-	public double currentVal = 0, maxVal = 97;
+	public double currentVal = 0, maxVal = 100;
 	public Color fgcolor = Color.green;
 	
 	public Loader(int x, int y, int width, int height)
@@ -55,15 +55,23 @@ public class Loader extends Menu
 	
 	public void render(Graphics g)
 	{
+		//background color
 		g.setColor(bgcolor);
 		g.fillRect(x, y, width, height);
 		
+		//bar color
 		g.setColor(fgcolor);
 		g.fillRect(x, y, (int)((currentVal/maxVal)*width), height);
 		
-		String str = round(100*currentVal/maxVal, 0)+" %";
+		//fancy trim
+		g.setColor(Button.changeColor(fgcolor, 20));
+		g.fillRect(x, y, (int)((currentVal/maxVal)*width), height/12);
+		g.setColor(Button.changeColor(fgcolor, -20));
+		g.fillRect(x, y+height-height/12, (int)((currentVal/maxVal)*width), height/12);
 		
-		//To do: ideally, the font size will be set to fit inside the button
+		//current percentage
+		String str = round(100*currentVal/maxVal, 0)+"";
+		
 		Font f = new Font("Verdana", Font.PLAIN, 28/Main.pixelSize);
 		g.setFont(f);
 		FontMetrics fm = g.getFontMetrics(f);
@@ -75,11 +83,12 @@ public class Loader extends Menu
 		int sX = xCenter - (int)(rect.getWidth()/2);
 		int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
 
-		g.setColor(Color.black);
+		g.setColor(Color.gray);
 //		g.setColor(new Color(255-bgcolor.getRed(), 255-bgcolor.getGreen(), 255-bgcolor.getBlue()));
 		
 		g.drawString(str, sX, sY);
 		
+		//pass to lower menus
 		for(int i = 0; i < menus.size(); i++)
 			menus.get(i).render(g);
 	}
