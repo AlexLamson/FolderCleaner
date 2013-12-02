@@ -75,7 +75,8 @@ public class Menu
 	// generate random number in range [min, max]
 	public static int random(int min, int max)
 	{
-		return (int)(Math.random()*max + min + 0.5);
+		
+		return min + (int)(Math.random() * ((max - min) + 1));
 	}
 	
 	public void addMenu(Menu menu)
@@ -108,8 +109,7 @@ public class Menu
 		{
 			for(int col = 0; col < cols; col++)
 			{
-				addMenu(new Button(col*bWidth, row*bHeight, bWidth, bHeight, "Box "+num));
-//				addMenu(new Loader(col*bWidth, row*bHeight, bWidth, bHeight));
+				addMenu(new Button(col, row, 1, 1, true, "Box "+num));
 				num++;
 			}
 		}

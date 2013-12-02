@@ -67,7 +67,7 @@ public class Main extends Applet implements Runnable
 	{
 		//defining objects
 		menu = new Menu(0, 0, pixel.width, pixel.height);
-		menu.setRowsCols(5, 10);
+		menu.setRowsCols(6, 10);
 		
 		menu.fillMenu();
 		
@@ -77,13 +77,13 @@ public class Main extends Applet implements Runnable
 		Loader loader = new Loader(1, 2, 5, 1, true);
 		loader.fgcolor = new Color(2, 105, 171);
 		loader.bgcolor = new Color(13, 40, 83);
-//		menu.addMenu(loader);
+		menu.addMenu(loader);
 		
 //		green loader
 		Loader loader2 = new Loader(0, 0, 6, 1, true);
 		loader2.fgcolor = new Color(6, 176, 37);
 		loader2.bgcolor = new Color(230, 230, 230);
-//		menu.addMenu(loader2);
+		menu.addMenu(loader2);
 		
 		addKeyListener(new Listening());
 		addMouseListener(new Listening());
