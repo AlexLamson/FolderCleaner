@@ -69,4 +69,12 @@ public class MatchList
 					return true;
 		return false;
 	}
+	
+	public static String addSpecialFolders(String str)
+	{
+		String userString = System.getProperty("user.home").replaceAll("\\\\", "/")+'/';
+		str = str.replaceFirst("~user~/", userString);
+		str = str.replaceFirst("~user~", userString);
+		return str;
+	}
 }

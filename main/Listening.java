@@ -122,11 +122,11 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	{
 		if(e.getWheelRotation() < 0)		//scrolled up
 		{
-			
+			Main.menu.scroll(Main.mse, true);
 		}
 		else if(e.getWheelRotation() > 0)	//scrolled down
 		{
-			
+			Main.menu.scroll(Main.mse, false);
 		}
 	}
 	

@@ -26,8 +26,7 @@ public class Main extends Applet implements Runnable
 	
 	public static int pixelSize = 1;			//change the scale the pixels are multiplied by when drawn to
 	
-	public static int computerSpeed = 10;		//higher number for slower computers
-	public static int tickTime = 5;
+	public static int tickTime = 50;		//milliseconds between each tick
 	public static boolean isRunning = false;
 	
 	public static String windowName = "Menu Test";
@@ -73,16 +72,25 @@ public class Main extends Applet implements Runnable
 		menu.fillMenu();
 		
 //		blue loader
-		Loader loader = new Loader(1, 2, 5, 1, true);
+		Loader loader = new Loader(0, 1, 6, 1, true);
 		loader.fgcolor = new Color(2, 105, 171);
 		loader.bgcolor = new Color(13, 40, 83);
 		menu.addMenu(loader);
 		
+		Scroller scroller = new Scroller(0, 2, 2, 3, true);
+		scroller.setVisibleRows(3);
+		scroller.setRowsCols(100, 1);
+		menu.addMenu(scroller);
+		scroller.fillMenu();
+		
+//		System.out.println(1000.0/(Main.tickTime*loader.checkTime)+"");
+		
+		
 //		green loader
-		Loader loader2 = new Loader(0, 0, 6, 1, true);
-		loader2.fgcolor = new Color(6, 176, 37);
-		loader2.bgcolor = new Color(230, 230, 230);
-		menu.addMenu(loader2);
+//		Loader loader2 = new Loader(0, 0, 6, 1, true);
+//		loader2.fgcolor = new Color(6, 176, 37);
+//		loader2.bgcolor = new Color(230, 230, 230);
+//		menu.addMenu(loader2);
 		
 		
 		
@@ -184,7 +192,7 @@ public class Main extends Applet implements Runnable
 
 			try
 			{
-				Thread.sleep(tickTime*(int)computerSpeed);
+				Thread.sleep(tickTime);
 			}catch(Exception e){ }
 		}
 	}

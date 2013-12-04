@@ -17,7 +17,8 @@ public class Menu
 	
 	public ArrayList<Menu> menus = new ArrayList<Menu>();
 	
-	public int x = 0, y = 0, width = 0, height = 0;	//dimensions of menu in pixels
+	public double x = 0, y = 0;
+	public int width = 0, height = 0;	//dimensions of menu in pixels
 	public int xPadding = 10, yPadding = 10;		//extra pixels between each row and column
 	
 	public int rows = 1, cols = 1;					//number of rows and columns in menu
@@ -116,7 +117,7 @@ public class Menu
 	
 	public boolean contains(Point p)
 	{
-		return new Rectangle(x, y, width, height).contains(p);
+		return new Rectangle((int)x, (int)y, width, height).contains(p);
 	}
 	
 	//return most deeply nested menu at point
@@ -235,7 +236,7 @@ public class Menu
 	public void render(Graphics g)
 	{
 		g.setColor(bgcolor);
-		g.fillRect(x, y, width, height);
+		g.fillRect((int)x, (int)y, width, height);
 		
 		for(int i = 0; i < menus.size(); i++)
 			menus.get(i).render(g);

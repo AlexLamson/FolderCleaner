@@ -9,8 +9,8 @@ public class Lists
 	public static MatchList extensions = new MatchList();
 	public static MatchList blacklist = new MatchList();
 	public static MatchList whitelist = new MatchList();
-	public static MatchList cacheFolders = new MatchList();
-	public static MatchList historyFolders = new MatchList();
+	public static MatchList cacheFolders = new MatchList();		//contains copies of recent files
+	public static MatchList historyFolders = new MatchList();	//contains links to recent files
 	
 	public static String BLACKLIST = "Blacklist";
 	public static String WHITELIST = "Whitelist";

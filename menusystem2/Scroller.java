@@ -79,16 +79,32 @@ public class Scroller extends Menu
 		pos += direction;
 		for(int i = 0; i < menus.size(); i++)
 		{
-			int height = (int)(this.height * (1.0 * menus.get(i).ySize / this.visibleRows));
-			menus.get(i).y += -direction*height;
+			double deltaY = 1.0 * -direction * this.height * menus.get(i).ySize / this.visibleRows;
+			menus.get(i).y += deltaY;
 		}
+	}
+	
+	public void tick()
+	{
+//		System.out.println("kewl");
+//		for(int i = 0; i < menus.size(); i++)
+//		{
+//			int yPos = menus.get(i).yPos;
+//			
+//			if(yPos == pos+visibleRows-1)
+//			{
+//				Menu menu = menus.get(i);
+//				int height = (int)(this.height * (1.0 * menu.ySize / this.visibleRows));
+//				System.out.println(menu.y);
+//			}
+//		}
 	}
 	
 	public void render(Graphics g)
 	{
 		//draw the background
 		g.setColor(bgcolor);
-		g.fillRect(x, y, width, height);
+		g.fillRect((int)x, (int)y, width, height);
 		
 		//draw the submenus
 		for(int i = 0; i < menus.size(); i++)
@@ -105,13 +121,13 @@ public class Scroller extends Menu
 		
 		//draw the scrollbar
 		g.setColor(Button.changeColor(bgcolor, 50));
-		g.fillRect(x+width-xPadding, y, xPadding, height);
+		g.fillRect((int)x+width-xPadding, (int)y, xPadding, height);
 		g.setColor(Button.changeColor(bgcolor, -20));
-		g.fillRect(x+width-xPadding, y+(int)(height*(1.0*pos/rows)), xPadding, (int)(height*1.0*visibleRows/rows));
+		g.fillRect((int)x+width-xPadding, (int)y+(int)(height*(1.0*pos/rows)), xPadding, (int)(height*1.0*visibleRows/rows));
 		
 		//draw black edging on the scrollbar
 		g.setColor(Color.black);
-		g.drawLine(x+width-xPadding, y, x+width-xPadding, y+height);
-		g.drawRect(x+width-xPadding, y+(int)(height*(1.0*pos/rows)), xPadding, (int)(height*1.0*visibleRows/rows));
+		g.drawLine((int)x+width-xPadding, (int)y, (int)x+width-xPadding, (int)y+height);
+		g.drawRect((int)x+width-xPadding, (int)y+(int)(height*(1.0*pos/rows)), xPadding, (int)(height*1.0*visibleRows/rows));
 	}
 }

@@ -53,15 +53,15 @@ public class Button extends Menu
 			g.setColor(changeColor(bgcolor, 50));
 		else
 			g.setColor(bgcolor);
-		g.fillRect(x, y, width, height);
+		g.fillRect((int)x, (int)y, width, height);
 		
 		//To do: ideally, the font size will be set to fit inside the button
 		Font f = new Font("Verdana", Font.PLAIN, 28/Main.pixelSize);
 		g.setFont(f);
 		FontMetrics fm = g.getFontMetrics(f);
 		Rectangle2D rect = fm.getStringBounds(str, g);
-		int xCenter = x + (width/2);
-		int yCenter = y + (height/2);
+		int xCenter = (int)x + (width/2);
+		int yCenter = (int)y + (height/2);
 		int sX = xCenter - (int)(rect.getWidth()/2);
 		int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
 

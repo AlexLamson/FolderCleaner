@@ -122,17 +122,17 @@ public class Loader extends Menu
 	{
 		//background color
 		g.setColor(bgcolor);
-		g.fillRect(x, y, width, height);
+		g.fillRect((int)x, (int)y, width, height);
 		
 		//bar color
 		g.setColor(fgcolor);
-		g.fillRect(x, y, (int)((currentVal/maxVal)*width), height);
+		g.fillRect((int)x, (int)y, (int)((currentVal/maxVal)*width), height);
 		
 		//fancy trim
 		g.setColor(Button.changeColor(fgcolor, 20));
-		g.fillRect(x, y, (int)((currentVal/maxVal)*width), height/12);
+		g.fillRect((int)x, (int)y, (int)((currentVal/maxVal)*width), height/12);
 		g.setColor(Button.changeColor(fgcolor, -20));
-		g.fillRect(x, y+height-height/12, (int)((currentVal/maxVal)*width), height/12);
+		g.fillRect((int)x, (int)y+height-height/12, (int)((currentVal/maxVal)*width), height/12);
 		
 		//current percentage
 //		String str = round(100*currentVal/maxVal, 0)+" %";
@@ -145,8 +145,8 @@ public class Loader extends Menu
 		g.setFont(f);
 		FontMetrics fm = g.getFontMetrics(f);
 		Rectangle2D rect = fm.getStringBounds(str, g);
-		int xCenter = x + (width/2);
-		int yCenter = y + (height/2);
+		int xCenter = (int)x + (width/2);
+		int yCenter = (int)y + (height/2);
 		int sX = xCenter - (int)(rect.getWidth()/2);
 		int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
 		
