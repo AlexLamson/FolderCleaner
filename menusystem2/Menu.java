@@ -109,10 +109,27 @@ public class Menu
 		{
 			for(int col = 0; col < cols; col++)
 			{
-				addMenu(new Button(col, row, 1, 1, true, "Box "+num));
-				num++;
+				if(!isOccupied(row, col))
+				{
+					addMenu(new Button(col, row, 1, 1, true, "Box "+num));
+					num++;
+				}
 			}
 		}
+	}
+	
+	public boolean isOccupied(int row, int col)
+	{
+		if(menus.size() == 0)
+			return false;
+		
+		for(int i = 0; i < menus.size(); i++)
+		{
+			Menu menu = menus.get(i);
+			if((col >= menu.xPos && col < menu.xPos+menu.xSize) && (row >= menu.yPos && row < menu.yPos+menu.ySize))
+				return true;
+		}
+		return false;
 	}
 	
 	public boolean contains(Point p)

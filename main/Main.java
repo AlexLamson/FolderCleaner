@@ -69,7 +69,6 @@ public class Main extends Applet implements Runnable
 		menu = new Menu(0, 0, pixel.width, pixel.height);
 		menu.setRowsCols(6, 10);
 		menu.setColor(Color.darkGray);
-		menu.fillMenu();
 		
 //		blue loader
 		Loader loader = new Loader(0, 1, 6, 1, true);
@@ -79,9 +78,11 @@ public class Main extends Applet implements Runnable
 		
 		Scroller scroller = new Scroller(0, 2, 2, 3, true);
 		scroller.setVisibleRows(3);
-		scroller.setRowsCols(100, 1);
+		scroller.setRowsCols(10, 1);
 		menu.addMenu(scroller);
 		scroller.fillMenu();
+
+		menu.fillMenu();
 		
 //		System.out.println(1000.0/(Main.tickTime*loader.checkTime)+"");
 		
