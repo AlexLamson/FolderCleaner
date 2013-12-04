@@ -10,8 +10,11 @@ import main.Main;
 
 public class Loader extends Menu
 {
-	public double currentVal = 0, maxVal = 100;
+	public double currentVal = 0, maxVal = 333;
 	public Color fgcolor = Color.green;
+	
+	public int currentTime = 0, checkTime = 7;	//check every 4 ticks (remember its running at 20 ticks per second)
+	public Buffer buffer = new Buffer(50);
 	
 	public Loader(int x, int y, int width, int height)
 	{
@@ -34,7 +37,7 @@ public class Loader extends Menu
 		currentVal = val;
 	}
 	
-	public double round(double num, int places)
+	public static double round(double num, int places)
 	{
 		return (1.0*(int)(num*Math.pow(10, places)))/Math.pow(10, places);
 	}
@@ -50,7 +53,26 @@ public class Loader extends Menu
 			currentVal = 0;
 		
 		if(pressed1)
+		{
 			currentVal = 0;
+			buffer.clear();
+		}
+		
+//		System.out.println(currentTime +" "+ checkTime +" "+ currentVal +" "+ maxVal);
+		
+		currentTime++;
+		if(currentTime >= checkTime && currentVal < maxVal)
+		{
+			buffer.addVal(currentVal);
+			currentTime = 0;
+			
+//			System.out.println("A " + round((1000.0/Main.tickTime)*buffer.getNStepsToVal(maxVal)/(21), 2));
+//			System.out.println("B " + round((1000.0/Main.tickTime)*buffer.getNStepsToVal(maxVal), 2));
+//			System.out.println("C " + buffer.getNStepsToVal(maxVal));
+		}
+		if(currentTime > checkTime)
+			currentTime = 0;
+			
 	}
 	
 	public void render(Graphics g)
@@ -70,7 +92,9 @@ public class Loader extends Menu
 		g.fillRect(x, y+height-height/12, (int)((currentVal/maxVal)*width), height/12);
 		
 		//current percentage
-		String str = round(100*currentVal/maxVal, 0)+"";
+//		String str = round(100*currentVal/maxVal, 0)+" %";
+		//completion ETA
+		String str = round((1000.0/Main.tickTime)*buffer.getNStepsToVal(maxVal)/(1.0), 1)+" time units";
 		
 		Font f = new Font("Verdana", Font.PLAIN, 28/Main.pixelSize);
 		g.setFont(f);

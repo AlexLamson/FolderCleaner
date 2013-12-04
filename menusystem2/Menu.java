@@ -85,10 +85,10 @@ public class Menu
 	{
 		if(menu.unsized)
 		{
-			menu.x = x + (int)(this.width*(1.0*menu.xPos/this.cols));
-			menu.y = y + (int)(this.height*(1.0*menu.yPos/this.rows));
-			menu.width = (int)(this.width*(1.0*menu.xSize/this.cols));
-			menu.height = (int)(this.height*(1.0*menu.ySize/this.rows));
+			menu.x = this.x + (int)(this.width  * (1.0 * menu.xPos  / this.cols));
+			menu.y = this.y + (int)(this.height * (1.0 * menu.yPos  / this.rows));
+			menu.width =      (int)(this.width  * (1.0 * menu.xSize / this.cols));
+			menu.height =     (int)(this.height * (1.0 * menu.ySize / this.rows));
 		}
 		
 		//apply edge
@@ -195,6 +195,15 @@ public class Menu
 				menus.get(i).press3(p, false);
 			pressed3 = false;
 		}
+	}
+	
+	//returns true if this menu actually scrolled something
+	public boolean scroll(Point p, boolean scrollingUp)
+	{
+		if(contains(p))
+			for(int i = 0; i < menus.size(); i++)
+				menus.get(i).scroll(p, scrollingUp);
+		return false;
 	}
 	
 	public void printMenus()
