@@ -10,11 +10,11 @@ import main.Main;
 
 public class Loader extends Menu
 {
-	public double currentVal = 0, maxVal = 333;
+	public double currentVal = 0, maxVal = 100;
 	public Color fgcolor = Color.green;
 	
-	public int currentTime = 0, checkTime = 7;	//check every 4 ticks (remember its running at 20 ticks per second)
-	public Buffer buffer = new Buffer(50);
+	public int currentTime = 0, checkTime = 1;	//check every 4 ticks (remember its running at 20 ticks per second)
+	public Buffer buffer = new Buffer(100);
 	
 	public Loader(int x, int y, int width, int height)
 	{
@@ -42,6 +42,55 @@ public class Loader extends Menu
 		return (1.0*(int)(num*Math.pow(10, places)))/Math.pow(10, places);
 	}
 	
+	public static String getTimeFromSeconds(double seconds)
+	{
+		int month = 0, day = 0, hour = 0, min = 0;
+		double sec = 0;
+		sec = seconds;
+		
+		min = (int)sec / 60;
+		sec = sec % 60;
+		sec = round(sec,1);
+		
+		hour = min / 60;
+		min = min % 60;
+		
+		day = hour / 24;
+		hour = hour % 24;
+
+		month = day / 30;
+		day = day % 30;
+		
+		String str = "";
+		if(month > 0)
+			str += month+" months ";
+		if(month == 1)
+			str = str.substring(0,str.length()-2)+" ";
+		if(day > 0)
+			str += day+" days ";
+		if(day == 1)
+			str = str.substring(0,str.length()-2)+" ";
+		if(hour > 0)
+			str += hour+" hours ";
+		if(hour == 1)
+			str = str.substring(0,str.length()-2)+" ";
+		if(min > 0)
+			str += min+" minutes ";
+		if(min == 1)
+			str = str.substring(0,str.length()-2)+" ";
+		if(sec > 0)
+			str += sec+" seconds ";
+		if(sec == 1)
+			str = str.substring(0,str.length()-2)+" ";
+		
+		if(month == 0 && day == 0 && hour == 0 && min == 0 && sec == 0)
+			str = "0 seconds ";
+		
+//		System.out.println("months: "+month+" days: "+day+" hours: "+hour+" minutes: "+min+" seconds: "+sec);
+		
+		return str;
+	}
+	
 	public void tick()
 	{
 		super.tick();
@@ -58,17 +107,11 @@ public class Loader extends Menu
 			buffer.clear();
 		}
 		
-//		System.out.println(currentTime +" "+ checkTime +" "+ currentVal +" "+ maxVal);
-		
 		currentTime++;
 		if(currentTime >= checkTime && currentVal < maxVal)
 		{
 			buffer.addVal(currentVal);
 			currentTime = 0;
-			
-//			System.out.println("A " + round((1000.0/Main.tickTime)*buffer.getNStepsToVal(maxVal)/(21), 2));
-//			System.out.println("B " + round((1000.0/Main.tickTime)*buffer.getNStepsToVal(maxVal), 2));
-//			System.out.println("C " + buffer.getNStepsToVal(maxVal));
 		}
 		if(currentTime > checkTime)
 			currentTime = 0;
@@ -94,7 +137,9 @@ public class Loader extends Menu
 		//current percentage
 //		String str = round(100*currentVal/maxVal, 0)+" %";
 		//completion ETA
-		String str = round((1000.0/Main.tickTime)*buffer.getNStepsToVal(maxVal)/(1.0), 1)+" time units";
+		double secondsLeft = buffer.getNStepsToVal(maxVal)/((1000/Main.tickTime) / checkTime);
+		String str = getTimeFromSeconds(secondsLeft)+"remaining";
+		
 		
 		Font f = new Font("Verdana", Font.PLAIN, 28/Main.pixelSize);
 		g.setFont(f);

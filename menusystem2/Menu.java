@@ -243,6 +243,6 @@ public class Menu
 	
 	public String toString()
 	{
-		return "Menu("+rows+", "+cols+")";
+		return "Menu("+rows+", "+cols+") ID: "+ID;
 	}
 }
