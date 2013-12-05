@@ -56,7 +56,7 @@ public class Button extends Menu
 		g.fillRect((int)x, (int)y, width, height);
 		
 		//To do: ideally, the font size will be set to fit inside the button
-		Font f = new Font("Verdana", Font.PLAIN, 28/Main.pixelSize);
+		Font f = new Font("Verdana", Font.PLAIN, 24/Main.pixelSize);
 		g.setFont(f);
 		FontMetrics fm = g.getFontMetrics(f);
 		Rectangle2D rect = fm.getStringBounds(str, g);

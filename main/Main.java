@@ -81,17 +81,14 @@ public class Main extends Applet implements Runnable
 		scroller.setRowsCols(10, 1);
 		menu.addMenu(scroller);
 		scroller.fillMenu();
-
-		menu.fillMenu();
-		
-//		System.out.println(1000.0/(Main.tickTime*loader.checkTime)+"");
-		
 		
 //		green loader
-//		Loader loader2 = new Loader(0, 0, 6, 1, true);
+//		Loader loader2 = new Loader(1, 0, 4, 1, true);
 //		loader2.fgcolor = new Color(6, 176, 37);
 //		loader2.bgcolor = new Color(230, 230, 230);
 //		menu.addMenu(loader2);
+		
+		menu.fillMenu();
 		
 		
 		

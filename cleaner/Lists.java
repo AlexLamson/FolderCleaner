@@ -6,15 +6,17 @@ import java.util.ArrayList;
 public class Lists
 {
 	public static File listsDir = new File("lists/");
-	public static MatchList extensions = new MatchList();
-	public static MatchList blacklist = new MatchList();
-	public static MatchList whitelist = new MatchList();
-	public static MatchList cacheFolders = new MatchList();		//contains copies of recent files
-	public static MatchList historyFolders = new MatchList();	//contains links to recent files
+	public static MatchList extensions = new MatchList();	//these file extensions will be blacklisted
+	public static MatchList blacklist = new MatchList();	//these files will be blacklisted
+	public static MatchList whitelist = new MatchList();	//these files will be whitelisted
+	public static MatchList blacklistFolders = new MatchList();	//files in these folders will be blacklisted
+	public static MatchList cacheFolders = new MatchList();		//contains copies of recent files (files here will be checked)
+	public static MatchList historyFolders = new MatchList();	//contains links to recent files (files here will be checked)
 	
 	public static String BLACKLIST = "Blacklist";
 	public static String WHITELIST = "Whitelist";
 	public static String EXTENSION = "Extension";
+	public static String BLACKLISTFOLDER = "Folder";
 	public static String HISTORY = "History";
 	public static String CACHE = "Cache";
 	public static String UNKNOWN = "Uknown";
@@ -40,6 +42,8 @@ public class Lists
 				whitelist.addFile(file);
 			else if(getFileType(name).equals(EXTENSION))
 				extensions.addFile(file);
+			else if(getFileType(name).equals(BLACKLISTFOLDER))
+				blacklistFolders.addFile(file);
 			else if(getFileType(name).equals(HISTORY))
 				historyFolders.addFile(file);
 			else if(getFileType(name).equals(CACHE))
@@ -57,6 +61,8 @@ public class Lists
 			return WHITELIST;
 		else if(str.endsWith(EXTENSION+".txt"))
 			return EXTENSION;
+		else if(str.endsWith(BLACKLISTFOLDER+".txt"))
+			return BLACKLISTFOLDER;
 		else if(str.endsWith(HISTORY+".txt"))
 			return HISTORY;
 		else if(str.endsWith(CACHE+".txt"))
@@ -125,7 +131,6 @@ public class Lists
 	public static boolean shouldMarkFile(String str)
 	{
 		return !whitelist.hasMatch(cleanString(str)) && (extensions.hasMatch(cleanEString(str)) || 
-				historyFolders.hasMatch(cleanFString(str)) || cacheFolders.hasMatch(cleanFString(str)) || 
-				blacklist.hasMatch(cleanString(str)) );
+				blacklistFolders.hasMatch(cleanFString(str)) || blacklist.hasMatch(cleanString(str)) );
 	}
 }
