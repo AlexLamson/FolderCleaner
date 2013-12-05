@@ -28,23 +28,29 @@ public class Lists
 //		for(String str : blacklist.getContents())
 //			System.out.println("~"+str);
 		
-		ArrayList<Match> cacheMatches = getMatches(cacheFolders);
+		ArrayList<Match> cacheMatches = getMatches(cacheFolders, true);
 		for(Match match : cacheMatches)
 			if(match.isBlacklisted)
 				System.out.println(match);
 		
-		ArrayList<Match> historyMatches = getMatches(historyFolders);
+		ArrayList<Match> historyMatches = getMatches(historyFolders, true);
 		for(Match match : historyMatches)
 			if(match.isBlacklisted)
 				System.out.println(match);
 	}
 	
-	public static ArrayList<Match> getMatches(MatchList folders)
+	public static ArrayList<Match> getMatches(MatchList folders, boolean checkSubFolders)
 	{
 		ArrayList<Match> matches = new ArrayList<Match>();
 		for(String str : folders.getUnrestrictedContents())		//for each folder path to check
 		{
-			for(File file : SaveNLoad.getFiles(new File(addSpecialFolders(str))))	//get all the files in that folder
+			ArrayList<File> files = new ArrayList<File>();
+			if(checkSubFolders)
+				files = SaveNLoad.getFilesRecur(new File(addSpecialFolders(str)));
+			else
+				files = SaveNLoad.getFiles(new File(addSpecialFolders(str)));
+			
+			for(File file : files)	//get all the files in that folder
 			{
 				Match match = getMatch(file.getAbsolutePath());
 				if(!match.isNull())								//if the file is blacklisted
