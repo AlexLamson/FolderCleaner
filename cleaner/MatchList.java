@@ -17,18 +17,7 @@ public class MatchList
 	public void addFile(File path)
 	{
 		files.add(new ListFile(path));
-		
-		String type = Lists.getFileType(path.getName());
-		String name = path.getName().substring(0, path.getName().length() - (type.length() + 4));
-//		System.out.println( type + "   \t+ " + name );
-//		System.out.println( "+ " + name + " " + type);
-//		System.out.println( "+ " + name);
-		
-		String spaces = "";
-		for(int i = 0; i < 9-type.length(); i++)
-			spaces += " ";
-		
-		System.out.println( type + spaces + " + " + name );
+//		printFile(path);
 	}
 	
 	//returns -1 if not found
@@ -70,11 +59,25 @@ public class MatchList
 		return false;
 	}
 	
-	public static String addSpecialFolders(String str)
+	//returns "" if no match, otherwise return the string that was matched
+	public String getMatch(String str)
 	{
-		String userString = System.getProperty("user.home").replaceAll("\\\\", "/")+'/';
-		str = str.replaceFirst("~user~/", userString);
-		str = str.replaceFirst("~user~", userString);
-		return str;
+		if(!useMatchList)
+			return "";
+		for(int i = 0; i < files.size(); i++)
+			for(String match : files.get(i).getUnrestrictedContents())
+				if(str.contains(match))
+					return match;
+		return "";
+	}
+	
+	public static void printFile(File path)
+	{
+		String type = Lists.getFileType(path.getName());
+		String name = path.getName().substring(0, path.getName().length() - (type.length() + 4));
+		String spaces = "";
+		for(int i = 0; i < 9-type.length(); i++)
+			spaces += " ";
+		System.out.println( type + spaces + " + " + name );
 	}
 }

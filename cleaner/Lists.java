@@ -27,6 +27,34 @@ public class Lists
 		
 //		for(String str : blacklist.getContents())
 //			System.out.println("~"+str);
+		
+		ArrayList<Match> cacheMatches = getMatches(cacheFolders);
+		for(Match match : cacheMatches)
+			if(match.isBlacklisted)
+				System.out.println(match);
+		
+		ArrayList<Match> historyMatches = getMatches(historyFolders);
+		for(Match match : historyMatches)
+			if(match.isBlacklisted)
+				System.out.println(match);
+	}
+	
+	public static ArrayList<Match> getMatches(MatchList folders)
+	{
+		ArrayList<Match> matches = new ArrayList<Match>();
+		for(String str : folders.getUnrestrictedContents())		//for each folder path to check
+		{
+			for(File file : SaveNLoad.getFiles(new File(addSpecialFolders(str))))	//get all the files in that folder
+			{
+				Match match = getMatch(file.getAbsolutePath());
+				if(!match.isNull())								//if the file is blacklisted
+				{
+					matches.add(match);							//add it to the output
+				}
+			}
+		}
+		
+		return matches;
 	}
 	
 	//check all the files in the lists directory, and add them to their corresponding MatchLists
@@ -48,8 +76,8 @@ public class Lists
 				historyFolders.addFile(file);
 			else if(getFileType(name).equals(CACHE))
 				cacheFolders.addFile(file);
-			else
-				System.out.println("Unknown   ? " + name.substring(0, name.length()-cleanEString(name).length()) );
+//			else
+//				System.out.println("Unknown   ? " + name.substring(0, name.length()-cleanEString(name).length()) );
 		}
 	}
 	
@@ -128,9 +156,38 @@ public class Lists
 		return str.substring(periodLoc).toLowerCase();
 	}
 	
+	public static String addSpecialFolders(String str)
+	{
+		String userString = System.getProperty("user.home").replaceAll("\\\\", "/")+'/';
+		str = str.replaceFirst("~user~/", userString);
+		str = str.replaceFirst("~user~", userString);
+		return str;
+	}
+	
 	public static boolean shouldMarkFile(String str)
 	{
 		return !whitelist.hasMatch(cleanString(str)) && (extensions.hasMatch(cleanEString(str)) || 
 				blacklistFolders.hasMatch(cleanFString(str)) || blacklist.hasMatch(cleanString(str)) );
+	}
+	
+	public static Match getMatch(String str)
+	{
+		String whitelistMatch = whitelist.getMatch(cleanString(str));
+		if(whitelistMatch.length() > 0)
+			return new Match(str, whitelistMatch, false);
+		
+		String extensionsMatch = extensions.getMatch(cleanEString(str));
+		if(extensionsMatch.length() > 0)
+			return new Match(str, extensionsMatch, false);
+
+		String blacklistFoldersMatch = blacklistFolders.getMatch(cleanFString(str));
+		if(blacklistFoldersMatch.length() > 0)
+			return new Match(str, blacklistFoldersMatch, false);
+		
+		String blacklistMatch = blacklist.getMatch(cleanString(str));
+		if(blacklistMatch.length() > 0)
+			return new Match(str, blacklistMatch, false);
+		
+		return new Match(str, "", false);
 	}
 }
