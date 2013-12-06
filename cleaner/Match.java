@@ -8,20 +8,18 @@ public class Match
 	public String matchedTerm;				//black/white-listed term
 	public boolean isBlacklisted = false;	//if false then whitelisted
 	
-	public Match(File file, String matchedTerm, boolean isMatch)
+	public Match(File file, String matchedTerm, boolean isBlacklisted)
 	{
-		isMatch = true;
 		this.file = file;
 		this.matchedTerm = matchedTerm;
-		this.isBlacklisted = isMatch;
+		this.isBlacklisted = isBlacklisted;
 	}
 	
-	public Match(String fileStr, String matchedTerm, boolean isMatch)
+	public Match(String fileStr, String matchedTerm, boolean isBlacklisted)
 	{
-		isMatch = true;
 		this.file = new File(fileStr);
 		this.matchedTerm = matchedTerm;
-		this.isBlacklisted = isMatch;
+		this.isBlacklisted = isBlacklisted;
 	}
 	
 	public boolean isNull()

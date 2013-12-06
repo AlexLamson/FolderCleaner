@@ -36,6 +36,47 @@ public class SaveNLoad
 //			System.out.println(file.getName());
 	}
 	
+	public static void createFile(String filePath)
+	{
+		String[] strArray = new String[1];
+		strArray[0] = "";
+		arrayToFile(strArray, filePath);
+	}
+	
+	public static void addArrayListToFile(ArrayList<String> addArr, String filePath)
+	{
+		String[] newAddArr = new  String[addArr.size()];
+		for(int i = 0; i < addArr.size(); i++)
+			newAddArr[i] = addArr.get(i);
+		
+		addArrayToFile(newAddArr, filePath);
+	}
+	
+	public static void addArrayToFile(String[] addArr, String filePath)
+	{
+		String[] oldArr = new String[0];
+		
+		if(new File(filePath).exists())
+			oldArr = fileToArray(filePath);
+		
+		String[] newArr = new String[oldArr.length+addArr.length];
+		
+		for(int i = 0; i < oldArr.length; i++)
+			newArr[i] = oldArr[i];
+		
+		for(int i = 0; i < addArr.length; i++)
+		{
+			if(addArr[i] == null)
+			{
+				System.out.println("hey, "+i+", if you were null, you'd tell me, yeah?");
+			}
+			
+			newArr[i+oldArr.length] = addArr[i];
+		}
+		
+		arrayToFile(newArr, filePath);
+	}
+	
 	public static void arrayToFile(String[] arr, String filePath)
 	{
 		BufferedWriter writer = null;

@@ -9,25 +9,52 @@ public class ListFile
 	protected ArrayList<String> listContents = new ArrayList<String>();	//contents of file
 	protected Boolean useList = new Boolean();	//boolean whether to use file
 	
-	public ListFile(File file)
+//	for the int textChange:
+//	0 = do nothing
+//	1 = change to lowercase
+//	2 = 1 & change special chars to spaces
+	public ListFile(File file, int textChange)
 	{
 		listPath = file;
-		loadConetents();
+		loadContents();
+		switch(textChange)
+		{
+		case 0:
+			break;
+		case 1:
+			contentsToLowerCase();
+			break;
+		case 2:
+			cleanContents();
+			break;
+		}
 	}
 	
-	public ListFile(String path)
+	public ListFile(String path, int textChange)
 	{
-		this(new File(path));
+		this(new File(path), textChange);
 	}
 	
-	public void loadConetents()
+	public void loadContents()
 	{
 		String[] contentsArray = SaveNLoad.fileToArray(listPath.getAbsolutePath());
 		for(String str : contentsArray)
 			if(str.trim().length() > 0)		//if the line has content
-				listContents.add(str);
+				listContents.add(str);		//don't do anything to the string, because it may come from any kind of list
 		
 		useList.makeTrue();
+	}
+	
+	public void cleanContents()
+	{
+		for(int i = 0; i < listContents.size(); i++)
+			listContents.set(i, Lists.removeSpecialChars(listContents.get(i)).toLowerCase());
+	}
+	
+	public void contentsToLowerCase()
+	{
+		for(int i = 0; i < listContents.size(); i++)
+			listContents.set(i, listContents.get(i).toLowerCase());
 	}
 	
 	public ArrayList<String> getUnrestrictedContents()

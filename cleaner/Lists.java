@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Lists
 {
 	public static File listsDir = new File("lists/");
+	public static File logPath = new File("lists/Log.txt");
 	public static MatchList extensions = new MatchList();	//these file extensions will be blacklisted
 	public static MatchList blacklist = new MatchList();	//these files will be blacklisted
 	public static MatchList whitelist = new MatchList();	//these files will be whitelisted
@@ -20,6 +21,8 @@ public class Lists
 	public static String HISTORY = "History";
 	public static String CACHE = "Cache";
 	public static String UNKNOWN = "Uknown";
+	
+	public static boolean saveToLog = true;
 	
 	public static void main(String[] args)
 	{
@@ -46,19 +49,37 @@ public class Lists
 		{
 			ArrayList<File> files = new ArrayList<File>();
 			if(checkSubFolders)
-				files = SaveNLoad.getFilesRecur(new File(addSpecialFolders(str)));
+					files = SaveNLoad.getFilesRecur(new File(addSpecialFolders(str)));	//check subfolders
 			else
-				files = SaveNLoad.getFiles(new File(addSpecialFolders(str)));
+				files = SaveNLoad.getFiles(new File(addSpecialFolders(str)));			//check outermost files
 			
 			for(File file : files)	//get all the files in that folder
 			{
 				Match match = getMatch(file.getAbsolutePath());
-				if(!match.isNull())								//if the file is blacklisted
-				{
+				if(!match.isNull())								//if the file was matched
 					matches.add(match);							//add it to the output
-				}
 			}
 		}
+		
+		if(saveToLog)
+		{
+			ArrayList<String> logStr = new ArrayList<String>();
+			
+			for(int i = 0; i < matches.size(); i++)
+			{
+				Match match = matches.get(i);
+				if(match.isBlacklisted)
+				{
+					logStr.add(match.toString());
+				}
+			}
+			
+			if(matches.size() > 0)
+			{
+				SaveNLoad.addArrayListToFile(logStr, logPath.getAbsolutePath());
+			}
+		}
+		
 		return matches;
 	}
 	
@@ -70,17 +91,17 @@ public class Lists
 		{
 			String name = file.getName();
 			if(getFileType(name).equals(BLACKLIST))
-				blacklist.addFile(file);
+				blacklist.addFile(file, 2);
 			else if(getFileType(name).equals(WHITELIST))
-				whitelist.addFile(file);
+				whitelist.addFile(file, 2);
 			else if(getFileType(name).equals(EXTENSION))
-				extensions.addFile(file);
+				extensions.addFile(file, 1);
 			else if(getFileType(name).equals(BLACKLISTFOLDER))
-				blacklistFolders.addFile(file);
+				blacklistFolders.addFile(file, 0);
 			else if(getFileType(name).equals(HISTORY))
-				historyFolders.addFile(file);
+				historyFolders.addFile(file, 0);
 			else if(getFileType(name).equals(CACHE))
-				cacheFolders.addFile(file);
+				cacheFolders.addFile(file, 0);
 //			else
 //				System.out.println("Unknown   ? " + name.substring(0, name.length()-cleanEString(name).length()) );
 		}
@@ -102,6 +123,25 @@ public class Lists
 			return CACHE;
 		else
 			return UNKNOWN;
+	}
+	
+	//change all non-alphanumeric characters to spaces
+	public static String removeSpecialChars(String str)
+	{
+		char[] newString = new char[str.length()];
+		
+		for(int i = 0; i < str.length(); i++)
+		{
+			char c = str.charAt(i);
+			if(Character.isLetterOrDigit(c))
+				newString[i] = c;
+			else
+				newString[i] = ' ';
+		}
+		
+		String newStr = new String(newString).trim();
+		
+		return newStr;
 	}
 	
 	//change to lowercase & replace all special characters with spaces (except last period)
@@ -216,15 +256,15 @@ public class Lists
 		
 		String extensionsMatch = extensions.getMatch(cleanEString(str));
 		if(extensionsMatch.length() > 0)
-			return new Match(str, extensionsMatch, false);
-
+			return new Match(str, extensionsMatch, true);
+		
 		String blacklistFoldersMatch = blacklistFolders.getMatch(cleanFString(str));
 		if(blacklistFoldersMatch.length() > 0)
-			return new Match(str, blacklistFoldersMatch, false);
+			return new Match(str, blacklistFoldersMatch, true);
 		
 		String blacklistMatch = blacklist.getMatch(cleanString(str));
 		if(blacklistMatch.length() > 0)
-			return new Match(str, blacklistMatch, false);
+			return new Match(str, blacklistMatch, true);
 		
 		return new Match(str, "", false);
 	}

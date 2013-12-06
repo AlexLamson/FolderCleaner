@@ -12,6 +12,7 @@
 # Lists Folder #
 *.txt
 !lists/Example*.txt
+!lists/Log.txt
 
 # Links #
 *.lnk
