@@ -24,7 +24,8 @@ public class SaveNLoad
 //			System.out.println(ws.getRealFilename());
 //		} catch (Exception e){}
 		
-//		listDrives();
+//		for(String drive : getDrives())
+//			System.out.println(drive);
 		
 		for(File file : getFiles(folder))
 			System.out.println(file.getName());
@@ -146,12 +147,12 @@ public class SaveNLoad
 		return fileList;
 	}
 	
-	public static void listDrives()
+	public static ArrayList<String> getDrives()
 	{
+		ArrayList<String> output = new ArrayList<String>();
 		File[] rootDrive = File.listRoots();
 		for(File sysDrive : rootDrive)
-		{
-			System.out.println(sysDrive);
-		}
+			output.add(sysDrive.toString());
+		return output;
 	}
 }

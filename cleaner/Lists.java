@@ -59,7 +59,6 @@ public class Lists
 				}
 			}
 		}
-		
 		return matches;
 	}
 	
@@ -165,8 +164,41 @@ public class Lists
 	public static String addSpecialFolders(String str)
 	{
 		String userString = System.getProperty("user.home").replaceAll("\\\\", "/")+'/';
-		str = str.replaceFirst("~user~/", userString);
-		str = str.replaceFirst("~user~", userString);
+		
+		if(str.startsWith("~"))
+		{
+			str = str.replaceFirst("~user~/", userString);
+			str = str.replaceFirst("~user~", userString);
+			
+			if(str.startsWith("~?:/"))
+			{
+				String fileStr = "";
+				for(int i = 4; i < str.length(); i++)
+				{
+					char c = str.charAt(i);
+					if(c != '~')
+						fileStr += c;
+					else
+						break;
+				}
+				
+				ArrayList<String> drives = SaveNLoad.getDrives();
+				for(String driveStr : drives)
+				{
+					if(new File(driveStr+fileStr).exists())
+					{
+						int slash = 0;
+						if((str.charAt(5+fileStr.length()) == '/'))
+							slash = 1;
+						
+						driveStr = driveStr.substring(0, 2)+"/";
+						str = driveStr+str.substring(5+fileStr.length()+slash, str.length());
+						break;
+					}
+				}
+			}
+		}
+		
 		return str;
 	}
 	

@@ -1,5 +1,6 @@
 package cleaner;
 
+//import java.util.ArrayList;
 //import java.io.File;
 //import java.io.IOException;
 
@@ -9,8 +10,7 @@ public class Test
 	
 	public static void main(String[] args)
 	{
-		System.out.println(addSpecialFolders("~user~cats"));
-		System.out.println(addSpecialFolders("~user~/cats"));
+		System.out.println("hello world");
 	}
 	
 	public static void killProcess(String process)
@@ -19,13 +19,5 @@ public class Test
 		{
 			Runtime.getRuntime().exec("taskkill /f /im "+process+".exe");
 		} catch (Exception e){}
-	}
-	
-	public static String addSpecialFolders(String str)
-	{
-		String userString = System.getProperty("user.home").replaceAll("\\\\", "/")+'/';
-		str = str.replaceFirst("~user~/", userString);
-		str = str.replaceFirst("~user~", userString);
-		return str;
 	}
 }
