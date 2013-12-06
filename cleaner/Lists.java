@@ -29,7 +29,7 @@ public class Lists
 		loadLists();
 		
 //		for(String str : blacklist.getContents())
-//			System.out.println("~"+str);
+//			System.out.println(str);
 		
 		ArrayList<Match> cacheMatches = getMatches(cacheFolders, true);
 		for(Match match : cacheMatches)
@@ -97,11 +97,11 @@ public class Lists
 			else if(getFileType(name).equals(EXTENSION))
 				extensions.addFile(file, 1);
 			else if(getFileType(name).equals(BLACKLISTFOLDER))
-				blacklistFolders.addFile(file, 0);
+				blacklistFolders.addFile(file, 3);
 			else if(getFileType(name).equals(HISTORY))
-				historyFolders.addFile(file, 0);
+				historyFolders.addFile(file, 3);
 			else if(getFileType(name).equals(CACHE))
-				cacheFolders.addFile(file, 0);
+				cacheFolders.addFile(file, 3);
 //			else
 //				System.out.println("Unknown   ? " + name.substring(0, name.length()-cleanEString(name).length()) );
 		}
@@ -139,12 +139,12 @@ public class Lists
 				newString[i] = ' ';
 		}
 		
-		String newStr = new String(newString).trim();
+		String newStr = new String(newString);
 		
 		return newStr;
 	}
 	
-	//change to lowercase & replace all special characters with spaces (except last period)
+	//change to lowercase & replace all special characters with spaces (except last period & first slash)
 	public static String cleanString(String str)
 	{
 //		replace special characters with spaces to avoid bad matches
@@ -173,7 +173,7 @@ public class Lists
 					newString[i] = ' ';
 			}
 		}
-		String newStr = new String(newString).trim();
+		String newStr = new String(newString);
 		
 		newStr = newStr.toLowerCase();
 		

@@ -13,6 +13,7 @@ public class ListFile
 //	0 = do nothing
 //	1 = change to lowercase
 //	2 = 1 & change special chars to spaces
+//	3 = remove anything that isn't a valid path
 	public ListFile(File file, int textChange)
 	{
 		listPath = file;
@@ -27,6 +28,11 @@ public class ListFile
 		case 2:
 			cleanContents();
 			break;
+		case 3:
+			removeNonPaths();
+			break;
+		default:
+			break;
 		}
 	}
 	
@@ -37,6 +43,8 @@ public class ListFile
 	
 	public void loadContents()
 	{
+//		System.out.println(listPath.getAbsolutePath());
+		
 		String[] contentsArray = SaveNLoad.fileToArray(listPath.getAbsolutePath());
 		for(String str : contentsArray)
 			if(str.trim().length() > 0)		//if the line has content
@@ -55,6 +63,14 @@ public class ListFile
 	{
 		for(int i = 0; i < listContents.size(); i++)
 			listContents.set(i, listContents.get(i).toLowerCase());
+	}
+	
+	public void removeNonPaths()
+	{
+		if(listContents.size() > 0)
+			for(int i = listContents.size()-1; i > 0; i--)
+				if(!new File(listContents.get(i)).exists())
+					listContents.remove(i);
 	}
 	
 	public ArrayList<String> getUnrestrictedContents()

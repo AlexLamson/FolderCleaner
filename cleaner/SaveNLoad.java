@@ -103,8 +103,17 @@ public class SaveNLoad
 		filePath = filePath.replaceAll("\\\\", "/");
 		try
 		{
-			List<String> lines;
-			lines = Files.readAllLines(Paths.get(URI.create("file:///"+filePath.replaceAll(" ", "%20"))), Charset.forName("UTF-8"));
+			List<String> lines = null;
+			try
+			{
+				lines = Files.readAllLines(Paths.get(URI.create("file:///"+filePath.replaceAll(" ", "%20"))), Charset.forName("UTF-8"));
+			}
+			catch(java.nio.charset.MalformedInputException e)
+			{
+				System.err.println("Weird line in "+filePath);
+				return new String[]{};
+			}
+			
 			String[] arr = lines.toArray(new String[lines.size()]);
 			
 			return arr;
