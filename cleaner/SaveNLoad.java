@@ -4,7 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URI;
+import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -204,5 +206,19 @@ public class SaveNLoad
 		for(File sysDrive : rootDrive)
 			output.add(sysDrive.toString());
 		return output;
+	}
+	
+	public static String getHostname()
+	{
+		String hostname = "Unknown";
+		try
+		{
+		    hostname = InetAddress.getLocalHost().getHostName();
+		}
+		catch (UnknownHostException ex)
+		{
+		    System.err.println("Hostname couldn't be resolved :(");
+		}
+		return hostname;
 	}
 }

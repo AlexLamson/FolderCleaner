@@ -1,7 +1,11 @@
 package cleaner;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Lists
 {
@@ -44,38 +48,57 @@ public class Lists
 	
 	public static ArrayList<Match> getMatches(MatchList folders, boolean checkSubFolders)
 	{
+		long startTime = System.currentTimeMillis();
+		
 		ArrayList<Match> matches = new ArrayList<Match>();
 		for(String str : folders.getUnrestrictedContents())		//for each folder path to check
 		{
 			ArrayList<File> files = new ArrayList<File>();
 			if(checkSubFolders)
-					files = SaveNLoad.getFilesRecur(new File(addSpecialFolders(str)));	//check subfolders
+				files = SaveNLoad.getFilesRecur(new File(addSpecialFolders(str)));	//check subfolders
 			else
-				files = SaveNLoad.getFiles(new File(addSpecialFolders(str)));			//check outermost files
+				files = SaveNLoad.getFiles(new File(addSpecialFolders(str)));		//check outermost files
 			
-			for(File file : files)	//get all the files in that folder
+			
+			for(int i = 0; i < files.size(); i++)	//for all the files in that folder
 			{
-				Match match = getMatch(file.getAbsolutePath());
-				if(!match.isNull())								//if the file was matched
-					matches.add(match);							//add it to the output
+				files.set(i, new File(parseShortcut(files.get(i).getAbsolutePath())));
+				
+				Match match = getMatch(files.get(i).getAbsolutePath());
+				if(!match.isNull())			//if the file was matched
+					matches.add(match);		//add it to the output
 			}
 		}
 		
+		//save to the log file
 		if(saveToLog)
 		{
 			ArrayList<String> logStr = new ArrayList<String>();
 			
-			for(int i = 0; i < matches.size(); i++)
+			if(matches.size() > 0)	//if there were matches
 			{
-				Match match = matches.get(i);
-				if(match.isBlacklisted)
+				//add the date, time and duration to the top
+				String date = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
+				String duration = ((System.currentTimeMillis()-startTime))+" ms";
+				logStr.add(date+" "+duration);
+				
+				//add a row of '~'
+				String line = "";
+				for(int i = 0; i < date.length()+duration.length()+1; i++)
+					line += '~';
+				logStr.add(line);
+				
+				//add the list of relevant matches
+				for(int i = 0; i < matches.size(); i++)	//for all the matches
 				{
-					logStr.add(match.toString());
+					Match match = matches.get(i);
+					if(match.isBlacklisted)				//if the match was interesting
+						logStr.add(match.toString());	//add it to the list
 				}
-			}
-			
-			if(matches.size() > 0)
-			{
+				
+				logStr.add("");
+
+				
 				SaveNLoad.addArrayListToFile(logStr, logPath.getAbsolutePath());
 			}
 		}
@@ -199,6 +222,29 @@ public class Lists
 			}
 		}
 		return str.substring(periodLoc).toLowerCase();
+	}
+	
+	public static String parseShortcut(String str)
+	{
+		if(cleanEString(str).equals(".lnk"))
+		{
+			try
+			{
+				WindowsShortcut ws = new WindowsShortcut(new File(str));
+				str = ws.getRealFilename();
+//				System.out.println(ws.getRealFilename());
+			} catch (IOException | ParseException e)
+			{
+				System.err.println("error parsing shortcut: "+str);
+				e.printStackTrace();
+			}
+		}
+		
+		String hostname = SaveNLoad.getHostname();
+		if(str.startsWith("\\\\"+hostname.toUpperCase()))
+			str = str.substring(hostname.length()+3);
+		
+		return str;
 	}
 	
 	public static String addSpecialFolders(String str)
