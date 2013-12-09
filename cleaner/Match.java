@@ -27,8 +27,16 @@ public class Match
 		return matchedTerm.length() == 0;
 	}
 	
+	public String toStringmaxChars(int maxChars)
+	{
+		String spaces = "";
+		for(int i = 0; i < maxChars-matchedTerm.length()+1; i++)
+			spaces += ' ';
+		return matchedTerm+spaces+"- "+file.getAbsolutePath();
+	}
+	
 	public String toString()
 	{
-		return matchedTerm+" - "+file.getAbsolutePath();
+		return matchedTerm+"\t- "+file.getAbsolutePath();
 	}
 }

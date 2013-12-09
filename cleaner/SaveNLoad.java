@@ -68,11 +68,6 @@ public class SaveNLoad
 		
 		for(int i = 0; i < addArr.length; i++)
 		{
-			if(addArr[i] == null)
-			{
-				System.out.println("hey, "+i+", if you were null, you'd tell me, yeah?");
-			}
-			
 			newArr[i+oldArr.length] = addArr[i];
 		}
 		
@@ -162,17 +157,8 @@ public class SaveNLoad
 		ArrayList<File> fileList = new ArrayList<File>();
 		
 		for (File fileEntry : folder.listFiles())
-		{
-			if(fileEntry.isDirectory())
-			{
-				//do nothing
-			}
-			else
-			{
-//				System.out.println(fileEntry.getName());
+			if(!fileEntry.isDirectory())
 				fileList.add(fileEntry);
-			}
-		}
 		
 		return fileList;
 	}
@@ -185,15 +171,45 @@ public class SaveNLoad
 		{
 			if (fileEntry.isDirectory())
 			{
-//				System.out.println("~"+fileEntry.getName());
 				for(File f : getFilesRecur(fileEntry))
 					fileList.add(f);
 			}
 			else
-			{
-//				System.out.println(fileEntry.getName());
 				fileList.add(fileEntry);
+		}
+		
+		return fileList;
+	}
+	
+	public static ArrayList<File> getFilesAndFolders(File folder)
+	{
+		ArrayList<File> fileList = new ArrayList<File>();
+		
+		for (File fileEntry : folder.listFiles())
+		{
+			if(fileEntry.isDirectory())
+				fileList.add(fileEntry);
+			else
+				fileList.add(fileEntry);
+		}
+		
+		return fileList;
+	}
+	
+	public static ArrayList<File> getFilesAndFoldersRecur(File folder)
+	{
+		ArrayList<File> fileList = new ArrayList<File>();
+		
+		for (File fileEntry : folder.listFiles())
+		{
+			if (fileEntry.isDirectory())
+			{
+				fileList.add(fileEntry);
+				for(File f : getFilesRecur(fileEntry))
+					fileList.add(f);
 			}
+			else
+				fileList.add(fileEntry);
 		}
 		
 		return fileList;
