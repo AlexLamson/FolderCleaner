@@ -65,68 +65,14 @@ public class Main extends Applet implements Runnable
 	public void start()
 	{
 		//defining objects
-		
 		menu = new Menu(0, 0, pixel.width, pixel.height);
-		menu.setRowsCols(6, 10);
-		menu.setColor(Color.darkGray);
-		
-//		blue loader
-		Loader loader = new Loader(0, 1, 6, 1, true);
-		loader.fgcolor = new Color(2, 105, 171);
-		loader.bgcolor = new Color(13, 40, 83);
-		menu.addMenu(loader);
-		
-		Scroller scroller = new Scroller(0, 2, 2, 3, true);
-		scroller.setVisibleRows(3);
-		scroller.setRowsCols(10, 1);
-		menu.addMenu(scroller);
-		scroller.fillMenu();
-		
-//		green loader
-//		Loader loader2 = new Loader(1, 0, 4, 1, true);
-//		loader2.fgcolor = new Color(6, 176, 37);
-//		loader2.bgcolor = new Color(230, 230, 230);
-//		menu.addMenu(loader2);
-		
-		menu.fillMenu();
 		
 		
-		
-//		menu = new Menu(0, 0, pixel.width, pixel.height);
-//		menu.setRowsCols(1, 4);
-//		menu.setColor(Color.darkGray);
-//		
-//		Menu sideBar = new Menu(0, 0, 1, 1, true);
-//		sideBar.setRowsCols(6, 2);
-//		menu.addMenu(sideBar);
-//		
-//		Button clean = new Button(0, 0, 2, 1, true, "clean");
-//		clean.bgcolor = Color.red;
-//		sideBar.addMenu(clean);
-//		
-//		Button scan = new Button(0, 1, 2, 1, true, "scan");
-//		scan.bgcolor = Color.green;
-//		sideBar.addMenu(scan);
-//		
-//		Button junk = new Button(0, 2, 2, 1, true, "junk");
-//		junk.bgcolor = Color.blue;
-//		sideBar.addMenu(junk);
-//		
-//		
-//		Menu results = new Menu(1, 0, 3, 1, true);
-//		results.setRowsCols(8, 2);
-//		menu.addMenu(results);
-//		
-//		Menu displayPanel = new Menu(0, 0, 1, 1, true);
-//		displayPanel.setRowsCols(1, 4);
-//		results.addMenu(displayPanel);
-//		
-//		Menu obj = new Menu(0, 0, 1, 1, true);
-//		displayPanel.addMenu(obj);
-//
-//		displayPanel.fillMenu();
-		
-		
+		boolean debugging = true;
+		if(debugging)
+			menu = MakeMenu.makeTestMenu(menu);
+		else
+			menu = MakeMenu.makeMenu(menu);
 		
 		
 		addKeyListener(new Listening());

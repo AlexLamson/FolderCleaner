@@ -30,6 +30,11 @@ public class Button extends Menu
 		return makeColor(color.getRed()+amount, color.getGreen()+amount, color.getBlue()+amount);
 	}
 	
+	public static Color invertColor(Color color)
+	{
+		return new Color(255-color.getRed(), 255-color.getGreen(), 255-color.getBlue());
+	}
+	
 	public static Color makeColor(int r, int g, int b)
 	{
 		r = capRange(r);
@@ -51,6 +56,7 @@ public class Button extends Menu
 	{
 		if(pressed1)
 			g.setColor(changeColor(bgcolor, 50));
+//			g.setColor(invertColor(bgcolor));
 		else
 			g.setColor(bgcolor);
 		g.fillRect((int)x, (int)y, width, height);
@@ -66,7 +72,7 @@ public class Button extends Menu
 		int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
 
 //		g.setColor(Color.black);
-		g.setColor(new Color(255-bgcolor.getRed(), 255-bgcolor.getGreen(), 255-bgcolor.getBlue()));
+		g.setColor(invertColor(bgcolor));
 		g.drawString(str, sX, sY);
 		
 		for(int i = 0; i < menus.size(); i++)

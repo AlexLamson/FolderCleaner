@@ -162,4 +162,9 @@ public class Loader extends Menu
 		for(int i = 0; i < menus.size(); i++)
 			menus.get(i).render(g);
 	}
+	
+	public String toString()
+	{
+		return "Loader("+xPos+", "+yPos+")";
+	}
 }

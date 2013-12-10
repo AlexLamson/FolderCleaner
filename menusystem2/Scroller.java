@@ -130,4 +130,9 @@ public class Scroller extends Menu
 		g.drawLine((int)x+width-xPadding, (int)y, (int)x+width-xPadding, (int)y+height);
 		g.drawRect((int)x+width-xPadding, (int)y+(int)(height*(1.0*pos/rows)), xPadding, (int)(height*1.0*visibleRows/rows));
 	}
+	
+	public String toString()
+	{
+		return "Scroller("+rows+", "+cols+")";
+	}
 }
