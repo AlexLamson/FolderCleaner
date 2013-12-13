@@ -7,10 +7,11 @@ public class MakeMenu
 {
 	public static Menu makeMenu(Menu menu)
 	{
-		menu.setRowsCols(1, 4);
+		menu.setRowsCols(4, 4);
 		menu.setColor(Color.darkGray);
 		
-		
+		Button b = new Button(0, 0, 4, 4, true, "Test");
+		menu.addMenu(b);
 		
 		return menu;
 	}

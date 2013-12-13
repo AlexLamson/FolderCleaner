@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.awt.Graphics;
 
+import main.ButtonChecker;
+
 public class Menu
 {
 	public static long maxID = 0;
@@ -61,6 +63,7 @@ public class Menu
 	{
 		ID = maxID;
 		maxID++;
+		ButtonChecker.addID();
 	}
 	
 	public void setRowsCols(int rows, int cols)
@@ -83,6 +86,12 @@ public class Menu
 	
 	public void addMenu(Menu menu)
 	{
+		if(menu.xSize > menu.xPos+this.cols || menu.ySize > menu.yPos+this.rows)
+		{
+			System.err.println("Tried to add a button that was too big!");
+			return;
+		}
+		
 		if(menu.unsized)
 		{
 			menu.x = this.x + (int)(this.width  * (1.0 * menu.xPos  / this.cols));
@@ -167,6 +176,7 @@ public class Menu
 //			System.out.println(this);
 			
 			pressed1 = beingPressed;
+			ButtonChecker.pressed1(this);
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press1(p, beingPressed);
 		}
@@ -175,6 +185,7 @@ public class Menu
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press1(p, false);
 			pressed1 = false;
+			ButtonChecker.pressed1(this);
 		}
 	}
 	

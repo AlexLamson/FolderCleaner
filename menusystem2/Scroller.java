@@ -26,12 +26,18 @@ public class Scroller extends Menu
 	
 	public void addMenu(Menu menu)
 	{
+		if(menu.xSize > menu.xPos+this.cols || menu.ySize > menu.yPos+this.rows)
+		{
+			System.err.println("Tried to add a button that was too big!");
+			return;
+		}
+		
 		if(menu.unsized)
 		{
-			menu.x = this.x + (int)(this.width  * (1.0 * menu.xPos  / this.cols));
+			menu.x = this.x + (int)((this.width-xPadding) * (1.0 * menu.xPos  / this.cols));
 			menu.y = this.y + (int)(this.height * (1.0 * menu.yPos  / this.visibleRows));
-			menu.width =      (int)(this.width  * (1.0 * menu.xSize / this.cols));
-			menu.height =     (int)(this.height * (1.0 * menu.ySize / this.visibleRows));
+			menu.width = (int)((this.width-xPadding) * (1.0 * menu.xSize / this.cols));
+			menu.height = (int)(this.height * (1.0 * menu.ySize / this.visibleRows));
 		}
 		
 		//apply edge
