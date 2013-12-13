@@ -1,4 +1,4 @@
-History-Cleaner
+Folder Cleaner
 ===============
 
 This application will let you remove history and clear caches after other people use your computer.
