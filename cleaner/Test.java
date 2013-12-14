@@ -12,7 +12,7 @@ public class Test
 	
 	public static void main(String[] args)
 	{
-		printAttributes(new File("C:\\Users\\LamsonFamily\\Desktop\\Fallacies.jpg"));
+		printAttributes(new File("Lists\\ExampleBlacklist.txt"));
 	}
 	
 	public static void killProcess(String process)
