@@ -7,7 +7,7 @@ import java.awt.Point;
 public class Scroller extends Menu
 {
 	public int pos = 0;	//the currently viewed row
-	public int visibleRows = 4;	//the number of rows visible at any one time
+	public int visibleRows = rows;	//the number of rows visible at any one time
 	
 	public static final int minScrollSize = 10;		//minimum width of the scroll bar
 	public int scrollSize = 0;						//width of the scroll bar
@@ -16,6 +16,7 @@ public class Scroller extends Menu
 	{
 		super(x, y, width, height);
 		
+		setScrollSize(xPadding);
 		if(scrollSize < minScrollSize)
 			scrollSize = minScrollSize;
 	}
@@ -24,6 +25,7 @@ public class Scroller extends Menu
 	{
 		super(xPos, yPos, xSize, ySize, bool);
 		
+		setScrollSize(xPadding);
 		if(scrollSize < minScrollSize)
 			scrollSize = minScrollSize;
 	}
@@ -86,11 +88,6 @@ public class Scroller extends Menu
 			double deltaY = 1.0 * -direction * (this.height - yPadding) * menus.get(i).ySize / this.visibleRows;
 			menus.get(i).y += deltaY;
 		}
-	}
-	
-	public void tick()
-	{
-		
 	}
 	
 	public void render(Graphics g)

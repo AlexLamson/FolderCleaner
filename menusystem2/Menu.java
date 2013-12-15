@@ -46,7 +46,7 @@ public class Menu
 		this.yPos = yPos;
 		this.xSize = xSize;
 		this.ySize = ySize;
-		setColor(new Color(random(0,255), random(0, 255), random(0,255)));
+		setColor(Button.randomColor());
 	}
 	
 	public Menu(int x, int y, int width, int height)
@@ -56,7 +56,7 @@ public class Menu
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		setColor(new Color(random(0,255), random(0, 255), random(0,255)));
+		setColor(Button.randomColor());
 	}
 	
 	public void assignID()
@@ -66,7 +66,13 @@ public class Menu
 		ButtonChecker.addID();
 	}
 	
-	public void setRowsCols(int rows, int cols)
+	public void setPadding(int xPadding, int yPadding)
+	{
+		this.xPadding = xPadding;
+		this.yPadding = yPadding;
+	}
+	
+	public void setColsRows(int cols, int rows)
 	{
 		this.rows = rows;
 		this.cols = cols;
@@ -78,10 +84,16 @@ public class Menu
 		bgcolor = new Color(color.getRed(), color.getGreen(), color.getBlue());
 	}
 	
-	// generate random number in range [min, max]
+	// generate random int in range [min, max]
 	public static int random(int min, int max)
 	{
 		return min + (int)(Math.random() * ((max - min) + 1));
+	}
+	
+	// generate random float in range [min, max)
+	public static float randomf(float min, float max)
+	{
+		return min + (float)Math.random() * (max - min);
 	}
 	
 	public void addMenu(Menu menu)
@@ -209,6 +221,7 @@ public class Menu
 //			System.out.println(this);
 			
 			pressed2 = beingPressed;
+			ButtonChecker.pressed2(this);
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press2(p, beingPressed);
 		}
@@ -217,6 +230,7 @@ public class Menu
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press2(p, false);
 			pressed2 = false;
+			ButtonChecker.pressed2(this);
 		}
 	}
 	
@@ -227,6 +241,7 @@ public class Menu
 //			System.out.println(this);
 			
 			pressed3 = beingPressed;
+			ButtonChecker.pressed3(this);
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press3(p, beingPressed);
 		}
@@ -235,6 +250,7 @@ public class Menu
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press3(p, false);
 			pressed3 = false;
+			ButtonChecker.pressed3(this);
 		}
 	}
 	

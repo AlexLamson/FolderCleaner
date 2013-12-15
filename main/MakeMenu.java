@@ -7,18 +7,55 @@ public class MakeMenu
 {
 	public static Menu makeMenu(Menu menu)
 	{
-		menu.setRowsCols(4, 4);
 		menu.setColor(Color.darkGray);
+		menu.setColsRows(3, 1);
 		
-		Button b = new Button(0, 0, 4, 4, true, "Test");
-		menu.addMenu(b);
+		menu.setPadding(0, 0);
+		
+		Menu sidebar = new Menu(0, 0, 1, 1, true);
+		sidebar.setColsRows(4, 8);
+		menu.addMenu(sidebar);
+		
+		Button cleanButton = new Button(0, 0, 4, 2, true, "Button 1");
+		sidebar.addMenu(cleanButton);
+		
+		Button scanButton = new Button(0, 2, 4, 1, true, "Button 2");
+		sidebar.addMenu(scanButton);
+		
+		Button clearHistoryButton = new Button(0, 3, 4, 1, true, "Button 3");
+		sidebar.addMenu(clearHistoryButton);
+		
+		Scroller folderScroller = new Scroller(0, 4, 4, 2, true);
+		folderScroller.setVisibleRows(3);
+		folderScroller.setColsRows(8, 6);
+		sidebar.addMenu(folderScroller);
+		folderScroller.fillMenu();
+		
+		Scroller listsScroller = new Scroller(0, 6, 4, 2, true);
+		listsScroller.setVisibleRows(3);
+		listsScroller.setColsRows(2, 6);
+		sidebar.addMenu(listsScroller);
+		listsScroller.fillMenu();
+		
+		sidebar.fillMenu();
+		
+		Menu matchbar = new Menu(1, 0, 2, 1, true);
+		matchbar.setColsRows(10, 10);
+		menu.addMenu(matchbar);
+		
+		Loader loadingbar = new Loader(0, 9, 10, 1, true);
+		loadingbar.fgcolor = new Color(6, 176, 37);
+		loadingbar.bgcolor = new Color(150, 150, 150);
+		matchbar.addMenu(loadingbar);
+		
+		matchbar.fillMenu();
 		
 		return menu;
 	}
 	
 	public static Menu makeTestMenu(Menu menu)
 	{
-		menu.setRowsCols(6, 10);
+		menu.setColsRows(10, 6);
 		menu.setColor(Color.darkGray);
 		
 //		blue loader
@@ -29,7 +66,7 @@ public class MakeMenu
 		
 		Scroller scroller = new Scroller(0, 2, 2, 3, true);
 		scroller.setVisibleRows(3);
-		scroller.setRowsCols(10, 1);
+		scroller.setColsRows(1, 10);
 		menu.addMenu(scroller);
 		scroller.fillMenu();
 		
