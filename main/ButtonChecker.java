@@ -12,13 +12,13 @@ public class ButtonChecker
 	{
 		if(m.pressed1)
 		{
-			System.out.println("wow, you pressed "+m.ID+"!");
+//			System.out.println("wow, you pressed "+m.ID+"!");
 			
 			switch((int)m.ID)
 			{
-			case 1:
-				System.out.println("One is a cool number");
-				break;
+//			case 1:
+//				System.out.println("One is a cool number");
+//				break;
 			default:
 				
 				break;

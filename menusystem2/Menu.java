@@ -86,27 +86,40 @@ public class Menu
 	
 	public void addMenu(Menu menu)
 	{
-		if(menu.xSize > menu.xPos+this.cols || menu.ySize > menu.yPos+this.rows)
+		if(!menuIsInBounds(menu))
 		{
 			System.err.println("Tried to add a button that was too big!");
 			return;
 		}
 		
 		if(menu.unsized)
-		{
-			menu.x = this.x + (int)(this.width  * (1.0 * menu.xPos  / this.cols));
-			menu.y = this.y + (int)(this.height * (1.0 * menu.yPos  / this.rows));
-			menu.width =      (int)(this.width  * (1.0 * menu.xSize / this.cols));
-			menu.height =     (int)(this.height * (1.0 * menu.ySize / this.rows));
-		}
+			sizeMenu(menu);
 		
-		//apply edge
-		menu.x += xPadding;
-		menu.y += yPadding;
-		menu.width -= xPadding*2;
-		menu.height -= yPadding*2;
+		addPadding(menu);
 		
 		menus.add(menu);
+	}
+	
+	public boolean menuIsInBounds(Menu menu)
+	{
+		return !(menu.xSize > menu.xPos+this.cols || menu.ySize > menu.yPos+this.rows);
+	}
+	
+	public void sizeMenu(Menu menu)
+	{
+		menu.x = this.x + (int)((this.width - xPadding)  * (1.0 * menu.xPos  / this.cols));
+		menu.y = this.y + (int)((this.height - yPadding) * (1.0 * menu.yPos  / this.rows));
+		menu.width =      (int)((this.width - xPadding)  * (1.0 * menu.xSize / this.cols));
+		menu.height =     (int)((this.height - yPadding) * (1.0 * menu.ySize / this.rows));
+		menu.unsized = false;
+	}
+	
+	public void addPadding(Menu menu)
+	{
+		menu.x += xPadding;
+		menu.y += yPadding;
+		menu.width -= xPadding;
+		menu.height -= yPadding;
 	}
 	
 	public void fillMenu()

@@ -6,8 +6,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
-import main.Main;
-
 public class Button extends Menu
 {
 	String str = "Test";
@@ -52,6 +50,39 @@ public class Button extends Menu
 		return num;
 	}
 	
+	public int getFontSize(Graphics g)
+	{
+		int fsize = 8;
+		int increment = 1;
+		for(int i = 0; i < 72+1; i+=increment)
+		{
+			Font f = new Font("Verdana", Font.PLAIN, i);
+			g.setFont(f);
+			Rectangle2D rect = g.getFontMetrics(f).getStringBounds(str, g);
+			fsize = i-1;
+			if(rect.getMaxX()-rect.getMinX() > width-5)
+				break;
+		}
+		
+		switch(fsize)
+		{
+		case 12:
+			increment = 2;
+			break;
+		case 28:
+			increment = 8;
+			break;
+		case 36:
+			increment = 12;
+			break;
+		case 48:
+			increment = 24;
+			break;
+		}
+		
+		return fsize;
+	}
+	
 	public void render(Graphics g)
 	{
 		if(pressed1)
@@ -61,23 +92,7 @@ public class Button extends Menu
 			g.setColor(bgcolor);
 		g.fillRect((int)x, (int)y, width, height);
 		
-		//To do: ideally, the font size will be set to fit inside the button
-		
-		//find a font size that fits by brute force
-		int fsize = 18;
-		for(int i = 0; i < 72; i++)
-		{
-			Font f = new Font("Verdana", Font.PLAIN, i);
-			g.setFont(f);
-			Rectangle2D rect = g.getFontMetrics(f).getStringBounds(str, g);
-			if(rect.getMaxX()-rect.getMinX() > width-5)
-			{
-				fsize = i-1;
-				break;
-			}
-		}
-		
-		Font f = new Font("Verdana", Font.PLAIN, fsize);
+		Font f = new Font("Verdana", Font.PLAIN, getFontSize(g));
 		g.setFont(f);
 		FontMetrics fm = g.getFontMetrics(f);
 		Rectangle2D rect = fm.getStringBounds(str, g);

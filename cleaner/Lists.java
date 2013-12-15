@@ -116,7 +116,7 @@ public class Lists
 		for(File file : files)
 		{
 			String name = file.getName();
-			String fType = getFileType(name);
+			String fType = getFileType(name);			//do something with this later
 			
 			if(getFileType(name).equals(BLACKLIST))
 				blacklist.addFile(file, 2);

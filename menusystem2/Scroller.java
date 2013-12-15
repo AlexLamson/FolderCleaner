@@ -9,14 +9,23 @@ public class Scroller extends Menu
 	public int pos = 0;	//the currently viewed row
 	public int visibleRows = 4;	//the number of rows visible at any one time
 	
+	public static final int minScrollSize = 10;		//minimum width of the scroll bar
+	public int scrollSize = 0;						//width of the scroll bar
+	
 	public Scroller(int x, int y, int width, int height)
 	{
 		super(x, y, width, height);
+		
+		if(scrollSize < minScrollSize)
+			scrollSize = minScrollSize;
 	}
 	
 	public Scroller(int xPos, int yPos, int xSize, int ySize, boolean bool)
 	{
 		super(xPos, yPos, xSize, ySize, bool);
+		
+		if(scrollSize < minScrollSize)
+			scrollSize = minScrollSize;
 	}
 	
 	public void setVisibleRows(int visibleRows)
@@ -24,29 +33,18 @@ public class Scroller extends Menu
 		this.visibleRows = visibleRows;
 	}
 	
-	public void addMenu(Menu menu)
+	public void setScrollSize(int scrollSize)
 	{
-		if(menu.xSize > menu.xPos+this.cols || menu.ySize > menu.yPos+this.rows)
-		{
-			System.err.println("Tried to add a button that was too big!");
-			return;
-		}
-		
-		if(menu.unsized)
-		{
-			menu.x = this.x + (int)((this.width-xPadding) * (1.0 * menu.xPos  / this.cols));
-			menu.y = this.y + (int)(this.height * (1.0 * menu.yPos  / this.visibleRows));
-			menu.width = (int)((this.width-xPadding) * (1.0 * menu.xSize / this.cols));
-			menu.height = (int)(this.height * (1.0 * menu.ySize / this.visibleRows));
-		}
-		
-		//apply edge
-		menu.x += xPadding;
-		menu.y += yPadding;
-		menu.width -= xPadding*2;
-		menu.height -= yPadding*2;
-		
-		menus.add(menu);
+		this.scrollSize = scrollSize;
+	}
+	
+	public void sizeMenu(Menu menu)
+	{
+		menu.x = this.x + (int)(1.0 * (this.width - xPadding - scrollSize) * menu.xPos  / this.cols);
+		menu.y = this.y + (int)(1.0 * (this.height - yPadding)             * menu.yPos  / this.visibleRows);
+		menu.width =      (int)(1.0 * (this.width - xPadding - scrollSize) * menu.xSize / this.cols);
+		menu.height =     (int)(1.0 * (this.height - yPadding)             * menu.ySize / this.visibleRows);
+		menu.unsized = false;
 	}
 	
 	//returns true if this menu actually scrolled something
@@ -85,25 +83,14 @@ public class Scroller extends Menu
 		pos += direction;
 		for(int i = 0; i < menus.size(); i++)
 		{
-			double deltaY = 1.0 * -direction * this.height * menus.get(i).ySize / this.visibleRows;
+			double deltaY = 1.0 * -direction * (this.height - yPadding) * menus.get(i).ySize / this.visibleRows;
 			menus.get(i).y += deltaY;
 		}
 	}
 	
 	public void tick()
 	{
-//		System.out.println("kewl");
-//		for(int i = 0; i < menus.size(); i++)
-//		{
-//			int yPos = menus.get(i).yPos;
-//			
-//			if(yPos == pos+visibleRows-1)
-//			{
-//				Menu menu = menus.get(i);
-//				int height = (int)(this.height * (1.0 * menu.ySize / this.visibleRows));
-//				System.out.println(menu.y);
-//			}
-//		}
+		
 	}
 	
 	public void render(Graphics g)
@@ -118,23 +105,19 @@ public class Scroller extends Menu
 			int yPos = menus.get(i).yPos;
 			
 			if(yPos < pos+visibleRows && yPos >= pos)
-			{
-				Menu menu = menus.get(i);
-				int height = (int)(this.height * (1.0 * menu.ySize / this.visibleRows));
-				menu.render(g);
-			}
+				menus.get(i).render(g);
 		}
 		
 		//draw the scrollbar
 		g.setColor(Button.changeColor(bgcolor, 50));
-		g.fillRect((int)x+width-xPadding, (int)y, xPadding, height);
+		g.fillRect((int)x+width-scrollSize, (int)y, scrollSize, height);
 		g.setColor(Button.changeColor(bgcolor, -20));
-		g.fillRect((int)x+width-xPadding, (int)y+(int)(height*(1.0*pos/rows)), xPadding, (int)(height*1.0*visibleRows/rows));
+		g.fillRect((int)x+width-scrollSize, (int)y+(int)(1.0*height*pos/rows), scrollSize, (int)(1.0*height*visibleRows/rows));
 		
 		//draw black edging on the scrollbar
 		g.setColor(Color.black);
-		g.drawLine((int)x+width-xPadding, (int)y, (int)x+width-xPadding, (int)y+height);
-		g.drawRect((int)x+width-xPadding, (int)y+(int)(height*(1.0*pos/rows)), xPadding, (int)(height*1.0*visibleRows/rows));
+		g.drawLine((int)x+width-scrollSize, (int)y, (int)x+width-scrollSize, (int)y+height);
+		g.drawRect((int)x+width-scrollSize, (int)y+(int)(1.0*height*pos/rows), scrollSize, (int)(1.0*height*visibleRows/rows));
 	}
 	
 	public String toString()
