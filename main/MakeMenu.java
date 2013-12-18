@@ -57,6 +57,7 @@ public class MakeMenu
 		matchScroller.fillMenu();
 		
 		Loader loadingbar = new Loader(0, 9, 10, 1, true);
+		loadingbar.test = false;
 		loadingbar.fgcolor = new Color(6, 176, 37);
 		loadingbar.bgcolor = new Color(150, 150, 150);
 		matchbar.addMenu(loadingbar);

@@ -10,6 +10,8 @@ import main.Main;
 
 public class Loader extends Menu
 {
+	public boolean test = true;
+	
 	public double currentVal = 0, maxVal = 100;
 	public Color fgcolor = Color.green;
 	
@@ -37,6 +39,11 @@ public class Loader extends Menu
 		currentVal = val;
 	}
 	
+	public void setBufferSize(int size)
+	{
+		buffer.setBufferSize(size);
+	}
+	
 	public static double round(double num, int places)
 	{
 		return (1.0*(int)(num*Math.pow(10, places)))/Math.pow(10, places);
@@ -48,6 +55,9 @@ public class Loader extends Menu
 //		//Example:
 //		String str = Loader.getTimeFromSeconds(1*365*24*60*60 + 2*30*24*60*60 + 3*24*60*60 + 4*60*60 + 5*60 + 6.7);
 //		System.out.println(str);	//"1 year 2 months 3 days 4 hours 5 minutes 6.7 seconds "
+		
+		if(seconds > 68*365*24*60*60)
+			return "A lot of time";
 		
 		int year = 0, month = 0, day = 0, hour = 0, min = 0;
 		double sec = 0;
@@ -109,11 +119,14 @@ public class Loader extends Menu
 	{
 		super.tick();
 		
-		currentVal++;
-		if(currentVal > maxVal)
-			currentVal = maxVal;
-		else if(currentVal < 0)
-			currentVal = 0;
+		if(test)
+		{
+			currentVal++;
+			if(currentVal > maxVal)
+				currentVal = maxVal;
+			else if(currentVal < 0)
+				currentVal = 0;
+		}
 		
 		if(pressed1)
 		{
