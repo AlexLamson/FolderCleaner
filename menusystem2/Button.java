@@ -8,7 +8,9 @@ import java.awt.geom.Rectangle2D;
 
 public class Button extends Menu
 {
-	String str = "Test";
+	public String str = "Test";
+	public boolean useInvertedText = true;	//if false, use textColor
+	public Color textColor =  Color.black;
 	
 	public Button(int x, int y, int width, int height, String str)
 	{
@@ -124,8 +126,10 @@ public class Button extends Menu
 		int sX = xCenter - (int)(rect.getWidth()/2);
 		int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
 		
-//		g.setColor(Color.black);
-		g.setColor(invertColor(bgcolor));
+		if(useInvertedText)
+			g.setColor(invertColor(bgcolor));
+		else
+			g.setColor(textColor);
 		g.drawString(str, sX, sY);
 		
 		for(int i = 0; i < menus.size(); i++)

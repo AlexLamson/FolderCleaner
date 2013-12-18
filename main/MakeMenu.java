@@ -9,20 +9,25 @@ public class MakeMenu
 	{
 		menu.setColor(Color.darkGray);
 		menu.setColsRows(3, 1);
-		
 		menu.setPadding(0, 0);
 		
 		Menu sidebar = new Menu(0, 0, 1, 1, true);
 		sidebar.setColsRows(4, 8);
 		menu.addMenu(sidebar);
 		
-		Button cleanButton = new Button(0, 0, 4, 2, true, "Button 1");
+		Button cleanButton = new Button(0, 0, 4, 2, true, "Clean");
+		cleanButton.useInvertedText = false;
+		cleanButton.bgcolor = new Color(255, 77, 0);
 		sidebar.addMenu(cleanButton);
 		
-		Button scanButton = new Button(0, 2, 4, 1, true, "Button 2");
+		Button scanButton = new Button(0, 2, 4, 1, true, "Scan");
+		scanButton.useInvertedText = false;
+		scanButton.bgcolor = new Color(136, 198, 0);
 		sidebar.addMenu(scanButton);
 		
-		Button clearHistoryButton = new Button(0, 3, 4, 1, true, "Button 3");
+		ScrollerButton clearHistoryButton = new ScrollerButton(0, 3, 4, 1, true, "Remove last "+ScrollerButton.prettyNumString);
+		clearHistoryButton.useInvertedText = false;
+		clearHistoryButton.bgcolor = new Color(0, 170, 255);
 		sidebar.addMenu(clearHistoryButton);
 		
 		Scroller folderScroller = new Scroller(0, 4, 4, 2, true);
@@ -34,21 +39,27 @@ public class MakeMenu
 		Scroller listsScroller = new Scroller(0, 6, 4, 2, true);
 		listsScroller.setVisibleRows(3);
 		listsScroller.setColsRows(2, 6);
+		listsScroller.setPadding(5, 5);
 		sidebar.addMenu(listsScroller);
 		listsScroller.fillMenu();
 		
 		sidebar.fillMenu();
 		
 		Menu matchbar = new Menu(1, 0, 2, 1, true);
+		matchbar.setPadding(0, 0);
 		matchbar.setColsRows(10, 10);
 		menu.addMenu(matchbar);
+		
+		Scroller matchScroller = new Scroller(0, 0, 10, 9, true);
+		matchScroller.setColsRows(10, 20);
+		matchScroller.setVisibleRows(10);
+		matchbar.addMenu(matchScroller);
+		matchScroller.fillMenu();
 		
 		Loader loadingbar = new Loader(0, 9, 10, 1, true);
 		loadingbar.fgcolor = new Color(6, 176, 37);
 		loadingbar.bgcolor = new Color(150, 150, 150);
 		matchbar.addMenu(loadingbar);
-		
-		matchbar.fillMenu();
 		
 		return menu;
 	}
@@ -84,6 +95,9 @@ public class MakeMenu
 		menu.addMenu(b3);
 		Button b4 = new Button(6, 3, 1, 2, true, "Test");
 		menu.addMenu(b4);
+		
+		ScrollerButton sb = new ScrollerButton(2, 2, 2, 2, true, ScrollerButton.prettyNumString+" left!");
+		menu.addMenu(sb);
 		
 		menu.fillMenu();
 		

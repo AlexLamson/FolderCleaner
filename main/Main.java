@@ -10,6 +10,7 @@ package main;
  */
 
 import java.applet.*;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -111,9 +112,8 @@ public class Main extends Applet implements Runnable
 		menu.render(g);
 		
 //		g.setColor(Color.red);
-//		g.drawLine(0, 0, pixel.width, pixel.height);
-//		g.setColor(Color.green);
-//		g.drawLine(0, pixel.height, pixel.width, 0);
+//		g.drawLine(pixel.width/2, 0, pixel.width/2, pixel.height);
+//		g.drawLine(0, pixel.height/2, pixel.width, pixel.height/2);
 		
 		g = getGraphics();
 

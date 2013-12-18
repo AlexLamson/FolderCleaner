@@ -200,8 +200,11 @@ public class Menu
 		{
 //			System.out.println(this);
 			
-			pressed1 = beingPressed;
-			ButtonChecker.pressed1(this);
+			if(beingPressed != pressed1)
+			{
+				pressed1 = beingPressed;
+				ButtonChecker.pressed1(this);
+			}
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press1(p, beingPressed);
 		}
@@ -210,7 +213,6 @@ public class Menu
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press1(p, false);
 			pressed1 = false;
-			ButtonChecker.pressed1(this);
 		}
 	}
 	
@@ -220,8 +222,11 @@ public class Menu
 		{
 //			System.out.println(this);
 			
-			pressed2 = beingPressed;
-			ButtonChecker.pressed2(this);
+			if(beingPressed != pressed2)
+			{
+				pressed2 = beingPressed;
+				ButtonChecker.pressed2(this);
+			}
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press2(p, beingPressed);
 		}
@@ -230,7 +235,6 @@ public class Menu
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press2(p, false);
 			pressed2 = false;
-			ButtonChecker.pressed2(this);
 		}
 	}
 	
@@ -240,8 +244,11 @@ public class Menu
 		{
 //			System.out.println(this);
 			
-			pressed3 = beingPressed;
-			ButtonChecker.pressed3(this);
+			if(beingPressed != pressed3)
+			{
+				pressed3 = beingPressed;
+				ButtonChecker.pressed3(this);
+			}
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press3(p, beingPressed);
 		}
@@ -250,7 +257,6 @@ public class Menu
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press3(p, false);
 			pressed3 = false;
-			ButtonChecker.pressed3(this);
 		}
 	}
 	

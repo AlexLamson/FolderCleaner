@@ -102,7 +102,7 @@ public class Loader extends Menu
 		
 //		System.out.println("months: "+month+" days: "+day+" hours: "+hour+" minutes: "+min+" seconds: "+sec);
 		
-		return str;
+		return str.trim();
 	}
 	
 	public void tick()
@@ -152,7 +152,7 @@ public class Loader extends Menu
 //		String str = round(100*currentVal/maxVal, 0)+" %";
 		//completion ETA
 		double secondsLeft = buffer.getNStepsToVal(maxVal)/((1000/Main.tickTime) / checkTime);
-		String str = getTimeFromSeconds(secondsLeft)+"remaining";
+		String str = getTimeFromSeconds(secondsLeft)+" remaining";
 		
 		
 		Font f = new Font("Verdana", Font.PLAIN, 24/Main.pixelSize);
