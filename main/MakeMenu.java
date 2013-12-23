@@ -12,6 +12,7 @@ public class MakeMenu
 		menu.setPadding(0, 0);
 		
 		Menu sidebar = new Menu(0, 0, 1, 1, true);
+		sidebar.bgcolor = new Color(0, 75, 136);
 		sidebar.setColsRows(4, 8);
 		menu.addMenu(sidebar);
 		
@@ -51,6 +52,8 @@ public class MakeMenu
 		menu.addMenu(matchbar);
 		
 		Scroller matchScroller = new Scroller(0, 0, 10, 9, true);
+		matchScroller.bgcolor = new Color(0, 109, 193);
+		matchScroller.setPadding(0, 2);
 		matchScroller.setColsRows(10, 20);
 		matchScroller.setVisibleRows(10);
 		matchbar.addMenu(matchScroller);
@@ -101,6 +104,7 @@ public class MakeMenu
 		menu.addMenu(sb);
 		
 		menu.fillMenu();
+//		menu.fillMenu(0, 0, menu.cols, menu.rows, 1, 2);
 		
 		return menu;
 	}

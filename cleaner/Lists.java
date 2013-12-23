@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import main.Updater;
+
 public class Lists
 {
 	public static String BLACKLIST = "Blacklist";
@@ -61,6 +63,8 @@ public class Lists
 				files = SaveNLoad.getFilesRecur(new File(addSpecialFolders(str)));	//check subfolders
 			else
 				files = SaveNLoad.getFiles(new File(addSpecialFolders(str)));		//check outermost files
+			
+			Updater.totalFiles = files.size();
 			
 			for(int i = 0; i < files.size(); i++)	//for all the files in that folder
 			{
@@ -137,6 +141,15 @@ public class Lists
 			else
 				System.err.println("Unknown   ? " + name.substring(0, name.length()-cleanEString(name).length()) );
 		}
+		
+		Updater.allLists = new ArrayList<MatchList>();
+		Updater.allLists.add(blacklist);
+		Updater.allLists.add(whitelist);
+		Updater.allLists.add(extensions);
+		Updater.allLists.add(whitelistFolders);
+		Updater.allLists.add(blacklistFolders);
+		Updater.allLists.add(historyFolders);
+		Updater.allLists.add(cacheFolders);
 	}
 	
 	public static String getFileType(String str)

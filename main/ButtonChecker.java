@@ -16,6 +16,15 @@ public class ButtonChecker
 			
 //			System.out.println("wow, you pressed "+m.ID+"!");
 			
+			if(m instanceof Button)
+			{
+				Button b = ((Button)m);
+				if(b.str.equals("Clean"))
+				{
+					System.out.println("Clean was pressed");
+				}
+			}
+			
 			switch((int)m.ID)
 			{
 //			case 1:

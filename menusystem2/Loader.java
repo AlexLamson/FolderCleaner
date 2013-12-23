@@ -108,7 +108,7 @@ public class Loader extends Menu
 			str = str.substring(0,str.length()-2)+" ";
 		
 		if(year == 0 && month == 0 && day == 0 && hour == 0 && min == 0 && sec == 0)
-			str = "0 seconds ";
+			str = "0.0 seconds ";
 		
 //		System.out.println("months: "+month+" days: "+day+" hours: "+hour+" minutes: "+min+" seconds: "+sec);
 		
@@ -161,29 +161,37 @@ public class Loader extends Menu
 		g.setColor(Button.changeColor(fgcolor, -20));
 		g.fillRect((int)x, (int)y+height-height/12, (int)((currentVal/maxVal)*width), height/12);
 		
-		//current percentage
-//		String str = round(100*currentVal/maxVal, 0)+" %";
-		//completion ETA
-		double secondsLeft = buffer.getNStepsToVal(maxVal)/((1000/Main.tickTime) / checkTime);
-		String str = getTimeFromSeconds(secondsLeft)+" remaining";
-		
-		
-		Font f = new Font("Verdana", Font.PLAIN, 24/Main.pixelSize);
-		g.setFont(f);
-		FontMetrics fm = g.getFontMetrics(f);
-		Rectangle2D rect = fm.getStringBounds(str, g);
-		int xCenter = (int)x + (width/2);
-		int yCenter = (int)y + (height/2);
-		int sX = xCenter - (int)(rect.getWidth()/2);
-		int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
-		
-		//put a box behind the percentage
-		g.setColor(new Color(200, 200, 200, 200));
-		g.fillRect(sX, sY-fm.getAscent(), (int)rect.getWidth(), (int)rect.getHeight());
-		
-		g.setColor(Color.black);
-//		g.setColor(new Color(255-bgcolor.getRed(), 255-bgcolor.getGreen(), 255-bgcolor.getBlue()));
-		g.drawString(str, sX, sY);
+		//draw the time remaining or the percent complete
+		String str = "";
+		if(currentVal != 0)
+		{
+			//current percentage
+//			String str = round(100*currentVal/maxVal, 0)+" %";
+			
+			//completion ETA
+			double secondsLeft = buffer.getNStepsToVal(maxVal)/((1000/Main.tickTime) / checkTime);
+			str = getTimeFromSeconds(secondsLeft)+" remaining";
+		}
+		if(str.length() != 0)
+		{
+			Font f = new Font("Verdana", Font.PLAIN, 24/Main.pixelSize);
+			g.setFont(f);
+			FontMetrics fm = g.getFontMetrics(f);
+			Rectangle2D rect = fm.getStringBounds(str, g);
+			int xCenter = (int)x + (width/2);
+			int yCenter = (int)y + (height/2);
+			int sX = xCenter - (int)(rect.getWidth()/2);
+			int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
+			
+			//put a box behind the percentage
+			g.setColor(new Color(200, 200, 200, 200));
+			g.fillRect(sX, sY-fm.getAscent(), (int)rect.getWidth(), (int)rect.getHeight());
+			
+			//draw the string
+			g.setColor(Color.black);
+//			g.setColor(new Color(255-bgcolor.getRed(), 255-bgcolor.getGreen(), 255-bgcolor.getBlue()));
+			g.drawString(str, sX, sY);
+		}
 		
 		//pass to lower menus
 		for(int i = 0; i < menus.size(); i++)

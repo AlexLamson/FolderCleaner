@@ -96,12 +96,18 @@ public class Menu
 		return min + (float)Math.random() * (max - min);
 	}
 	
-	public void addMenu(Menu menu)
+	//returns false if the menu couldn't be added
+	public boolean addMenu(Menu menu)
 	{
 		if(!menuIsInBounds(menu))
 		{
-			System.err.println("Tried to add a button that was too big!");
-			return;
+			System.err.println("Tried to add a menu that was too big!");
+			return false;
+		}
+		else if(menuCollides(menu))
+		{
+			System.err.println("Tried to add a menu that collided with other menu!");
+			return false;
 		}
 		
 		if(menu.unsized)
@@ -110,11 +116,35 @@ public class Menu
 		addPadding(menu);
 		
 		menus.add(menu);
+		
+		return true;
+	}
+	
+	public void addMenus(ArrayList<Menu> menus)
+	{
+		for(int i = 0; i < menus.size(); i++)
+			addMenu(menus.get(i));
 	}
 	
 	public boolean menuIsInBounds(Menu menu)
 	{
 		return !(menu.xSize > menu.xPos+this.cols || menu.ySize > menu.yPos+this.rows);
+	}
+	
+	public boolean menuCollides(Menu menu)
+	{
+		for(int i = 0; i < menus.size(); i++)
+			if(menus.get(i).collides(menu))
+				return true;
+		
+		return false;
+	}
+	
+	public boolean collides(Menu menu)
+	{
+		if(menu.xPos >= xPos+xSize-1 || menu.yPos >= yPos+ySize-1 || menu.xPos+menu.xSize <= xPos || menu.yPos+menu.ySize <= yPos)
+			return false;
+		return true;
 	}
 	
 	public void sizeMenu(Menu menu)
@@ -134,21 +164,31 @@ public class Menu
 		menu.height -= yPadding;
 	}
 	
-	public void fillMenu()
+	public void fillMenu(int minX, int minY, int maxX, int maxY, int xSize, int ySize)
 	{
 		int num = 1;		//for the button labels
 		
-		for(int row = 0; row < rows; row++)
+		if(minX+maxX > cols)
+			maxX = cols-minX;
+		if(minY+maxY > rows)
+			maxY = rows-minY;
+		
+		for(int row = minY; row < minY+maxY; row+=ySize)
 		{
-			for(int col = 0; col < cols; col++)
+			for(int col = minX; col < minX+maxX; col+=xSize)
 			{
 				if(!isOccupied(row, col))
 				{
-					addMenu(new Button(col, row, 1, 1, true, "Box "+num));
+					addMenu(new Button(col, row, xSize, ySize, true, "Box "+num));
 					num++;
 				}
 			}
 		}
+	}
+	
+	public void fillMenu()
+	{
+		fillMenu(0, 0, cols, rows, 1, 1);
 	}
 	
 	public boolean isOccupied(int row, int col)
@@ -307,5 +347,10 @@ public class Menu
 	public String toString()
 	{
 		return "Menu("+rows+", "+cols+") ID: "+ID;
+	}
+	
+	public String getStringPos()
+	{
+		return xPos+" "+yPos+" "+xSize+" "+ySize;
 	}
 }
