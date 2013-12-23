@@ -252,4 +252,43 @@ public class SaveNLoad
 		}
 		return false;
 	}
+	
+	public static long getCreationTime(File file)
+	{
+		if(file.exists())
+		{
+			try
+			{
+				BasicFileAttributes attr = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+				return attr.creationTime().toMillis();
+			} catch (IOException e){ e.printStackTrace(); }
+		}
+		return 0L;
+	}
+
+	public static long getLastAccessTime(File file)
+	{
+		if(file.exists())
+		{
+			try
+			{
+				BasicFileAttributes attr = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+				return attr.lastAccessTime().toMillis();
+			} catch (IOException e){ e.printStackTrace(); }
+		}
+		return 0L;
+	}
+	
+	public static long getLastModifiedTime(File file)
+	{
+		if(file.exists())
+		{
+			try
+			{
+				BasicFileAttributes attr = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+				return attr.lastModifiedTime().toMillis();
+			} catch (IOException e){ e.printStackTrace(); }
+		}
+		return 0L;
+	}
 }
