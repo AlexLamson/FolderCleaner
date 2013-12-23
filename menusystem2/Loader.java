@@ -34,6 +34,11 @@ public class Loader extends Menu
 		super(xPos, yPos, xSize, ySize, bool);
 	}
 	
+	public Loader(int xSize, int ySize, boolean bool)
+	{
+		super(xSize, ySize, bool);
+	}
+	
 	public void setMax(double val)
 	{
 		maxVal = val;

@@ -28,6 +28,11 @@ public class ScrollerButton extends Button
 		setDisplayString();
 	}
 	
+	public ScrollerButton(int xSize, int ySize, boolean bool)
+	{
+		super(xSize, ySize, bool);
+	}
+	
 	public void setDisplayString()
 	{
 		int num = times[arrayPos];

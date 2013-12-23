@@ -1,6 +1,9 @@
 package cleaner;
 
+import java.awt.Color;
 import java.io.File;
+
+import menusystem2.*;
 
 public class Match
 {
@@ -53,5 +56,25 @@ public class Match
 	public String toString()
 	{
 		return matchedTerm+"\t- "+linkedFile.getAbsolutePath();
+	}
+	
+	public Menu toMenu()
+	{
+		Menu menu = new Menu(1, 1, true);
+		menu.setColsRows(20, 1);
+		
+		BooleanButton shouldDelete = new BooleanButton(0, 0, 1, 1, true, "O", "X");
+		shouldDelete.boolState = false;
+		menu.addMenu(shouldDelete);
+		
+		BooleanButton matchButton = new BooleanButton(1, 0, 4, 1, true, "matchedTerm");
+		matchButton.boolState = !isBlacklisted;
+		menu.addMenu(matchButton);
+		
+		Button pathButton = new Button(5, 0, 15, 1, true, linkedFile.getAbsolutePath());
+		pathButton.setColor(new Color(0, 109, 193));
+		menu.addMenu(pathButton);
+		
+		return menu;
 	}
 }

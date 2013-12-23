@@ -12,6 +12,8 @@ public class Button extends Menu
 	public boolean useInvertedText = true;	//if false, use textColor
 	public Color textColor =  Color.black;
 	
+	public boolean changeColorWhenClickd = true;
+	
 	public Button()
 	{
 		super();
@@ -27,6 +29,11 @@ public class Button extends Menu
 		this(xPos, yPos, xSize, ySize, bool, "");
 	}
 	
+	public Button(int xSize, int ySize, boolean bool)
+	{
+		super(xSize, ySize, bool);
+	}
+	
 	public Button(int x, int y, int width, int height, String str)
 	{
 		super(x, y, width, height);
@@ -36,6 +43,12 @@ public class Button extends Menu
 	public Button(int xPos, int yPos, int xSize, int ySize, boolean bool, String str)
 	{
 		super(xPos, yPos, xSize, ySize, bool);
+		this.str = new String(str);
+	}
+	
+	public Button(int xSize, int ySize, boolean bool, String str)
+	{
+		super(xSize, ySize, bool);
 		this.str = new String(str);
 	}
 	
@@ -146,10 +159,13 @@ public class Button extends Menu
 	public void render(Graphics g)
 	{
 		Color buttonColor = new Color(bgcolor.getRed(), bgcolor.getGreen(), bgcolor.getBlue());
-		if(pressed1)
-			buttonColor = changeColor(buttonColor, 50);
-		if(pressed3)
-			buttonColor = changeColor(buttonColor, -50);
+		if(changeColorWhenClickd)
+		{
+			if(pressed1)
+				buttonColor = changeColor(buttonColor, 50);
+			if(pressed3)
+				buttonColor = changeColor(buttonColor, -50);
+		}
 		fillBackground(g, buttonColor);
 		
 		Color tColor = this.textColor;

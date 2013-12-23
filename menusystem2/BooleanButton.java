@@ -28,6 +28,11 @@ public class BooleanButton extends Button
 		super(xPos, yPos, xSize, ySize, bool);
 	}
 	
+	public BooleanButton(int xSize, int ySize, boolean bool)
+	{
+		super(xSize, ySize, bool);
+	}
+	
 	public BooleanButton(int x, int y, int width, int height, String str)
 	{
 		super(x, y, width, height, str);
@@ -42,6 +47,13 @@ public class BooleanButton extends Button
 		strFalse = str;
 	}
 	
+	public BooleanButton(int xSize, int ySize, boolean bool, String str)
+	{
+		this(xSize, ySize, bool);
+		strTrue = str;
+		strFalse = str;
+	}
+	
 	public BooleanButton(int x, int y, int width, int height, String strTrue, String strFalse)
 	{
 		super(x, y, width, height, strTrue);
@@ -52,6 +64,13 @@ public class BooleanButton extends Button
 	public BooleanButton(int xPos, int yPos, int xSize, int ySize, boolean bool, String strTrue, String strFalse)
 	{
 		super(xPos, yPos, xSize, ySize, bool, strTrue);
+		this.strTrue = strTrue;
+		this.strFalse = strFalse;
+	}
+	
+	public BooleanButton(int xSize, int ySize, boolean bool, String strTrue, String strFalse)
+	{
+		this(xSize, ySize, bool);
 		this.strTrue = strTrue;
 		this.strFalse = strFalse;
 	}

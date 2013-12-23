@@ -35,6 +35,11 @@ public class Scroller extends Menu
 			scrollSize = minScrollSize;
 	}
 	
+	public Scroller(int xSize, int ySize, boolean bool)
+	{
+		super(xSize, ySize, bool);
+	}
+	
 	public void setVisibleRows(int visibleRows)
 	{
 		this.visibleRows = visibleRows;

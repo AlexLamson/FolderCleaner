@@ -15,15 +15,17 @@ public class Menu
 	
 	public static int indentation = 0;		//used in the printMenus method
 	
-	public boolean placeholder = false, unsized = false;	//unsized = pixel dimensions not yet set
+	public boolean placeholder = false;		//true = should not be considered a Menu to be viewed
+	public boolean unsized = false;			//true = pixel dimensions not yet set
+	public boolean unpositioned = false;	//true = xPos & yPos are not yet set
 	
 	public ArrayList<Menu> menus = new ArrayList<Menu>();
 	
 	public double x = 0, y = 0;
-	public int width = 0, height = 0;	//dimensions of menu in pixels
-	public int xPadding = 10, yPadding = 10;		//extra pixels between each row and column
+	public int width = 0, height = 0;			//dimensions of menu in pixels
+	public int xPadding = 10, yPadding = 10;	//extra pixels between each row and column
 	
-	public int rows = 1, cols = 1;					//number of rows and columns in menu
+	public int rows = 1, cols = 1;				//number of rows and columns in menu
 	public int xPos = 0, yPos = 0, xSize = 1, ySize = 1;	//dimension in "button units"
 	
 	public Color bgcolor = new Color(255, 0, 255);	//background color of menu
@@ -35,6 +37,7 @@ public class Menu
 	{
 		placeholder = true;
 		unsized = true;
+		unpositioned = true;
 	}
 	
 	//a menu without pixel dimensions so they can be set by the upper menu (bool required so as not to conflict with other constructor)
@@ -49,6 +52,18 @@ public class Menu
 		setColor(Button.randomColor());
 	}
 	
+	//a menu without a position (to be set when it is added to another menu)
+	public Menu(int xSize, int ySize, boolean bool)
+	{
+		assignID();
+		unsized = true;
+		unpositioned = true;
+		this.xSize = xSize;
+		this.ySize = ySize;
+		setColor(Button.randomColor());
+	}
+	
+	//a  menu that fills the Rectangle(x, y, width, height) (in pixels)
 	public Menu(int x, int y, int width, int height)
 	{
 		assignID();
@@ -59,7 +74,7 @@ public class Menu
 		setColor(Button.randomColor());
 	}
 	
-	public void assignID()
+	private void assignID()
 	{
 		ID = maxID;
 		maxID++;
@@ -70,6 +85,12 @@ public class Menu
 	{
 		this.xPadding = xPadding;
 		this.yPadding = yPadding;
+	}
+	
+	public void setPos(int xPos, int yPos)
+	{
+		this.xPos = xPos;
+		this.yPos = yPos;
 	}
 	
 	public void setColsRows(int cols, int rows)
@@ -99,14 +120,19 @@ public class Menu
 	//returns false if the menu couldn't be added
 	public boolean addMenu(Menu menu)
 	{
-		if(!menuIsInBounds(menu))
+		if(unpositioned)
 		{
-			System.err.println("Tried to add a menu that was too big!");
+			System.err.println("Menu wasn't positioned!");
+			return false;
+		}
+		else if(!menuIsInBounds(menu))
+		{
+			System.err.println("Menu was out of bounds!");
 			return false;
 		}
 		else if(menuCollides(menu))
 		{
-			System.err.println("Tried to add a menu that collided with other menu!");
+			System.err.println("Menu collided with another menu!");
 			return false;
 		}
 		
@@ -118,6 +144,14 @@ public class Menu
 		menus.add(menu);
 		
 		return true;
+	}
+	
+	//add an unpositioned menu
+	public boolean addMenu(Menu menu, int xPos, int yPos)
+	{
+		if(unpositioned)
+			menu.setPos(xPos, yPos);
+		return addMenu(menu);
 	}
 	
 	public void addMenus(ArrayList<Menu> menus)
