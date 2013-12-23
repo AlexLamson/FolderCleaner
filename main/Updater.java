@@ -49,6 +49,11 @@ public class Updater
 		cacheMatches = Lists.getMatches(Lists.cacheFolders, true);
 	}
 	
+	public static void finishScan()
+	{
+		
+	}
+	
 	public static void removeLastNMinutes(int n)
 	{
 		

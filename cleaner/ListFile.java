@@ -56,7 +56,7 @@ public class ListFile
 	public void cleanContents()
 	{
 		for(int i = 0; i < listContents.size(); i++)
-			listContents.set(i, Lists.removeSpecialChars(listContents.get(i)).toLowerCase());
+			listContents.set(i, StringParser.removeSpecialChars(listContents.get(i)).toLowerCase());
 	}
 	
 	public void contentsToLowerCase()

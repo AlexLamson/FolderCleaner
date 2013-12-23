@@ -37,7 +37,7 @@ public class ScrollerButton extends Button
 	{
 		int num = times[arrayPos];
 		String numStr = ""+num;
-		String pnumStr = Loader.getTimeFromSeconds(num*60);
+		String pnumStr = StringTime.secToString(num*60);
 		str = realStr.replaceAll(numString, numStr);
 		str = str.replaceAll(prettyNumString, pnumStr);
 	}

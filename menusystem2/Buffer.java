@@ -75,6 +75,6 @@ public class Buffer
 	
 	public String toString()
 	{
-		return Loader.round(getAverageChange(),1)+" "+buffer;
+		return NumGen.round(getAverageChange(),1)+" "+buffer;
 	}
 }

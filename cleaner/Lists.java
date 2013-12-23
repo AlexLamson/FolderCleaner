@@ -49,7 +49,7 @@ public class Lists
 		ArrayList<Match> historyMatches = getMatches(historyFolders, true);
 		for(Match match : historyMatches)
 			if(match.isBlacklisted)
-				System.out.println(match.toStringmaxChars(getMaxChars(historyMatches)));
+				System.out.println(match.toStringmaxChars(StringParser.getMaxChars(historyMatches)));
 	}
 	
 	public static ArrayList<Match> getMatches(MatchList folders, boolean checkSubFolders)
@@ -61,15 +61,15 @@ public class Lists
 		{
 			ArrayList<File> files = new ArrayList<File>();
 			if(checkSubFolders)
-				files = SaveNLoad.getFilesRecur(new File(addSpecialFolders(str)));	//check subfolders
+				files = SaveNLoad.getFilesRecur(new File(StringParser.addSpecialFolders(str)));	//check subfolders
 			else
-				files = SaveNLoad.getFiles(new File(addSpecialFolders(str)));		//check outermost files
+				files = SaveNLoad.getFiles(new File(StringParser.addSpecialFolders(str)));		//check outermost files
 			
 			Updater.setTotalFiles(files.size());
 			
 			for(int i = 0; i < files.size(); i++)	//for all the files in that folder
 			{
-				files.set(i, new File(parseShortcut(files.get(i).getAbsolutePath())));
+				files.set(i, new File(StringParser.parseShortcut(files.get(i).getAbsolutePath())));
 				
 				Match match = getMatch(files.get(i).getAbsolutePath());
 				if(!match.isNull())			//if the file was matched
@@ -77,6 +77,8 @@ public class Lists
 				
 				Updater.incrementScannedFiles();
 			}
+			
+			Updater.finishScan();
 		}
 		
 		//save to the log file
@@ -98,7 +100,7 @@ public class Lists
 				logStr.add(line);
 				
 				//add the list of relevant matches
-				int maxChars = getMaxChars(matches);
+				int maxChars = StringParser.getMaxChars(matches);
 				for(int i = 0; i < matches.size(); i++)	//for all the matches
 				{
 					Match match = matches.get(i);
@@ -176,150 +178,11 @@ public class Lists
 			return UNKNOWN;
 	}
 	
-	//change all non-alphanumeric characters to spaces
-	public static String removeSpecialChars(String str)
-	{
-		char[] newString = new char[str.length()];
-		
-		for(int i = 0; i < str.length(); i++)
-		{
-			char c = str.charAt(i);
-			if(Character.isLetterOrDigit(c))
-				newString[i] = c;
-			else
-				newString[i] = ' ';
-		}
-		
-		String newStr = new String(newString);
-		
-		return newStr;
-	}
-	
-	//change to lowercase & replace all special characters with spaces (except last period & first slash)
-	public static String cleanString(String str)
-	{
-//		replace special characters with spaces to avoid bad matches
-		boolean foundLastPeriod = false, foundLastSlash = false;
-		char[] newString = new char[str.length()];
-		for(int i = str.length()-1; i > 0; i--)
-		{
-			char c = str.charAt(i);
-			if(foundLastSlash)
-				newString[i] = ' ';
-			else if(Character.isLetterOrDigit(c))
-				newString[i] = c;
-			else
-			{
-				if(c == '.' && !foundLastPeriod && !foundLastSlash)
-				{
-					newString[i] = c;
-					foundLastPeriod = true;
-				}
-				else if(c == '/' && !foundLastSlash)
-				{
-					newString[i] = c;
-					foundLastSlash = true;
-				}
-				else
-					newString[i] = ' ';
-			}
-		}
-		String newStr = new String(newString);
-		
-		newStr = newStr.toLowerCase();
-		
-		return newStr;
-	}
-	
-	//change string to lowercase (clean folder string)
-	public static String cleanFString(String str)
-	{
-		return str.toLowerCase();
-	}
-	
-	//return characters at and after last period, ex. "C:/hats/tophat.jpg" -> ".jpg" (clean extension string)
-	public static String cleanEString(String str)
-	{
-		int periodLoc = 0;
-		for(int i = str.length()-1; i > 0; i--)
-		{
-			if(str.charAt(i) == '.')
-			{
-				periodLoc = i;
-				break;
-			}
-		}
-		return str.substring(periodLoc).toLowerCase();
-	}
-	
-	public static String parseShortcut(String str)
-	{
-		if(SaveNLoad.isLink(new File(str)))
-		{
-			try
-			{
-				WindowsShortcut ws = new WindowsShortcut(new File(str));
-				str = ws.getRealFilename();
-			} catch (IOException | ParseException e)
-			{
-				System.err.println("error parsing shortcut: "+str);
-				e.printStackTrace();
-			}
-		}
-		
-		String hostname = SaveNLoad.getHostname();
-		if(str.startsWith("\\\\"+hostname.toUpperCase()))
-			str = "C:\\"+str.substring(hostname.length()+3);
-		
-		return str;
-	}
-	
-	public static String addSpecialFolders(String str)
-	{
-		String userString = System.getProperty("user.home").replaceAll("\\\\", "/")+'/';
-		
-		if(str.startsWith("~"))
-		{
-			str = str.replaceFirst("~user~/", userString);
-			str = str.replaceFirst("~user~", userString);
-			
-			if(str.startsWith("~?:/"))
-			{
-				String fileStr = "";
-				for(int i = 4; i < str.length(); i++)
-				{
-					char c = str.charAt(i);
-					if(c != '~')
-						fileStr += c;
-					else
-						break;
-				}
-				
-				ArrayList<String> drives = SaveNLoad.getDrives();
-				for(String driveStr : drives)
-				{
-					if(new File(driveStr+fileStr).exists())
-					{
-						int slash = 0;
-						if((str.charAt(5+fileStr.length()) == '/'))
-							slash = 1;
-						
-						driveStr = driveStr.substring(0, 2)+"/";
-						str = driveStr+str.substring(5+fileStr.length()+slash, str.length());
-						break;
-					}
-				}
-			}
-		}
-		
-		return str;
-	}
-	
 	public static boolean shouldMarkFile(String str)
 	{
-		return !whitelistFolders.hasMatch(str) && !whitelist.hasMatch(cleanString(str)) && 
-				(extensions.hasMatch(cleanEString(str)) || blacklistFolders.hasMatch(str) || 
-				blacklist.hasMatch(cleanString(str)) );
+		return !whitelistFolders.hasMatch(str) && !whitelist.hasMatch(StringParser.cleanString(str)) && 
+				(extensions.hasMatch(StringParser.cleanEString(str)) || blacklistFolders.hasMatch(str) || 
+				blacklist.hasMatch(StringParser.cleanString(str)) );
 	}
 	
 	public static Match getMatch(String str)
@@ -328,11 +191,11 @@ public class Lists
 		if(whitelistFoldersMatch.length() > 0)
 			return new Match(str, whitelistFoldersMatch, false);
 		
-		String whitelistMatch = whitelist.getMatch(cleanString(str));
+		String whitelistMatch = whitelist.getMatch(StringParser.cleanString(str));
 		if(whitelistMatch.length() > 0)
 			return new Match(str, whitelistMatch, false);
 		
-		String extensionsMatch = extensions.getMatch(cleanEString(str));
+		String extensionsMatch = extensions.getMatch(StringParser.cleanEString(str));
 		if(extensionsMatch.length() > 0)
 			return new Match(str, extensionsMatch, true);
 		
@@ -340,25 +203,10 @@ public class Lists
 		if(blacklistFoldersMatch.length() > 0)
 			return new Match(str, blacklistFoldersMatch, true);
 		
-		String blacklistMatch = blacklist.getMatch(cleanString(str));
+		String blacklistMatch = blacklist.getMatch(StringParser.cleanString(str));
 		if(blacklistMatch.length() > 0)
 			return new Match(str, blacklistMatch, true);
 		
 		return new Match(str, "", false);
-	}
-	
-	public static int getMaxChars(ArrayList<Match> matches)
-	{
-		int maxChars = 0;
-		for(Match match : matches)
-		{
-			if(match.isBlacklisted)
-			{
-				int size = match.matchedTerm.length();
-				if(size > maxChars)
-					maxChars = size;
-			}
-		}
-		return maxChars;
 	}
 }

@@ -30,7 +30,7 @@ public class Match
 	
 	public void getLinkedFile()
 	{
-		String str = Lists.parseShortcut(actualFile.getAbsolutePath());
+		String str = StringParser.parseShortcut(actualFile.getAbsolutePath());
 		
 		if(!str.equals(actualFile.getAbsolutePath()))
 		{

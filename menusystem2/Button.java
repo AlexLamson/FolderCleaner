@@ -12,7 +12,7 @@ public class Button extends Menu
 	public boolean useInvertedText = true;	//if false, use textColor
 	public Color textColor =  Color.black;
 	
-	public boolean changeColorWhenClickd = true;
+	public boolean changeColorWhenClicked = true;
 	
 	public Button()
 	{
@@ -50,52 +50,6 @@ public class Button extends Menu
 	{
 		super(xSize, ySize, bool);
 		this.str = new String(str);
-	}
-	
-	public static Color randomColor()
-	{
-		return new Color(random(0,255), random(0,255), random(0,255));
-//		return new Color(random(2,13), random(40,105), random(83,171));
-		
-//		float hbase = 0.604f, hspread = .01f;
-//		float sbase = 0.73f, sspread = .05f;
-//		float bbase = 0.19f, bspread = .10f;
-//		
-//		float h = randomf(hbase-hspread, hbase+hspread);
-//		float s = randomf(sbase-sspread, sbase+sspread);
-//		float b = randomf(bbase-bspread, bbase+bspread);
-////		float h = 0.56f;
-////		float s = .5f;
-////		float b = .5f;
-//		return Color.getHSBColor(h, s, b);
-	}
-	
-	//positive amount = brighter, negative = darker
-	public static Color changeColor(Color color, int amount)
-	{
-		return makeColor(color.getRed()+amount, color.getGreen()+amount, color.getBlue()+amount);
-	}
-	
-	public static Color invertColor(Color color)
-	{
-		return new Color(255-color.getRed(), 255-color.getGreen(), 255-color.getBlue());
-	}
-	
-	public static Color makeColor(int r, int g, int b)
-	{
-		r = capRange(r);
-		g = capRange(g);
-		b = capRange(b);
-		return new Color(r, g, b);
-	}
-	
-	public static int capRange(int num)
-	{
-		if(num < 0)
-			num = 0;
-		else if(num > 255)
-			num = 255;
-		return num;
 	}
 	
 	public int getFontSize(Graphics g)
@@ -159,18 +113,18 @@ public class Button extends Menu
 	public void render(Graphics g)
 	{
 		Color buttonColor = new Color(bgcolor.getRed(), bgcolor.getGreen(), bgcolor.getBlue());
-		if(changeColorWhenClickd)
+		if(changeColorWhenClicked)
 		{
 			if(pressed1)
-				buttonColor = changeColor(buttonColor, 50);
+				buttonColor = ColorGen.changeColor(buttonColor, 50);
 			if(pressed3)
-				buttonColor = changeColor(buttonColor, -50);
+				buttonColor = ColorGen.changeColor(buttonColor, -50);
 		}
 		fillBackground(g, buttonColor);
 		
 		Color tColor = this.textColor;
 		if(useInvertedText)
-			tColor = invertColor(bgcolor);
+			tColor = ColorGen.invertColor(bgcolor);
 		drawText(g, str, tColor);
 		
 		for(int i = 0; i < menus.size(); i++)

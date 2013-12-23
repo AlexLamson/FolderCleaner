@@ -116,9 +116,9 @@ public class Scroller extends Menu
 		}
 		
 		//draw the scrollbar
-		g.setColor(Button.changeColor(bgcolor, 50));
+		g.setColor(ColorGen.changeColor(bgcolor, 50));
 		g.fillRect((int)x+width-scrollSize, (int)y, scrollSize, height);
-		g.setColor(Button.changeColor(bgcolor, -20));
+		g.setColor(ColorGen.changeColor(bgcolor, -20));
 		g.fillRect((int)x+width-scrollSize, (int)y+(int)(1.0*height*pos/rows), scrollSize, (int)(1.0*height*visibleRows/rows));
 		
 		//draw black edging on the scrollbar

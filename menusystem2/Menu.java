@@ -49,7 +49,7 @@ public class Menu
 		this.yPos = yPos;
 		this.xSize = xSize;
 		this.ySize = ySize;
-		setColor(Button.randomColor());
+		setColor(ColorGen.randomColor());
 	}
 	
 	//a menu without a position (to be set when it is added to another menu)
@@ -60,7 +60,7 @@ public class Menu
 		unpositioned = true;
 		this.xSize = xSize;
 		this.ySize = ySize;
-		setColor(Button.randomColor());
+		setColor(ColorGen.randomColor());
 	}
 	
 	//a  menu that fills the Rectangle(x, y, width, height) (in pixels)
@@ -71,7 +71,7 @@ public class Menu
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		setColor(Button.randomColor());
+		setColor(ColorGen.randomColor());
 	}
 	
 	private void assignID()
@@ -103,18 +103,6 @@ public class Menu
 	public void setColor(Color color)
 	{
 		bgcolor = new Color(color.getRed(), color.getGreen(), color.getBlue());
-	}
-	
-	// generate random int in range [min, max]
-	public static int random(int min, int max)
-	{
-		return min + (int)(Math.random() * ((max - min) + 1));
-	}
-	
-	// generate random float in range [min, max)
-	public static float randomf(float min, float max)
-	{
-		return min + (float)Math.random() * (max - min);
 	}
 	
 	//returns false if the menu couldn't be added
@@ -154,10 +142,32 @@ public class Menu
 		return addMenu(menu);
 	}
 	
+	//adds an ArrayList of Menus 
 	public void addMenus(ArrayList<Menu> menus)
 	{
-		for(int i = 0; i < menus.size(); i++)
-			addMenu(menus.get(i));
+		boolean unpositioned = menus.get(0).unpositioned;
+		
+		if(!unpositioned)
+			for(int i = 0; i < menus.size(); i++)
+				addMenu(menus.get(i));
+		else
+		{
+			if(this instanceof Scroller)			//increase (or decrease) number of rows if its a Scroller
+				rows = (int)Math.ceil(1.0 * menus.size() / cols);
+			
+			int i = 0;
+			for(int x = 0; x < cols; x++)
+			{
+				for(int y = 0; y < rows; y++)
+				{
+					addMenu(menus.get(i), x, y);
+					i++;
+					
+					if(i == menus.size())
+						return;
+				}
+			}
+		}
 	}
 	
 	public boolean menuIsInBounds(Menu menu)

@@ -103,7 +103,7 @@ public class BooleanButton extends Button
 		
 		Color tColor = this.textColor;
 		if(useInvertedText)
-			tColor = invertColor(bgcolor);
+			tColor = ColorGen.invertColor(bgcolor);
 		drawText(g, str, tColor);
 		
 		for(int i = 0; i < menus.size(); i++)
