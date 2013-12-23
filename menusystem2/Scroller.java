@@ -12,6 +12,11 @@ public class Scroller extends Menu
 	public static final int minScrollSize = 10;		//minimum width of the scroll bar
 	public int scrollSize = 0;						//width of the scroll bar
 	
+	public Scroller()
+	{
+		super();
+	}
+	
 	public Scroller(int x, int y, int width, int height)
 	{
 		super(x, y, width, height);

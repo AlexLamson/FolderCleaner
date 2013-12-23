@@ -18,6 +18,11 @@ public class Loader extends Menu
 	public int currentTime = 0, checkTime = 1;	//check every 4 ticks (remember its running at 20 ticks per second)
 	public Buffer buffer = new Buffer(100);
 	
+	public Loader()
+	{
+		super();
+	}
+	
 	public Loader(int x, int y, int width, int height)
 	{
 		super(x, y, width, height);
@@ -115,6 +120,17 @@ public class Loader extends Menu
 		return str.trim();
 	}
 	
+	public void clicked1(boolean beingPressed)
+	{
+		super.clicked1(beingPressed);
+		
+		if(test && !beingPressed)
+		{
+			currentVal = 0;
+			buffer.clear();
+		}
+	}
+	
 	public void tick()
 	{
 		super.tick();
@@ -126,12 +142,6 @@ public class Loader extends Menu
 				currentVal = maxVal;
 			else if(currentVal < 0)
 				currentVal = 0;
-			
-			if(pressed1)
-			{
-				currentVal = 0;
-				buffer.clear();
-			}
 		}
 		
 		currentTime++;
@@ -142,7 +152,6 @@ public class Loader extends Menu
 		}
 		if(currentTime > checkTime)
 			currentTime = 0;
-			
 	}
 	
 	public void render(Graphics g)

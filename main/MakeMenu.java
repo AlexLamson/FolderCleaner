@@ -5,15 +5,15 @@ import menusystem2.*;
 
 public class MakeMenu
 {
-	public static Menu sidebar;
-	public static Button cleanButton;
-	public static Button scanButton;
-	public static ScrollerButton clearHistoryButton;
-	public static Scroller folderScroller;
-	public static Scroller listsScroller;
-	public static Menu matchbar;
-	public static Scroller matchScroller;
-	public static Loader loadingbar;
+	public static Menu sidebar = new Menu();
+	public static Button cleanButton = new Button();
+	public static Button scanButton = new Button();
+	public static ScrollerButton clearHistoryButton = new ScrollerButton();
+	public static Scroller folderScroller = new Scroller();
+	public static Scroller listsScroller = new Scroller();
+	public static Menu matchbar = new Menu();
+	public static Scroller matchScroller = new Scroller();
+	public static Loader loadingbar = new Loader();
 	
 	public static Menu makeMenu(Menu menu)
 	{
@@ -112,6 +112,9 @@ public class MakeMenu
 		
 		ScrollerButton sb = new ScrollerButton(2, 2, 2, 2, true, ScrollerButton.prettyNumString+" left!");
 		menu.addMenu(sb);
+		
+		BooleanButton bb = new BooleanButton(0, 5, 1, 1, true, "Green!", "Red!");
+		menu.addMenu(bb);
 		
 		menu.fillMenu();
 //		menu.fillMenu(0, 0, menu.cols, menu.rows, 1, 2);

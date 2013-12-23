@@ -234,16 +234,21 @@ public class Menu
 		return new Menu();	//returns menu with boolean placeholder set to true
 	}
 	
+	//called when menu is left clicked or un-left clicked
+	public void clicked1(boolean beingPressed)
+	{
+		pressed1 = beingPressed;
+		ButtonChecker.pressed1(this);
+	}
+	
+	//called when there is a possibility that the menu was left clicked or un-left clicked
 	public void press1(Point p, boolean beingPressed)
 	{
 		if(contains(p))
 		{
-//			System.out.println(this);
-			
 			if(beingPressed != pressed1)
 			{
-				pressed1 = beingPressed;
-				ButtonChecker.pressed1(this);
+				clicked1(beingPressed);
 			}
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press1(p, beingPressed);
@@ -256,16 +261,21 @@ public class Menu
 		}
 	}
 	
+	//called when menu is middle clicked or un-middle clicked
+	public void clicked2(boolean beingPressed)
+	{
+		pressed2 = beingPressed;
+		ButtonChecker.pressed2(this);
+	}
+	
+	//called when there is a possibility that the menu was middle clicked or un-middle clicked
 	public void press2(Point p, boolean beingPressed)
 	{
 		if(contains(p))
 		{
-//			System.out.println(this);
-			
 			if(beingPressed != pressed2)
 			{
-				pressed2 = beingPressed;
-				ButtonChecker.pressed2(this);
+				clicked2(beingPressed);
 			}
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press2(p, beingPressed);
@@ -278,16 +288,21 @@ public class Menu
 		}
 	}
 	
+	//called when menu is middle right or un-right clicked
+	public void clicked3(boolean beingPressed)
+	{
+		pressed3 = beingPressed;
+		ButtonChecker.pressed3(this);
+	}
+	
+	//called when there is a possibility that the menu was right clicked or un-right clicked
 	public void press3(Point p, boolean beingPressed)
 	{
 		if(contains(p))
 		{
-//			System.out.println(this);
-			
 			if(beingPressed != pressed3)
 			{
-				pressed3 = beingPressed;
-				ButtonChecker.pressed3(this);
+				clicked3(beingPressed);
 			}
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press3(p, beingPressed);

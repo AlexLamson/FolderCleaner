@@ -12,6 +12,21 @@ public class Button extends Menu
 	public boolean useInvertedText = true;	//if false, use textColor
 	public Color textColor =  Color.black;
 	
+	public Button()
+	{
+		super();
+	}
+	
+	public Button(int x, int y, int width, int height)
+	{
+		this(x, y, width, height, "");
+	}
+	
+	public Button(int xPos, int yPos, int xSize, int ySize, boolean bool)
+	{
+		this(xPos, yPos, xSize, ySize, bool, "");
+	}
+	
 	public Button(int x, int y, int width, int height, String str)
 	{
 		super(x, y, width, height);
@@ -106,16 +121,14 @@ public class Button extends Menu
 		return fsize;
 	}
 	
-	public void render(Graphics g)
+	public void fillBackground(Graphics g, Color color)
 	{
-		Color buttonColor = new Color(bgcolor.getRed(), bgcolor.getGreen(), bgcolor.getBlue());
-		if(pressed1)
-			buttonColor = changeColor(buttonColor, 50);
-		if(pressed3)
-			buttonColor = changeColor(buttonColor, -50);
-		g.setColor(buttonColor);
+		g.setColor(color);
 		g.fillRect((int)x, (int)y, width, height);
-		
+	}
+	
+	public void drawText(Graphics g, String str, Color textColor)
+	{
 		Font f = new Font("Verdana", Font.PLAIN, getFontSize(g));
 		g.setFont(f);
 		FontMetrics fm = g.getFontMetrics(f);
@@ -126,11 +139,23 @@ public class Button extends Menu
 		int sX = xCenter - (int)(rect.getWidth()/2);
 		int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
 		
-		if(useInvertedText)
-			g.setColor(invertColor(bgcolor));
-		else
-			g.setColor(textColor);
+		g.setColor(textColor);
 		g.drawString(str, sX, sY);
+	}
+	
+	public void render(Graphics g)
+	{
+		Color buttonColor = new Color(bgcolor.getRed(), bgcolor.getGreen(), bgcolor.getBlue());
+		if(pressed1)
+			buttonColor = changeColor(buttonColor, 50);
+		if(pressed3)
+			buttonColor = changeColor(buttonColor, -50);
+		fillBackground(g, buttonColor);
+		
+		Color tColor = this.textColor;
+		if(useInvertedText)
+			tColor = invertColor(bgcolor);
+		drawText(g, str, tColor);
 		
 		for(int i = 0; i < menus.size(); i++)
 			menus.get(i).render(g);

@@ -141,7 +141,7 @@ public class Lists
 			else if(getFileType(name).equals(LOG))
 				continue;
 			else
-				System.err.println("Unknown   ? " + name.substring(0, name.length()-cleanEString(name).length()) );
+				System.err.println("Unknown type \"" + name.substring(0, name.length()) +"\"" );
 		}
 		
 		Updater.allLists = new ArrayList<MatchList>();

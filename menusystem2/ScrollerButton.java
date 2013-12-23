@@ -9,6 +9,11 @@ public class ScrollerButton extends Button
 	public String realStr = "";
 	public static final String numString = "~num~", prettyNumString = "~pnum~";
 	
+	public ScrollerButton()
+	{
+		super();
+	}
+	
 	public ScrollerButton(int x, int y, int width, int height, String str)
 	{
 		super(x, y, width, height, str);
