@@ -32,6 +32,7 @@ public class Lists
 	public static MatchList historyFolders = new MatchList();	//contains links to recent files (files here will be checked)
 	
 	public static boolean saveToLog = true;
+	public static boolean deleteMatchedFiles = false;
 	
 	public static void main(String[] args)
 	{
@@ -64,7 +65,7 @@ public class Lists
 			else
 				files = SaveNLoad.getFiles(new File(addSpecialFolders(str)));		//check outermost files
 			
-			Updater.totalFiles = files.size();
+			Updater.setTotalFiles(files.size());
 			
 			for(int i = 0; i < files.size(); i++)	//for all the files in that folder
 			{
@@ -73,6 +74,8 @@ public class Lists
 				Match match = getMatch(files.get(i).getAbsolutePath());
 				if(!match.isNull())			//if the file was matched
 					matches.add(match);		//add it to the output
+				
+				Updater.incrementScannedFiles();
 			}
 		}
 		
@@ -120,7 +123,6 @@ public class Lists
 		for(File file : files)
 		{
 			String name = file.getName();
-			String fType = getFileType(name);			//do something with this later
 			
 			if(getFileType(name).equals(BLACKLIST))
 				blacklist.addFile(file, 2);
@@ -315,13 +317,17 @@ public class Lists
 	
 	public static boolean shouldMarkFile(String str)
 	{
-		return !whitelist.hasMatch(cleanString(str)) && !whitelistFolders.hasMatch(cleanString(str)) && 
-				(extensions.hasMatch(cleanEString(str)) || blacklistFolders.hasMatch(cleanFString(str)) || 
+		return !whitelistFolders.hasMatch(str) && !whitelist.hasMatch(cleanString(str)) && 
+				(extensions.hasMatch(cleanEString(str)) || blacklistFolders.hasMatch(str) || 
 				blacklist.hasMatch(cleanString(str)) );
 	}
 	
 	public static Match getMatch(String str)
 	{
+		String whitelistFoldersMatch = whitelistFolders.getMatch(str);
+		if(whitelistFoldersMatch.length() > 0)
+			return new Match(str, whitelistFoldersMatch, false);
+		
 		String whitelistMatch = whitelist.getMatch(cleanString(str));
 		if(whitelistMatch.length() > 0)
 			return new Match(str, whitelistMatch, false);
@@ -330,11 +336,7 @@ public class Lists
 		if(extensionsMatch.length() > 0)
 			return new Match(str, extensionsMatch, true);
 		
-		String whitelistFoldersMatch = whitelistFolders.getMatch(cleanFString(str));
-		if(whitelistFoldersMatch.length() > 0)
-			return new Match(str, whitelistFoldersMatch, true);
-		
-		String blacklistFoldersMatch = blacklistFolders.getMatch(cleanFString(str));
+		String blacklistFoldersMatch = blacklistFolders.getMatch(str);
 		if(blacklistFoldersMatch.length() > 0)
 			return new Match(str, blacklistFoldersMatch, true);
 		

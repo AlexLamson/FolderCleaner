@@ -126,12 +126,12 @@ public class Loader extends Menu
 				currentVal = maxVal;
 			else if(currentVal < 0)
 				currentVal = 0;
-		}
-		
-		if(pressed1)
-		{
-			currentVal = 0;
-			buffer.clear();
+			
+			if(pressed1)
+			{
+				currentVal = 0;
+				buffer.clear();
+			}
 		}
 		
 		currentTime++;

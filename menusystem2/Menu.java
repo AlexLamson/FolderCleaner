@@ -11,7 +11,7 @@ import main.ButtonChecker;
 public class Menu
 {
 	public static long maxID = 0;
-	public long ID = -1;			//id of the menu
+	public long ID = -1;			//id of the menu (use negative numbers for specialized buttons)
 	
 	public static int indentation = 0;		//used in the printMenus method
 	

@@ -20,7 +20,11 @@ public class ButtonChecker
 				Button b = ((Button)m);
 				if(b.str.equals("Clean"))
 				{
-					System.out.println("Clean was pressed");
+					Updater.clean();
+				}
+				else if(b.str.equals("Scan"))
+				{
+					Updater.scan();
 				}
 			}
 			

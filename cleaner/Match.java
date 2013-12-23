@@ -6,7 +6,7 @@ public class Match
 {
 	public File actualFile;		//actual file being checked
 	public File linkedFile;		//file being linked to
-	public String matchedTerm;				//black/white-listed term
+	public String matchedTerm;				//black/white-listed term (if length == 1 then placeholder match)
 	public boolean isBlacklisted = false;	//if false then whitelisted
 	
 	public Match(File file, String matchedTerm, boolean isBlacklisted)
