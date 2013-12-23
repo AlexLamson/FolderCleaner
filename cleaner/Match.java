@@ -4,22 +4,37 @@ import java.io.File;
 
 public class Match
 {
-	public File file;						//matched file
+	public File actualFile;		//actual file being checked
+	public File linkedFile;		//file being linked to
 	public String matchedTerm;				//black/white-listed term
 	public boolean isBlacklisted = false;	//if false then whitelisted
 	
 	public Match(File file, String matchedTerm, boolean isBlacklisted)
 	{
-		this.file = file;
+		this.actualFile = file;
+		getLinkedFile();
 		this.matchedTerm = matchedTerm;
 		this.isBlacklisted = isBlacklisted;
 	}
 	
 	public Match(String fileStr, String matchedTerm, boolean isBlacklisted)
 	{
-		this.file = new File(fileStr);
+		this.actualFile = new File(fileStr);
+		getLinkedFile();
 		this.matchedTerm = matchedTerm;
 		this.isBlacklisted = isBlacklisted;
+	}
+	
+	public void getLinkedFile()
+	{
+		String str = Lists.parseShortcut(actualFile.getAbsolutePath());
+		
+		if(!str.equals(actualFile.getAbsolutePath()))
+		{
+			System.out.println(linkedFile.getAbsolutePath());
+		}
+		
+		linkedFile = new File(str);
 	}
 	
 	public boolean isNull()
@@ -32,11 +47,11 @@ public class Match
 		String spaces = "";
 		for(int i = 0; i < maxChars-matchedTerm.length()+1; i++)
 			spaces += ' ';
-		return matchedTerm+spaces+"- "+file.getAbsolutePath();
+		return matchedTerm+spaces+"- "+linkedFile.getAbsolutePath();
 	}
 	
 	public String toString()
 	{
-		return matchedTerm+"\t- "+file.getAbsolutePath();
+		return matchedTerm+"\t- "+linkedFile.getAbsolutePath();
 	}
 }

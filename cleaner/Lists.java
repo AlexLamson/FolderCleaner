@@ -252,13 +252,12 @@ public class Lists
 	
 	public static String parseShortcut(String str)
 	{
-		if(cleanEString(str).equals(".lnk"))
+		if(SaveNLoad.isLink(new File(str)))
 		{
 			try
 			{
 				WindowsShortcut ws = new WindowsShortcut(new File(str));
 				str = ws.getRealFilename();
-//				System.out.println(ws.getRealFilename());
 			} catch (IOException | ParseException e)
 			{
 				System.err.println("error parsing shortcut: "+str);

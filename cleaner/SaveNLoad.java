@@ -10,6 +10,7 @@ import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 //import java.util.ArrayList;
 import java.util.List;
@@ -236,5 +237,19 @@ public class SaveNLoad
 		    System.err.println("Hostname couldn't be resolved :(");
 		}
 		return hostname;
+	}
+	
+	public static boolean isLink(File file)
+	{
+		if(file.exists())
+		{
+			if(file.getAbsolutePath().endsWith("lnk"))
+				return true;
+			try
+			{
+				return Files.readAttributes(file.toPath(), BasicFileAttributes.class).isSymbolicLink();
+			} catch (IOException e){ e.printStackTrace(); }
+		}
+		return false;
 	}
 }

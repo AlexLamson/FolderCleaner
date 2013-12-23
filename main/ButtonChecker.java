@@ -11,9 +11,8 @@ public class ButtonChecker
 	public static void pressed1(Menu m)
 	{
 		buttonIDs.get((int)m.ID).bool = m.pressed1;
-		if(m.pressed1)
+		if(!m.pressed1)
 		{
-			
 //			System.out.println("wow, you pressed "+m.ID+"!");
 			
 			if(m instanceof Button)
