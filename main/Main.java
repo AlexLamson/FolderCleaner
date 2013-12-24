@@ -67,12 +67,16 @@ public class Main extends Applet implements Runnable
 		menu = new Menu(0, 0, pixel.width, pixel.height);
 		
 		
-		boolean debugging = true;
+		boolean debugging = false;
 		if(debugging)
+		{
 			menu = MakeMenu.makeTestMenu(menu);
+		}
 		else
+		{
 			menu = MakeMenu.makeMenu(menu);
-		
+			Updater.startUp();
+		}
 		
 		addKeyListener(new Listening());
 		addMouseListener(new Listening());

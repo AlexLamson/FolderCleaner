@@ -55,12 +55,8 @@ public class Menu
 	//a menu without a position (to be set when it is added to another menu)
 	public Menu(int xSize, int ySize, boolean bool)
 	{
-		assignID();
-		unsized = true;
+		this(0, 0, xSize, ySize, bool);
 		unpositioned = true;
-		this.xSize = xSize;
-		this.ySize = ySize;
-		setColor(ColorGen.randomColor());
 	}
 	
 	//a  menu that fills the Rectangle(x, y, width, height) (in pixels)
@@ -91,6 +87,7 @@ public class Menu
 	{
 		this.xPos = xPos;
 		this.yPos = yPos;
+		this.unpositioned = false;
 	}
 	
 	public void setColsRows(int cols, int rows)
@@ -108,17 +105,17 @@ public class Menu
 	//returns false if the menu couldn't be added
 	public boolean addMenu(Menu menu)
 	{
-		if(unpositioned)
+		if(menu.unpositioned)
 		{
 			System.err.println("Menu wasn't positioned!");
 			return false;
 		}
-		else if(!menuIsInBounds(menu))
+		if(!menuIsInBounds(menu))
 		{
 			System.err.println("Menu was out of bounds!");
 			return false;
 		}
-		else if(menuCollides(menu))
+		if(menuCollides(menu))
 		{
 			System.err.println("Menu collided with another menu!");
 			return false;
@@ -126,6 +123,8 @@ public class Menu
 		
 		if(menu.unsized)
 			sizeMenu(menu);
+		
+		menu.sizeSubMenus();
 		
 		addPadding(menu);
 		
@@ -137,8 +136,7 @@ public class Menu
 	//add an unpositioned menu
 	public boolean addMenu(Menu menu, int xPos, int yPos)
 	{
-		if(unpositioned)
-			menu.setPos(xPos, yPos);
+		menu.setPos(xPos, yPos);
 		return addMenu(menu);
 	}
 	
@@ -148,17 +146,21 @@ public class Menu
 		boolean unpositioned = menus.get(0).unpositioned;
 		
 		if(!unpositioned)
+		{
 			for(int i = 0; i < menus.size(); i++)
 				addMenu(menus.get(i));
+		}
 		else
 		{
 			if(this instanceof Scroller)			//increase (or decrease) number of rows if its a Scroller
-				rows = (int)Math.ceil(1.0 * menus.size() / cols);
+			{
+				rows = (int)Math.ceil( 1.0 * menus.size() / (cols / menus.get(0).xSize) );
+			}
 			
 			int i = 0;
-			for(int x = 0; x < cols; x++)
+			for(int y = 0; y < rows; y+=menus.get(0).ySize)
 			{
-				for(int y = 0; y < rows; y++)
+				for(int x = 0; x < cols; x+=menus.get(0).xSize)
 				{
 					addMenu(menus.get(i), x, y);
 					i++;
@@ -198,6 +200,22 @@ public class Menu
 		menu.width =      (int)((this.width - xPadding)  * (1.0 * menu.xSize / this.cols));
 		menu.height =     (int)((this.height - yPadding) * (1.0 * menu.ySize / this.rows));
 		menu.unsized = false;
+	}
+	
+	public void sizeSubMenus()
+	{
+		for(int i = 0; i < menus.size(); i++)
+		{
+			if(menus.get(i).menus.size() > 0)
+				menus.get(i).sizeSubMenus();
+			else
+			{
+				sizeMenu(menus.get(i));
+//				menus.get(i).width += xPadding;								//note: this is a temp fix for a big problem
+//				menus.get(i).height += yPadding;							//make a better solution to this later
+			}
+				
+		}
 	}
 	
 	public void addPadding(Menu menu)

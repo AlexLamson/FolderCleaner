@@ -77,8 +77,6 @@ public class Lists
 				
 				Updater.incrementScannedFiles();
 			}
-			
-			Updater.finishScan();
 		}
 		
 		//save to the log file
@@ -152,8 +150,10 @@ public class Lists
 		Updater.allLists.add(extensions);
 		Updater.allLists.add(whitelistFolders);
 		Updater.allLists.add(blacklistFolders);
-		Updater.allLists.add(historyFolders);
-		Updater.allLists.add(cacheFolders);
+//		Updater.allLists.add(historyFolders);
+//		Updater.allLists.add(cacheFolders);
+		
+		Updater.addLists();
 	}
 	
 	public static String getFileType(String str)

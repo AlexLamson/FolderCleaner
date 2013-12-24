@@ -60,19 +60,23 @@ public class Match
 	
 	public Menu toMenu()
 	{
-		Menu menu = new Menu(1, 1, true);
+		Menu menu = new Menu(10, 1, true);
+		menu.bgcolor = new Color(0, 0, 0, 140);
 		menu.setColsRows(20, 1);
 		
-		BooleanButton shouldDelete = new BooleanButton(0, 0, 1, 1, true, "O", "X");
-		shouldDelete.boolState = false;
-		menu.addMenu(shouldDelete);
+		BooleanButton shouldDeleteButton = new BooleanButton(0, 0, 1, 1, true, "O", "X");
+		shouldDeleteButton.boolState = !isBlacklisted;
+		menu.addMenu(shouldDeleteButton);
 		
-		BooleanButton matchButton = new BooleanButton(1, 0, 4, 1, true, "matchedTerm");
+		BooleanButton matchButton = new BooleanButton(1, 0, 4, 1, true, matchedTerm);
+		matchButton.changeColorWhenClicked = false;
 		matchButton.boolState = !isBlacklisted;
 		menu.addMenu(matchButton);
 		
 		Button pathButton = new Button(5, 0, 15, 1, true, linkedFile.getAbsolutePath());
-		pathButton.setColor(new Color(0, 109, 193));
+//		pathButton.setColor(new Color(0, 109, 193));
+		pathButton.changeColorWhenClicked = false;
+		pathButton.useInvertedText = false;
 		menu.addMenu(pathButton);
 		
 		return menu;

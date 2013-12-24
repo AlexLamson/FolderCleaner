@@ -3,6 +3,8 @@ package cleaner;
 import java.io.File;
 import java.util.ArrayList;
 
+import menusystem2.*;
+
 public class ListFile
 {
 	protected File listPath;	//path to file
@@ -96,5 +98,10 @@ public class ListFile
 	public String toString()
 	{
 		return listPath.toString();
+	}
+
+	public Menu toMenu()
+	{
+		return new BooleanButton(1, 1, true, listPath.getName());
 	}
 }

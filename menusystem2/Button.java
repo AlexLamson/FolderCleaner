@@ -37,19 +37,19 @@ public class Button extends Menu
 	public Button(int x, int y, int width, int height, String str)
 	{
 		super(x, y, width, height);
-		this.str = new String(str);
+		this.str = str;
 	}
 	
 	public Button(int xPos, int yPos, int xSize, int ySize, boolean bool, String str)
 	{
 		super(xPos, yPos, xSize, ySize, bool);
-		this.str = new String(str);
+		this.str = str;
 	}
 	
 	public Button(int xSize, int ySize, boolean bool, String str)
 	{
 		super(xSize, ySize, bool);
-		this.str = new String(str);
+		this.str = str;
 	}
 	
 	public int getFontSize(Graphics g)
@@ -133,6 +133,6 @@ public class Button extends Menu
 	
 	public String toString()
 	{
-		return "Button(\""+str+"\")";
+		return "Button(\""+str+"\") ID:"+ID;
 	}
 }

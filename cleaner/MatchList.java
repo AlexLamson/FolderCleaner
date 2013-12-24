@@ -3,6 +3,8 @@ package cleaner;
 import java.io.File;
 import java.util.ArrayList;
 
+import menusystem2.Menu;
+
 //MatchList - contains all the files of a certain type (ie blacklist, whitelist, etc)
 public class MatchList
 {
@@ -79,5 +81,13 @@ public class MatchList
 		for(int i = 0; i < 9-type.length(); i++)
 			spaces += " ";
 		System.out.println( type + spaces + " + " + name );
+	}
+	
+	public ArrayList<Menu> getMenus()
+	{
+		ArrayList<Menu> menus = new ArrayList<Menu>();
+		for(int i = 0; i < files.size(); i++)
+			menus.add(files.get(i).toMenu());
+		return menus;
 	}
 }

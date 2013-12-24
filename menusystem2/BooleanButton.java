@@ -79,7 +79,7 @@ public class BooleanButton extends Button
 	{
 		super.clicked1(beingPressed);
 		
-		if(!beingPressed)
+		if(!beingPressed && changeColorWhenClicked)
 			changeState();
 	}
 	
@@ -101,12 +101,25 @@ public class BooleanButton extends Button
 			bgcolor = bgColorFalse;
 		fillBackground(g, bgcolor);
 		
+		if(boolState)
+			str = strTrue;
+		else
+			str = strFalse;
+
 		Color tColor = this.textColor;
 		if(useInvertedText)
 			tColor = ColorGen.invertColor(bgcolor);
+		
 		drawText(g, str, tColor);
 		
 		for(int i = 0; i < menus.size(); i++)
 			menus.get(i).render(g);
+	}
+	
+	public String toString()
+	{
+		if(boolState)
+			return "BooleanButton(|\""+strTrue+"\"|, \""+strFalse+"\") ID:"+ID;
+		return "BooleanButton(\""+strTrue+"\", |\""+strFalse+"\"|) ID:"+ID;
 	}
 }

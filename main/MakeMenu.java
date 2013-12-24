@@ -52,7 +52,7 @@ public class MakeMenu
 		listsScroller.setColsRows(2, 6);
 		listsScroller.setPadding(5, 5);
 		sidebar.addMenu(listsScroller);
-		listsScroller.fillMenu();
+//		listsScroller.fillMenu();
 		
 		sidebar.fillMenu();
 		
@@ -67,7 +67,7 @@ public class MakeMenu
 		matchScroller.setColsRows(10, 20);
 		matchScroller.setVisibleRows(10);
 		matchbar.addMenu(matchScroller);
-		matchScroller.fillMenu();
+//		matchScroller.fillMenu();
 		
 		loadingbar = new Loader(0, 9, 10, 1, true);
 		loadingbar.test = false;
