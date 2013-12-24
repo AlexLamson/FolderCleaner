@@ -61,7 +61,7 @@ public class Match
 	public Menu toMenu()
 	{
 		Menu menu = new Menu(10, 1, true);
-		menu.bgcolor = new Color(0, 0, 0, 140);
+//		menu.bgcolor = new Color(0, 0, 0, 140);
 		menu.setColsRows(20, 1);
 		
 		BooleanButton shouldDeleteButton = new BooleanButton(0, 0, 1, 1, true, "O", "X");

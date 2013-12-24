@@ -386,6 +386,12 @@ public class Menu
 		return false;
 	}
 	
+	public void move(double deltaX, double deltaY)
+	{
+		y += deltaY;
+		sizeSubMenus();
+	}
+	
 	public void printMenus()
 	{
 		System.out.println(this);

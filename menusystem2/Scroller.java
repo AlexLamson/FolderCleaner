@@ -96,7 +96,8 @@ public class Scroller extends Menu
 		for(int i = 0; i < menus.size(); i++)
 		{
 			double deltaY = 1.0 * -direction * (this.height - yPadding) * menus.get(i).ySize / this.visibleRows;
-			menus.get(i).y += deltaY;
+//			menus.get(i).y += deltaY;
+			menus.get(i).move(0, deltaY);
 		}
 	}
 	
