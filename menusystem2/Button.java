@@ -9,8 +9,11 @@ import java.awt.geom.Rectangle2D;
 public class Button extends Menu
 {
 	public String str = "Test";
+	
 	public boolean useInvertedText = true;	//if false, use textColor
 	public Color textColor =  Color.black;
+	public boolean useSetFontSize = false;
+	public int fontSize = 18;
 	
 	public boolean changeColorWhenClicked = true;
 	
@@ -52,37 +55,86 @@ public class Button extends Menu
 		this.str = str;
 	}
 	
-	public int getFontSize(Graphics g)
+//	public boolean fontFitsInButton(Graphics g, Font f, String str)
+//	{
+//		g.setFont(f);
+//		Rectangle2D rect = g.getFontMetrics(f).getStringBounds(str, g);
+//		
+//		if(rect.getMaxX()-rect.getMinX() > width-5)
+//		{
+//			if(ID == 1)
+//				System.out.println(str+" "+(rect.getMaxX()-rect.getMinX())+" kaibutsu "+(width-5));
+//			
+//			return true;
+//		}
+//		if(rect.getMaxY()-rect.getMinY() > height-5)
+//			return true;
+//		return false;
+//	}
+	
+	public boolean fontFitsInButton(Graphics g, Font f, String str)
 	{
-		int fsize = 8;
-		int increment = 1;
-		for(int i = 0; i < 72+1; i+=increment)
+		g.setFont(f);
+		Rectangle2D rect = g.getFontMetrics(f).getStringBounds(str, g);
+		
+		if(rect.getMaxX()-rect.getMinX() <= width-5 && rect.getMaxY()-rect.getMinY() <= height-5)
+			return true;
+		return false;
+	}
+	
+	public String getString(Graphics g, String str)
+	{
+		if(useSetFontSize)
 		{
-			Font f = new Font("Verdana", Font.PLAIN, i);
-			g.setFont(f);
-			Rectangle2D rect = g.getFontMetrics(f).getStringBounds(str, g);
+			Font f = new Font("Verdana", Font.PLAIN, fontSize);
 			
-			fsize = i-increment;
-			if(rect.getMaxX()-rect.getMinX() > width-5)
-				break;
-			if(rect.getMaxY()-rect.getMinY() > height-5)
-				break;
+			if(!fontFitsInButton(g, f, str))	//if the text doesn't already fit
+			{
+				for(int i = str.length()/2; i > 0; i--)	//keep shortening until it fits
+				{
+					String newStr = str.substring(0, i)+"(...)"+str.substring(str.length()-i);
+					
+					if(fontFitsInButton(g, f, newStr))
+						return newStr;
+				}
+				
+			}
 		}
 		
-		switch(fsize)
+		return new String(str);
+	}
+	
+	public int getFontSize(Graphics g)
+	{
+		int fsize = fontSize;
+		
+		if(!useSetFontSize)
 		{
-		case 12:
-			increment = 2;
-			break;
-		case 28:
-			increment = 8;
-			break;
-		case 36:
-			increment = 12;
-			break;
-		case 48:
-			increment = 24;
-			break;
+			int increment = 1;
+			for(int i = 0; i < 72+1; i+=increment)
+			{
+				Font f = new Font("Verdana", Font.PLAIN, i);
+				fsize = i-increment;
+				
+				if(!fontFitsInButton(g, f, str))
+					break;
+				
+				switch(fsize)
+				{
+				case 12:
+					increment = 2;
+					break;
+				case 28:
+					increment = 8;
+					break;
+				case 36:
+					increment = 12;
+					break;
+				case 48:
+					increment = 24;
+					break;
+				}
+			}
 		}
 		
 		return fsize;
@@ -96,10 +148,11 @@ public class Button extends Menu
 	
 	public void drawText(Graphics g, String str, Color textColor)
 	{
+		String newStr = getString(g, str);
 		Font f = new Font("Verdana", Font.PLAIN, getFontSize(g));
 		g.setFont(f);
 		FontMetrics fm = g.getFontMetrics(f);
-		Rectangle2D rect = fm.getStringBounds(str, g);
+		Rectangle2D rect = fm.getStringBounds(newStr, g);
 		
 		int xCenter = (int)x + (width/2);
 		int yCenter = (int)y + (height/2);
@@ -107,7 +160,7 @@ public class Button extends Menu
 		int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
 		
 		g.setColor(textColor);
-		g.drawString(str, sX, sY);
+		g.drawString(newStr, sX, sY);
 	}
 	
 	public void render(Graphics g)

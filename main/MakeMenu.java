@@ -83,6 +83,11 @@ public class MakeMenu
 		menu.setColsRows(10, 6);
 		menu.setColor(Color.darkGray);
 		
+		Button btest = new Button(0, 0, 1, 1, true, "abcdefghijklmnopqrstuvwxyz0123456789");
+		btest.fontSize = 18;
+		btest.useSetFontSize = true;
+		menu.addMenu(btest);
+		
 //		blue loader
 		Loader loader = new Loader(0, 1, 6, 1, true);
 		loader.fgcolor = new Color(2, 105, 171);

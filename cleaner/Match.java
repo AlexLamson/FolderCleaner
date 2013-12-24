@@ -75,6 +75,7 @@ public class Match
 		
 		Button pathButton = new Button(5, 0, 15, 1, true, linkedFile.getAbsolutePath());
 //		pathButton.setColor(new Color(0, 109, 193));
+		pathButton.useSetFontSize = true;
 		pathButton.changeColorWhenClicked = false;
 		pathButton.useInvertedText = false;
 		menu.addMenu(pathButton);
