@@ -97,7 +97,6 @@ public class Button extends Menu
 					if(fontFitsInButton(g, f, newStr))
 						return newStr;
 				}
-				
 			}
 		}
 		

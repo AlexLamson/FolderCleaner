@@ -28,7 +28,7 @@ public class Main extends Applet implements Runnable
 	public static int tickTime = 50;		//milliseconds between each tick
 	public static boolean isRunning = false;
 	
-	public static String windowName = "Menu Test";
+	public static String windowName = "Folder Cleaner";
 	
 	public static boolean debugMode = true;
 	

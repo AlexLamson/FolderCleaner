@@ -131,9 +131,9 @@ public class Lists
 			else if(getFileType(name).equals(EXTENSION))
 				extensions.addFile(file, 1);
 			else if(getFileType(name).equals(WHITELISTFOLDER))
-				whitelistFolders.addFile(file, 3);
+				whitelistFolders.addFile(file, 0);
 			else if(getFileType(name).equals(BLACKLISTFOLDER))
-				blacklistFolders.addFile(file, 3);
+				blacklistFolders.addFile(file, 0);
 			else if(getFileType(name).equals(HISTORY))
 				historyFolders.addFile(file, 3);
 			else if(getFileType(name).equals(CACHE))

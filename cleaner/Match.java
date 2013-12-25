@@ -61,7 +61,7 @@ public class Match
 	public Menu toMenu()
 	{
 		Menu menu = new Menu(10, 1, true);
-//		menu.bgcolor = new Color(0, 0, 0, 140);
+		menu.setPadding(0, 0);
 		menu.setColsRows(20, 1);
 		
 		BooleanButton shouldDeleteButton = new BooleanButton(0, 0, 1, 1, true, "O", "X");
@@ -69,12 +69,15 @@ public class Match
 		menu.addMenu(shouldDeleteButton);
 		
 		BooleanButton matchButton = new BooleanButton(1, 0, 4, 1, true, matchedTerm);
+		matchButton.fontSize = 12;
+		matchButton.useSetFontSize = true;
 		matchButton.changeColorWhenClicked = false;
 		matchButton.boolState = !isBlacklisted;
 		menu.addMenu(matchButton);
 		
 		Button pathButton = new Button(5, 0, 15, 1, true, linkedFile.getAbsolutePath());
 //		pathButton.setColor(new Color(0, 109, 193));
+		pathButton.fontSize = 18;
 		pathButton.useSetFontSize = true;
 		pathButton.changeColorWhenClicked = false;
 		pathButton.useInvertedText = false;

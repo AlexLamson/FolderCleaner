@@ -211,8 +211,9 @@ public class Menu
 			else
 			{
 				sizeMenu(menus.get(i));
-//				menus.get(i).width += xPadding;								//note: this is a temp fix for a big problem
-//				menus.get(i).height += yPadding;							//make a better solution to this later
+				
+				menus.get(i).x += xPadding/2.0;
+				menus.get(i).y += yPadding/2.0;
 			}
 				
 		}
