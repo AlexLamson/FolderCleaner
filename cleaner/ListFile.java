@@ -102,6 +102,10 @@ public class ListFile
 
 	public Menu toMenu()
 	{
-		return new BooleanButton(1, 1, true, listPath.getName());
+		BooleanButton bb = new BooleanButton(1, 1, true, listPath.getName());
+		bb.useSetFontSize = true;
+		bb.fontSize = 16;
+		bb.useInvertedText = false;
+		return bb;
 	}
 }

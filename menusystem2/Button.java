@@ -15,6 +15,8 @@ public class Button extends Menu
 	public boolean useSetFontSize = false;
 	public int fontSize = 18;
 	
+	public int textAlignment = 0;
+	
 	public boolean changeColorWhenClicked = true;
 	
 	public Button()
@@ -145,7 +147,7 @@ public class Button extends Menu
 		g.fillRect((int)x, (int)y, width, height);
 	}
 	
-	public void drawText(Graphics g, String str, Color textColor)
+	public void drawText(Graphics g, String str, Color textColor, int alignment)
 	{
 		String newStr = getString(g, str);
 		Font f = new Font("Verdana", Font.PLAIN, getFontSize(g));
@@ -153,10 +155,24 @@ public class Button extends Menu
 		FontMetrics fm = g.getFontMetrics(f);
 		Rectangle2D rect = fm.getStringBounds(newStr, g);
 		
-		int xCenter = (int)x + (width/2);
-		int yCenter = (int)y + (height/2);
-		int sX = xCenter - (int)(rect.getWidth()/2);
-		int sY = yCenter - (int)(rect.getHeight()/2) + fm.getAscent();
+		int sX = (int)x + (width/2) - (int)(rect.getWidth()/2);
+		int sY = (int)y + (height/2) - (int)(rect.getHeight()/2) + fm.getAscent();
+		
+		switch(alignment)
+		{
+		case -1:
+			sX = (int)x + 5;
+			break;
+		case 0:
+			//do nothing
+			break;
+		case 1:
+			sX = (int)(x + width - rect.getWidth() - 5);
+			break;
+		default:
+			//do nothing
+			break;
+		}
 		
 		g.setColor(textColor);
 		g.drawString(newStr, sX, sY);
@@ -167,17 +183,17 @@ public class Button extends Menu
 		Color buttonColor = new Color(bgcolor.getRed(), bgcolor.getGreen(), bgcolor.getBlue());
 		if(changeColorWhenClicked)
 		{
-			if(pressed1)
+			if(hover && !pressed1)
 				buttonColor = ColorGen.changeColor(buttonColor, 50);
-			if(pressed3)
-				buttonColor = ColorGen.changeColor(buttonColor, -50);
+			else if(pressed1)
+				buttonColor = ColorGen.changeColor(buttonColor, 100);
 		}
 		fillBackground(g, buttonColor);
 		
 		Color tColor = this.textColor;
 		if(useInvertedText)
 			tColor = ColorGen.invertColor(bgcolor);
-		drawText(g, str, tColor);
+		drawText(g, str, tColor, textAlignment);
 		
 		for(int i = 0; i < menus.size(); i++)
 			menus.get(i).render(g);

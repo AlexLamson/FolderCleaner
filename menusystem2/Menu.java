@@ -31,6 +31,7 @@ public class Menu
 	public Color bgcolor = new Color(255, 0, 255);	//background color of menu
 	
 	public boolean pressed1 = false, pressed2 = false, pressed3 = false;	//true if mouse is in menu and button is pressed 
+	public boolean hover = false;
 	
 	//a placeholder menu
 	public Menu()
@@ -212,8 +213,8 @@ public class Menu
 			{
 				sizeMenu(menus.get(i));
 				
-				menus.get(i).x += xPadding/2.0;
-				menus.get(i).y += yPadding/2.0;
+				menus.get(i).x += xPadding/2.0 + 1.0;			//note getting some sort of truncation error here
+				menus.get(i).y += yPadding/2.0 + 1.0;			//the x is off by 1 or -1 sometimes
 			}
 				
 		}
@@ -271,6 +272,26 @@ public class Menu
 	public boolean contains(Point p)
 	{
 		return new Rectangle((int)x, (int)y, width, height).contains(p);
+	}
+	
+	//returns an arraylist of all submenus, including this one
+	public ArrayList<Menu> getAllMenus()
+	{
+		ArrayList<Menu> allMenus = new ArrayList<Menu>();
+		if(menus.size() == 0)
+		{
+			allMenus.add(this);
+		}
+		else
+		{
+			for(int i = 0; i < menus.size(); i++)
+			{
+				ArrayList<Menu> allSubMenus = menus.get(i).getAllMenus();
+				for(int j = 0; j < allSubMenus.size(); j++)
+					allMenus.add(allSubMenus.get(j));
+			}
+		}
+		return allMenus;
 	}
 	
 	//return most deeply nested menu at point
@@ -426,6 +447,13 @@ public class Menu
 		
 		for(int i = 0; i < menus.size(); i++)
 			menus.get(i).render(g);
+	}
+	
+	public boolean equals(Object obj)
+	{
+		if(obj instanceof Menu)
+			return ((Menu)obj).ID == this.ID;
+		return false;
 	}
 	
 	public String toString()

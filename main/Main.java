@@ -15,6 +15,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+
 import javax.swing.*;
 
 import menusystem2.*;
@@ -66,7 +67,6 @@ public class Main extends Applet implements Runnable
 		//defining objects
 		menu = new Menu(0, 0, pixel.width, pixel.height);
 		
-		
 		boolean debugging = false;
 		if(debugging)
 		{
@@ -101,6 +101,10 @@ public class Main extends Applet implements Runnable
 		
 		//call tick methods here
 		menu.tick();
+		
+		Menu hoverMenu = Main.menu.getSubMenu(Main.mse);
+		hoverMenu.hover = true;
+		
 	}
 
 	public void render()
@@ -147,6 +151,10 @@ public class Main extends Applet implements Runnable
 		Main main = new Main();
 		
 		frame = new JFrame();
+		
+//		Main.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+//		Main.frame.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
 		frame.add(main);
 		frame.pack();
 		

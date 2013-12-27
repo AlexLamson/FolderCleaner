@@ -63,7 +63,7 @@ public class MakeMenu
 		
 		matchScroller = new Scroller(0, 0, 10, 9, true);
 		matchScroller.bgcolor = new Color(0, 109, 193);
-		matchScroller.setPadding(0, 2);
+		matchScroller.setPadding(0, 10);
 		matchScroller.setColsRows(10, 20);
 		matchScroller.setVisibleRows(10);
 		matchbar.addMenu(matchScroller);
@@ -107,6 +107,8 @@ public class MakeMenu
 //		menu.addMenu(loader2);
 		
 		Button b1 = new Button(4, 2, 3, 1, true, "This is a test button");
+		b1.useSetFontSize = true;
+		b1.textAlignment = -1;
 		menu.addMenu(b1);
 		Button b2 = new Button(4, 3, 2, 1, true, "Test button");
 		menu.addMenu(b2);

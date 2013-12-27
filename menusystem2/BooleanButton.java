@@ -110,7 +110,7 @@ public class BooleanButton extends Button
 		if(useInvertedText)
 			tColor = ColorGen.invertColor(bgcolor);
 		
-		drawText(g, str, tColor);
+		drawText(g, str, tColor, textAlignment);
 		
 		for(int i = 0; i < menus.size(); i++)
 			menus.get(i).render(g);
