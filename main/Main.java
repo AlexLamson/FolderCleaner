@@ -67,8 +67,9 @@ public class Main extends Applet implements Runnable
 		//defining objects
 		menu = new Menu(0, 0, pixel.width, pixel.height);
 		
-		boolean debugging = false;
-		if(debugging)
+		
+		MakeMenu.useTestMenu = false;
+		if(MakeMenu.useTestMenu)
 		{
 			menu = MakeMenu.makeTestMenu(menu);
 		}

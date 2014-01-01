@@ -62,15 +62,29 @@ public class MatchList
 	}
 	
 	//returns "" if no match, otherwise return the string that was matched
-	public String getMatch(String str)
+	public Match getMatch(String str, boolean isBlacklisted)
 	{
+		String matchedTerm = "";
+		File blacklist = new File("null");
+		
 		if(!useMatchList)
-			return "";
-		for(int i = 0; i < files.size(); i++)
-			for(String match : files.get(i).getUnrestrictedContents())
-				if(str.contains(match))
-					return match;
-		return "";
+			matchedTerm = "";
+		else
+		{
+			for(int i = 0; i < files.size(); i++)
+			{
+				for(String match : files.get(i).getUnrestrictedContents())
+				{
+					if(str.contains(match))
+					{
+						matchedTerm = new String(match);
+						blacklist = files.get(i).listPath;
+					}
+				}
+			}
+		}
+		
+		return new Match(str, blacklist, matchedTerm, isBlacklisted);
 	}
 	
 	public static void printFile(File path)

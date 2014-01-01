@@ -10,21 +10,24 @@ public class Match
 	public File linkedFile;		//file being linked to
 	public String matchedTerm;				//black/white-listed term (if length == 1 then placeholder match)
 	public boolean isBlacklisted = false;	//if false then whitelisted
+	public File blacklistUsed;
 	
-	public Match(File file, String matchedTerm, boolean isBlacklisted)
+	public Match(File file, File blacklist, String matchedTerm, boolean isBlacklisted)
 	{
 		this.actualFile = file;
 		getLinkedFile();
 		this.matchedTerm = matchedTerm;
 		this.isBlacklisted = isBlacklisted;
+		blacklistUsed = blacklist;
 	}
 	
-	public Match(String fileStr, String matchedTerm, boolean isBlacklisted)
+	public Match(String fileStr, File blacklist, String matchedTerm, boolean isBlacklisted)
 	{
 		this.actualFile = new File(fileStr);
 		getLinkedFile();
 		this.matchedTerm = matchedTerm;
 		this.isBlacklisted = isBlacklisted;
+		blacklistUsed = blacklist;
 	}
 	
 	public void getLinkedFile()
