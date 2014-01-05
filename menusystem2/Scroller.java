@@ -123,7 +123,8 @@ public class Scroller extends Menu
 		{
 			if(Main.prevmse.x >= (int)x+width-scrollSize && Main.prevmse.x <= (int)x+width)
 			{
-				if(Main.prevmse.y >= (int)y+(int)(1.0*height*pos/rows) && Main.prevmse.y <= (int)(y + 1.0*height*pos/rows + 1.0*height*visibleRows/rows))
+//				if(Main.prevmse.y >= (int)y+(int)(1.0*height*pos/rows) && Main.prevmse.y <= (int)(y + 1.0*height*pos/rows + 1.0*height*visibleRows/rows))
+				if(Main.prevmse.y >= y && Main.prevmse.y <= y + height)
 				{
 					isDraggingScrollbar = true;
 					initScrollPos = pos;
@@ -143,10 +144,13 @@ public class Scroller extends Menu
 		
 		if(isDraggingScrollbar)
 		{
-			double deltaY = Main.mse.y - Main.prevmse.y;
-			double oneScroll = (int)(1.0*height/rows);
+//			double deltaY = Main.mse.y - Main.prevmse.y;
+//			double oneScroll = (int)(1.0*height/rows);
+//			int newPos = (int)(deltaY / oneScroll);
 			
-			int newPos = (int)(deltaY / oneScroll);
+			double percent = ((double)Main.mse.y - y - (1.0*height*visibleRows/rows/2)) / (1.0*height*(rows-visibleRows-1)/rows);
+			int newPos = (int)(percent * (rows-visibleRows));
+			
 			if(newPos < 0)
 				newPos = 0;
 			else if(newPos > rows-visibleRows)

@@ -5,7 +5,7 @@ import menusystem2.*;
 
 public class MakeMenu
 {
-	public static boolean useTestMenu = true;
+	public static boolean useTestMenu = false;
 	
 	public static Menu sidebar = new Menu();
 	public static Button cleanButton = new Button();
