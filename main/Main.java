@@ -10,6 +10,7 @@ package main;
  */
 
 import java.applet.*;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -24,7 +25,7 @@ public class Main extends Applet implements Runnable
 {
 	private static final long serialVersionUID = 8864158495101925325L;				//because stupid warnings
 	
-	public static int pixelSize = 1;			//change the scale the pixels are multiplied by when drawn to
+	public static int pixelSize = 1;		//change the scale the pixels are multiplied by when drawn to
 	
 	public static int tickTime = 50;		//milliseconds between each tick
 	public static boolean isRunning = false;
@@ -41,7 +42,8 @@ public class Main extends Applet implements Runnable
 	public static Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);	//"pixels" in drawable area
 	
 	public static Point mse = new Point(0, 0);
-	
+	public static Point prevmse = new Point(0, 0);
+	public static boolean isDragging = false;
 	public static boolean isMouseLeft = false;
 	public static boolean isMouseMiddle = false;
 	public static boolean isMouseRight = false;
@@ -67,8 +69,6 @@ public class Main extends Applet implements Runnable
 		//defining objects
 		menu = new Menu(0, 0, pixel.width, pixel.height);
 		
-		
-		MakeMenu.useTestMenu = false;
 		if(MakeMenu.useTestMenu)
 		{
 			menu = MakeMenu.makeTestMenu(menu);
@@ -118,6 +118,16 @@ public class Main extends Applet implements Runnable
 		
 		//call render methods here
 		menu.render(g);
+		
+		//testing that dragging works
+//		if(Main.debugMode)
+//		{
+//			if(isDragging)
+//			{
+//				g.setColor(Color.green);
+//				g.drawLine(prevmse.x, prevmse.y, mse.x, mse.y);
+//			}
+//		}
 		
 //		g.setColor(Color.red);
 //		g.drawLine(pixel.width/2, 0, pixel.width/2, pixel.height);

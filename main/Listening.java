@@ -7,9 +7,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.util.ArrayList;
-
-import menusystem2.*;
 
 public class Listening implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener
 {
@@ -97,6 +94,19 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	{
 		Main.mse.setLocation(e.getX()/Main.pixelSize, e.getY()/Main.pixelSize);
 		
+		if(toggle && e.getButton() == MouseEvent.BUTTON1 && !Main.isMouseLeft)	//starting a drag
+		{
+			Main.isDragging = true;
+			Main.prevmse.setLocation(e.getX()/Main.pixelSize, e.getY()/Main.pixelSize);
+			Main.menu.startingDrag(Main.prevmse);
+		}
+		else if(!toggle && e.getButton() == MouseEvent.BUTTON1 && Main.isMouseLeft)	//ending a drag
+		{
+			Main.isDragging = false;
+			Main.menu.endingDrag(Main.prevmse);
+//			Main.prevmse.setLocation(0, 0);		//not really necessary
+		}
+		
 		if(e.getButton() == MouseEvent.BUTTON1)			//left click
 			Main.isMouseLeft = toggle;
 		else if(e.getButton() == MouseEvent.BUTTON2)	//middle click
@@ -119,13 +129,13 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	
 	public void mouseMoved(MouseEvent e)
 	{
-		Main.mse.setLocation(e.getX(),e.getY());
+		Main.mse.setLocation(e.getX(), e.getY());
 		
-		ArrayList<Menu> allMenus = Main.menu.getAllMenus();
-		for(int i = 0; i < allMenus.size(); i++)
-		{
-			allMenus.get(i).hover = false;
-		}
+//		ArrayList<Menu> allMenus = Main.menu.getAllMenus();
+//		for(int i = 0; i < allMenus.size(); i++)
+//		{
+//			allMenus.get(i).hover = false;
+//		}
 	}
 
 	public void mouseWheelMoved(MouseWheelEvent e)

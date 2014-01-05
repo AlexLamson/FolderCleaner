@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
+import main.Main;
+
 public class Scroller extends Menu
 {
 	public int pos = 0;	//the currently viewed row
@@ -11,6 +13,9 @@ public class Scroller extends Menu
 	
 	public static final int minScrollSize = 10;		//minimum width of the scroll bar
 	public int scrollSize = 0;						//width of the scroll bar
+	
+	public int initScrollPos = 0;
+	public boolean isDraggingScrollbar = false;
 	
 	public Scroller()
 	{
@@ -92,12 +97,62 @@ public class Scroller extends Menu
 	
 	public void changePos(int direction)
 	{
+		if(pos + direction < 0)
+			direction = -pos;
+		else if(pos + direction > rows-visibleRows)
+			direction = rows-visibleRows-pos;
+		
 		pos += direction;
 		for(int i = 0; i < menus.size(); i++)
 		{
 			double deltaY = 1.0 * -direction * (this.height - yPadding) * menus.get(i).ySize / this.visibleRows;
-//			menus.get(i).y += deltaY;
 			menus.get(i).move(0, deltaY);
+		}
+	}
+	
+	public void setPos(int pos)
+	{
+		changePos(pos - this.pos);
+	}
+	
+	public void setDrag(boolean isDragging)
+	{
+		super.setDrag(isDragging);
+		
+		if(isDragging)
+		{
+			if(Main.prevmse.x >= (int)x+width-scrollSize && Main.prevmse.x <= (int)x+width)
+			{
+				if(Main.prevmse.y >= (int)y+(int)(1.0*height*pos/rows) && Main.prevmse.y <= (int)(y + 1.0*height*pos/rows + 1.0*height*visibleRows/rows))
+				{
+					isDraggingScrollbar = true;
+					initScrollPos = pos;
+				}
+			}
+		}
+		else
+		{
+			isDraggingScrollbar = false;
+			initScrollPos = 0;
+		}
+	}
+	
+	public void tick()
+	{
+		super.tick();
+		
+		if(isDraggingScrollbar)
+		{
+			double deltaY = Main.mse.y - Main.prevmse.y;
+			double oneScroll = (int)(1.0*height/rows);
+			
+			int newPos = (int)(deltaY / oneScroll);
+			if(newPos < 0)
+				newPos = 0;
+			else if(newPos > rows-visibleRows)
+				newPos = rows-visibleRows;
+			
+			setPos(newPos);
 		}
 	}
 	

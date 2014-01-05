@@ -21,23 +21,15 @@ public class Match
 		blacklistUsed = blacklist;
 	}
 	
-	public Match(String fileStr, File blacklist, String matchedTerm, boolean isBlacklisted)
-	{
-		this.actualFile = new File(fileStr);
-		getLinkedFile();
-		this.matchedTerm = matchedTerm;
-		this.isBlacklisted = isBlacklisted;
-		blacklistUsed = blacklist;
-	}
-	
 	public void getLinkedFile()
 	{
-		String str = StringParser.parseShortcut(actualFile.getAbsolutePath());
+		String str = actualFile.getAbsolutePath();
+		
+		if(actualFile.exists())
+			str = StringParser.parseShortcut(actualFile.getAbsolutePath());
 		
 		if(!str.equals(actualFile.getAbsolutePath()))
-		{
-			System.out.println(linkedFile.getAbsolutePath());
-		}
+			System.out.println("actual = linked: "+linkedFile.getAbsolutePath());
 		
 		linkedFile = new File(str);
 	}
@@ -52,7 +44,7 @@ public class Match
 		String spaces = "";
 		for(int i = 0; i < maxChars-matchedTerm.length()+1; i++)
 			spaces += ' ';
-		return matchedTerm+spaces+"- "+linkedFile.getAbsolutePath();
+		return "\'"+matchedTerm+"\'"+spaces+"- "+linkedFile.getAbsolutePath();
 	}
 	
 	public String toString()

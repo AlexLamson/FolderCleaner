@@ -32,6 +32,7 @@ public class Menu
 	
 	public boolean pressed1 = false, pressed2 = false, pressed3 = false;	//true if mouse is in menu and button is pressed 
 	public boolean hover = false;
+	public boolean isDragging = false;		//will be true if a drag was started in this menu
 	
 	//a placeholder menu
 	public Menu()
@@ -316,6 +317,55 @@ public class Menu
 				return m;
 		}
 		return new Menu();	//returns menu with boolean placeholder set to true
+	}
+	
+	//return most deeply nested Scroller at point
+	public Menu getScrollerSubMenu(Point p)
+	{
+		ArrayList<Menu> submenus = new ArrayList<Menu>();
+		
+		Menu firstMenu = this.getMenu(p);
+		if(!firstMenu.placeholder)
+		{
+			submenus.add(firstMenu);
+			
+			while(true)
+			{
+				Menu nextMenu = submenus.get(0).getMenu(p);
+				if(nextMenu.placeholder)
+					break;
+				submenus.add(0, nextMenu);		//add the next submenu to the front of the list
+			}
+		}
+		
+		//if the menus position is closer to 0, it is more deeply nested
+		
+		Menu nestedScroller = this;		//if there aren't any Scroller submenus, use this menu
+		for(int i = 0; i < submenus.size(); i++)
+		{
+			if(submenus.get(i) instanceof Scroller)
+			{
+				nestedScroller = submenus.get(i);
+				break;
+			}
+		}
+		
+		return nestedScroller;
+	}
+	
+	public void startingDrag(Point p)
+	{
+		getScrollerSubMenu(p).setDrag(true);
+	}
+	
+	public void endingDrag(Point p)
+	{
+		getScrollerSubMenu(p).setDrag(false);
+	}
+	
+	public void setDrag(boolean isDragging)
+	{
+		this.isDragging = isDragging;
 	}
 	
 	//called when menu is left clicked or un-left clicked

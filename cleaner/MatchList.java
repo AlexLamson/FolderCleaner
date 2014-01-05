@@ -56,35 +56,39 @@ public class MatchList
 			return false;
 		for(int i = 0; i < files.size(); i++)
 			for(String match : files.get(i).getUnrestrictedContents())
-				if(str.contains(match))
+				if(stringsMatch(str, match))
 					return true;
 		return false;
 	}
 	
-	//returns "" if no match, otherwise return the string that was matched
-	public Match getMatch(String str, boolean isBlacklisted)
+	public Match getMatch(File file, String str, boolean isBlacklisted)
 	{
 		String matchedTerm = "";
 		File blacklist = new File("null");
 		
-		if(!useMatchList)
-			matchedTerm = "";
-		else
+		if(useMatchList)
 		{
 			for(int i = 0; i < files.size(); i++)
-			{
 				for(String match : files.get(i).getUnrestrictedContents())
-				{
-					if(str.contains(match))
+					if(stringsMatch(str, match))
 					{
 						matchedTerm = new String(match);
 						blacklist = files.get(i).listPath;
 					}
-				}
-			}
 		}
 		
-		return new Match(str, blacklist, matchedTerm, isBlacklisted);
+		return new Match(file, blacklist, matchedTerm, isBlacklisted);
+	}
+	
+	//str is the string being checked for a match, match is the black/white-listed term 
+	public static boolean stringsMatch(String str, String match)
+	{
+		//leading whitespace = "^\\s"
+		//trailing whitespace = "\\s$"
+		
+		return str.contains(match) || 
+			((match.charAt(0) == ' ' || match.charAt(0) == '/') && str.startsWith(match.replaceFirst("^\\s", "/"))) || 
+			((match.charAt(match.length()-1) == ' ' || match.charAt(match.length()-1) == '.') && str.endsWith(match.replaceFirst("\\s$", ".")));
 	}
 	
 	public static void printFile(File path)

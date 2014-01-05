@@ -183,10 +183,10 @@ public class Button extends Menu
 		Color buttonColor = new Color(bgcolor.getRed(), bgcolor.getGreen(), bgcolor.getBlue());
 		if(changeColorWhenClicked)
 		{
-			if(hover && !pressed1)
-				buttonColor = ColorGen.changeColor(buttonColor, 50);
-			else if(pressed1)
+			if(pressed1)
 				buttonColor = ColorGen.changeColor(buttonColor, 100);
+//			else if(hover)
+//				buttonColor = ColorGen.changeColor(buttonColor, 50);
 		}
 		fillBackground(g, buttonColor);
 		

@@ -69,7 +69,7 @@ public class Lists
 			{
 				files.set(i, new File(StringParser.parseShortcut(files.get(i).getAbsolutePath())));
 				
-				Match match = getMatch(files.get(i).getAbsolutePath());
+				Match match = getMatch(files.get(i));
 				if(!match.isNull())			//if the file was matched
 					matches.add(match);		//add it to the output
 				
@@ -183,28 +183,30 @@ public class Lists
 				blacklist.hasMatch(StringParser.cleanString(str)) );
 	}
 	
-	public static Match getMatch(String str)
+	public static Match getMatch(File file)
 	{
-		Match whitelistFoldersMatch = whitelistFolders.getMatch(str, false);
+		String str = file.getAbsolutePath();
+		
+		Match whitelistFoldersMatch = whitelistFolders.getMatch(file, str, false);
 		if(whitelistFoldersMatch.matchedTerm.length() > 0)
 			return whitelistFoldersMatch;
 		
-		Match whitelistMatch = whitelist.getMatch(StringParser.cleanString(str), false);
+		Match whitelistMatch = whitelist.getMatch(file, StringParser.cleanString(str), false);
 		if(whitelistMatch.matchedTerm.length() > 0)
 			return whitelistMatch;
 		
-		Match extensionsMatch = extensions.getMatch(StringParser.cleanEString(str), true);
+		Match extensionsMatch = extensions.getMatch(file, StringParser.cleanEString(str), true);
 		if(extensionsMatch.matchedTerm.length() > 0)
 			return extensionsMatch;
 		
-		Match blacklistFoldersMatch = blacklistFolders.getMatch(str, true);
+		Match blacklistFoldersMatch = blacklistFolders.getMatch(file, str, true);
 		if(blacklistFoldersMatch.matchedTerm.length() > 0)
 			return blacklistFoldersMatch;
 		
-		Match blacklistMatch = blacklist.getMatch(StringParser.cleanString(str), true);
+		Match blacklistMatch = blacklist.getMatch(file, StringParser.cleanString(str), true);
 		if(blacklistMatch.matchedTerm.length() > 0)
 			return blacklistMatch;
 		
-		return new Match(str, new File("null"), "", false);
+		return new Match(file, new File("null"), "", false);
 	}
 }
