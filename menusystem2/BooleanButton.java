@@ -3,6 +3,8 @@ package menusystem2;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import main.Main;
+
 public class BooleanButton extends Button
 {
 	public Color bgColorTrue = Color.green;
@@ -77,10 +79,10 @@ public class BooleanButton extends Button
 	
 	public void clicked1(boolean beingPressed)
 	{
-		super.clicked1(beingPressed);
-		
-		if(!beingPressed && changeColorWhenClicked)
+		if(!beingPressed && changeColorWhenClicked && Main.menu.getSubMenu(Main.prevmse) == this)
 			changeState();
+		
+		super.clicked1(beingPressed);
 	}
 	
 	public void changeState()

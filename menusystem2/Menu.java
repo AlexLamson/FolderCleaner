@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.awt.Graphics;
 
 import main.ButtonChecker;
+import main.Main;
 
 public class Menu
 {
@@ -381,9 +382,7 @@ public class Menu
 		if(contains(p))
 		{
 			if(beingPressed != pressed1)
-			{
 				clicked1(beingPressed);
-			}
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press1(p, beingPressed);
 		}
@@ -408,9 +407,7 @@ public class Menu
 		if(contains(p))
 		{
 			if(beingPressed != pressed2)
-			{
 				clicked2(beingPressed);
-			}
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press2(p, beingPressed);
 		}
@@ -435,9 +432,7 @@ public class Menu
 		if(contains(p))
 		{
 			if(beingPressed != pressed3)
-			{
 				clicked3(beingPressed);
-			}
 			for(int i = 0; i < menus.size(); i++)
 				menus.get(i).press3(p, beingPressed);
 		}

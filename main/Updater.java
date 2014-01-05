@@ -79,6 +79,7 @@ public class Updater
 		for(int i = 0; i < cacheMatches.size(); i++)
 			matchMenus.add(cacheMatches.get(i).toMenu());
 		
+		MakeMenu.matchScroller.setPos(0);
 		MakeMenu.matchScroller.addMenus(matchMenus);
 	}
 	
