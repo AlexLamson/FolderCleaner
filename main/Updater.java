@@ -19,6 +19,7 @@ public class Updater
 	public static void startUp()
 	{
 		Lists.loadLists();
+		
 	}
 	
 	public static void setTotalFiles(int total)
@@ -101,5 +102,18 @@ public class Updater
 		}
 		
 		MakeMenu.listsScroller.addMenus(allListMenus);
+	}
+	
+	public static void addRecent()
+	{
+		ArrayList<Menu> allRecentMenus = new ArrayList<Menu>();
+		
+		for(Menu m : Lists.historyFolders.getMenus())
+			allRecentMenus.add(m);
+		
+		for(Menu m : Lists.cacheFolders.getMenus())
+			allRecentMenus.add(m);
+		
+		MakeMenu.folderScroller.addMenus(allRecentMenus);
 	}
 }

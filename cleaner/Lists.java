@@ -152,6 +152,7 @@ public class Lists
 //		Updater.allLists.add(cacheFolders);
 		
 		Updater.addLists();
+		Updater.addRecent();
 	}
 	
 	public static String getFileType(String str)

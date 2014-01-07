@@ -45,14 +45,14 @@ public class MakeMenu
 		
 		folderScroller = new Scroller(0, 4, 4, 2, true);
 		folderScroller.setVisibleRows(3);
-		folderScroller.setColsRows(8, 6);
+		folderScroller.setColsRows(1, 6);
 		sidebar.addMenu(folderScroller);
-		folderScroller.fillMenu();
+//		folderScroller.fillMenu();
 		
 		listsScroller = new Scroller(0, 6, 4, 2, true);
 		listsScroller.setVisibleRows(3);
 		listsScroller.setColsRows(2, 6);
-		listsScroller.setPadding(5, 5);
+		listsScroller.setPadding(2, 2);
 		sidebar.addMenu(listsScroller);
 //		listsScroller.fillMenu();
 		
