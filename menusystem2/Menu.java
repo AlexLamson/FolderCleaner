@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.awt.Graphics;
 
 import main.ButtonChecker;
-import main.Main;
 
 public class Menu
 {

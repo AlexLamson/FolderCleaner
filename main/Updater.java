@@ -80,11 +80,12 @@ public class Updater
 		
 		MakeMenu.matchScroller.setPos(0);
 		MakeMenu.matchScroller.addMenus(matchMenus);
+		MakeMenu.matchScroller.sizeSubMenus();
 	}
 	
 	public static void removeLastNMinutes(int n)
 	{
-		
+//		SaveNLoad.getLastAccessTime(file)
 	}
 
 	public static void addLists()
