@@ -142,15 +142,6 @@ public class Lists
 				System.err.println("Unknown type \"" + name.substring(0, name.length()) +"\"" );
 		}
 		
-		Updater.allLists = new ArrayList<MatchList>();
-		Updater.allLists.add(blacklist);
-		Updater.allLists.add(whitelist);
-		Updater.allLists.add(extensions);
-		Updater.allLists.add(whitelistFolders);
-		Updater.allLists.add(blacklistFolders);
-//		Updater.allLists.add(historyFolders);
-//		Updater.allLists.add(cacheFolders);
-		
 		Updater.addLists();
 		Updater.addRecent();
 	}

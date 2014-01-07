@@ -46,6 +46,8 @@ public class MakeMenu
 		folderScroller = new Scroller(0, 4, 4, 2, true);
 		folderScroller.setVisibleRows(3);
 		folderScroller.setColsRows(1, 6);
+		folderScroller.setPadding(2, 2);
+		folderScroller.bgcolor = new Color(0, 170, 255);
 		sidebar.addMenu(folderScroller);
 //		folderScroller.fillMenu();
 		
@@ -53,6 +55,7 @@ public class MakeMenu
 		listsScroller.setVisibleRows(3);
 		listsScroller.setColsRows(2, 6);
 		listsScroller.setPadding(2, 2);
+		listsScroller.bgcolor = new Color(0, 170, 255);
 		sidebar.addMenu(listsScroller);
 //		listsScroller.fillMenu();
 		

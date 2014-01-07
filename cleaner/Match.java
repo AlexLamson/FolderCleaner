@@ -10,7 +10,7 @@ public class Match
 	public File linkedFile;		//file being linked to
 	public String matchedTerm;				//black/white-listed term (if length == 1 then placeholder match)
 	public boolean isBlacklisted = false;	//if false then whitelisted
-	public File blacklistUsed;
+	public File blacklistUsed;				//the black/whitelist used to make this match
 	
 	public Match(File file, File blacklist, String matchedTerm, boolean isBlacklisted)
 	{
@@ -44,7 +44,22 @@ public class Match
 		String spaces = "";
 		for(int i = 0; i < maxChars-matchedTerm.length()+1; i++)
 			spaces += ' ';
-		return "\'"+matchedTerm+"\'"+spaces+"- "+linkedFile.getAbsolutePath();
+		
+		String absPath = linkedFile.getAbsolutePath();
+		if(absPath.length() <= 7)
+			return blacklistUsed.getName()+" \'"+matchedTerm+"\'";
+		
+//		blacklistUsed.getName();
+//		linkedFile.getAbsolutePath();
+		
+//		String str = blacklistUsed.getName()+" \'"+matchedTerm+"\'"+spaces+"- "+linkedFile.getAbsolutePath();
+		String str = "\'"+matchedTerm+"\'"+spaces+"- "+linkedFile.getAbsolutePath();
+//		String str = linkedFile.getAbsolutePath();
+//		String str = absPath.length()+"";
+//		String str = absPath.substring(0, 8);
+//		String str = absPath.substring(absPath.length()-8, absPath.length());
+//		String str = absPath.substring(0, absPath.length());
+		return str;
 	}
 	
 	public String toString()

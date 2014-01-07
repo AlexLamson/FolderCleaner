@@ -8,8 +8,6 @@ import menusystem2.*;
 //very static class to hold the current progress of the scan
 public class Updater
 {
-	public static ArrayList<MatchList> allLists = new ArrayList<MatchList>();
-	
 	public static ArrayList<Match> cacheMatches = new ArrayList<Match>();
 	public static ArrayList<Match> historyMatches = new ArrayList<Match>();
 	
@@ -92,16 +90,23 @@ public class Updater
 	public static void addLists()
 	{
 		ArrayList<Menu> allListMenus = new ArrayList<Menu>();
-		for(int i = 0; i < allLists.size(); i++)
-		{
-			ArrayList<Menu> matchListMenus = allLists.get(i).getMenus();
-			for(int j = 0; j < matchListMenus.size(); j++)
-			{
-				allListMenus.add(matchListMenus.get(j));
-			}
-		}
+		
+		getMenusFromList(Lists.blacklist, allListMenus);
+		getMenusFromList(Lists.whitelist, allListMenus);
+		getMenusFromList(Lists.extensions, allListMenus);
+		getMenusFromList(Lists.whitelistFolders, allListMenus);
+		getMenusFromList(Lists.blacklistFolders, allListMenus);
 		
 		MakeMenu.listsScroller.addMenus(allListMenus);
+	}
+	
+	//add menus from list to allListMenus, then return allListMenus
+	public static ArrayList<Menu> getMenusFromList(MatchList list, ArrayList<Menu> allListMenus)
+	{
+		ArrayList<Menu> matchListMenus = list.getMenus();
+		for(int j = 0; j < matchListMenus.size(); j++)
+			allListMenus.add(matchListMenus.get(j));
+		return allListMenus;
 	}
 	
 	public static void addRecent()
