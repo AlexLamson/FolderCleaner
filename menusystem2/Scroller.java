@@ -177,14 +177,14 @@ public class Scroller extends Menu
 		
 		//draw the scrollbar
 		g.setColor(ColorGen.changeColor(bgcolor, 50));
-		g.fillRect((int)x+width-scrollSize, (int)y, scrollSize, height);
+		g.fillRect((int)x+width-scrollSize, (int)y, scrollSize, height-1);
 		g.setColor(ColorGen.changeColor(bgcolor, -20));
-		g.fillRect((int)x+width-scrollSize, (int)y+(int)(1.0*height*pos/rows), scrollSize, (int)(1.0*height*visibleRows/rows));
+		g.fillRect((int)x+width-scrollSize, (int)y+(int)(1.0*height*pos/rows), scrollSize, (int)(1.0*height*visibleRows/rows)-1);
 		
 		//draw black edging on the scrollbar
 		g.setColor(Color.black);
-		g.drawLine((int)x+width-scrollSize, (int)y, (int)x+width-scrollSize, (int)y+height);
-		g.drawRect((int)x+width-scrollSize, (int)y+(int)(1.0*height*pos/rows), scrollSize, (int)(1.0*height*visibleRows/rows));
+		g.drawRect((int)x+width-scrollSize, (int)y, scrollSize, height-1);
+		g.drawRect((int)x+width-scrollSize, (int)y+(int)(1.0*height*pos/rows), scrollSize, (int)(1.0*height*visibleRows/rows)-1);
 	}
 	
 	public String toString()

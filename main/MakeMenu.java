@@ -68,7 +68,7 @@ public class MakeMenu
 		
 		matchScroller = new Scroller(0, 0, 10, 9, true);
 		matchScroller.bgcolor = new Color(0, 109, 193);
-		matchScroller.setPadding(0, 10);
+		matchScroller.setPadding(0, 4);
 		matchScroller.setColsRows(10, 20);
 		matchScroller.setVisibleRows(10);
 		matchbar.addMenu(matchScroller);

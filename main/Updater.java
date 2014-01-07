@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import cleaner.*;
@@ -65,14 +66,18 @@ public class Updater
 		ArrayList<Menu> matchMenus = new ArrayList<Menu>();
 		
 		Button historyMenu = new Button(10, 1, true, "History Matches");
+		historyMenu.useInvertedText = false;
 		historyMenu.changeColorWhenClicked = false;
+		historyMenu.setColor(new Color(0, 75, 136));
 		matchMenus.add(historyMenu);
 		
 		for(int i = 0; i < historyMatches.size(); i++)
 			matchMenus.add(historyMatches.get(i).toMenu());
 		
 		Button cacheMenu = new Button(10, 1, true, "Cache Matches");
+		cacheMenu.useInvertedText = false;
 		cacheMenu.changeColorWhenClicked = false;
+		cacheMenu.setColor(new Color(0, 75, 136));
 		matchMenus.add(cacheMenu);
 		
 		for(int i = 0; i < cacheMatches.size(); i++)

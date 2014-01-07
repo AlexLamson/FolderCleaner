@@ -23,7 +23,7 @@ public class Menu
 	
 	public double x = 0, y = 0;
 	public int width = 0, height = 0;			//dimensions of menu in pixels
-	public int xPadding = 10, yPadding = 10;	//extra pixels between each row and column
+	public int xPadding = 12, yPadding = 12;	//extra pixels between each row and column
 	
 	public int rows = 1, cols = 1;				//number of rows and columns in menu
 	public int xPos = 0, yPos = 0, xSize = 1, ySize = 1;	//dimension in "button units"
@@ -197,8 +197,8 @@ public class Menu
 	
 	public void sizeMenu(Menu menu)
 	{
-		menu.x = this.x + (int)((this.width - xPadding)  * (1.0 * menu.xPos  / this.cols));
-		menu.y = this.y + (int)((this.height - yPadding) * (1.0 * menu.yPos  / this.rows));
+		menu.x = this.x + (this.width - xPadding)  * (1.0 * menu.xPos  / this.cols);
+		menu.y = this.y + (this.height - yPadding) * (1.0 * menu.yPos  / this.rows);
 		menu.width =      (int)((this.width - xPadding)  * (1.0 * menu.xSize / this.cols));
 		menu.height =     (int)((this.height - yPadding) * (1.0 * menu.ySize / this.rows));
 		menu.unsized = false;
@@ -214,8 +214,9 @@ public class Menu
 			{
 				sizeMenu(menus.get(i));
 				
-				menus.get(i).x += xPadding/2.0 + 1.0;			//note getting some sort of truncation error here
-				menus.get(i).y += yPadding/2.0 + 1.0;			//the x is off by 1 or -1 sometimes
+				menus.get(i).x += xPadding/2.0 + 0.0;	//off by a pixel sometimes
+				menus.get(i).y += yPadding/2.0 + 0.0;
+				menus.get(i).width += 1;
 			}
 				
 		}

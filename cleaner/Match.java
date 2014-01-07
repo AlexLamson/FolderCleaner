@@ -1,5 +1,6 @@
 package cleaner;
 
+import java.awt.Color;
 import java.io.File;
 
 import menusystem2.*;
@@ -87,7 +88,7 @@ public class Match
 		menu.addMenu(matchButton);
 		
 		Button pathButton = new Button(5, 0, 15, 1, true, linkedFile.getAbsolutePath());
-//		pathButton.setColor(new Color(0, 109, 193));
+		pathButton.setColor(new Color(0, 170, 255));
 		pathButton.useSetFontSize = true;
 		pathButton.fontSize = 18;
 		pathButton.textAlignment = -1;

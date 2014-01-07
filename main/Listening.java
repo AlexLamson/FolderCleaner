@@ -129,7 +129,7 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	
 	public void mouseMoved(MouseEvent e)
 	{
-		Main.mse.setLocation(e.getX(), e.getY());
+		Main.mse.setLocation(e.getX()/Main.pixelSize, e.getY()/Main.pixelSize);
 		
 //		ArrayList<Menu> allMenus = Main.menu.getAllMenus();
 //		for(int i = 0; i < allMenus.size(); i++)
