@@ -71,7 +71,8 @@ public class Loader extends Menu
 		
 		if(test)
 		{
-			currentVal++;
+			currentVal += NumGen.random(0, 2);
+			
 			if(currentVal > maxVal)
 				currentVal = maxVal;
 			else if(currentVal < 0)

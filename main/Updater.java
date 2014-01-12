@@ -28,8 +28,8 @@ public class Updater
 	
 	public static void incrementScannedFiles()
 	{
-		totalFiles++;
-		MakeMenu.loadingbar.setCurrent(totalFiles);
+		scannedFiles++;
+		MakeMenu.loadingbar.setCurrent(scannedFiles);
 	}
 	
 	public static void clean()
