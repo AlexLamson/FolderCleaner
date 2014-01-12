@@ -10,7 +10,7 @@ public class StringTime
 //		System.out.println(str);	//"1 year 2 months 3 days 4 hours 5 minutes 6.7 seconds "
 		
 		if(seconds > 68*365*24*60*60)
-			return "A lot of time";
+			return "Unknown time";
 		
 		int year = 0, month = 0, day = 0, hour = 0, min = 0;
 		double sec = 0;
