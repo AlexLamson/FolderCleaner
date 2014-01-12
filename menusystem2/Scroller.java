@@ -3,6 +3,7 @@ package menusystem2;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
 
 import main.Main;
 
@@ -136,6 +137,18 @@ public class Scroller extends Menu
 			isDraggingScrollbar = false;
 			initScrollPos = 0;
 		}
+	}
+	
+	//adds an ArrayList of Menus 
+	public void addMenus(ArrayList<Menu> menus)
+	{
+		if(menus.get(0).unpositioned)
+		{
+			rows = (int)Math.ceil( 1.0 * menus.size() / (cols / menus.get(0).xSize) );
+			pos = 0;
+		}
+		
+		super.addMenus(menus);
 	}
 	
 	public void tick()

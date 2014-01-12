@@ -18,7 +18,9 @@ public class MatchList
 	
 	public void addFile(File path, int textChange)
 	{
-		files.add(new ListFile(path, textChange));
+		ListFile lf = new ListFile(path, textChange);
+		files.add(lf);
+		Lists.allLists.add(lf);
 //		printFile(path);
 	}
 	

@@ -29,6 +29,8 @@ public class Lists
 	public static MatchList cacheFolders = new MatchList();		//contains copies of recent files (files here will be checked)
 	public static MatchList historyFolders = new MatchList();	//contains links to recent files (files here will be checked)
 	
+	public static ArrayList<ListFile> allLists = new ArrayList<ListFile>();
+	
 	public static boolean saveToLog = true;
 	public static boolean deleteMatchedFiles = false;
 	

@@ -7,9 +7,19 @@ import menusystem2.*;
 
 public class ListFile
 {
-	protected File listPath;	//path to file
-	protected ArrayList<String> listContents = new ArrayList<String>();	//contents of file
-	protected Boolean useList = new Boolean();	//boolean whether to use file
+	public File listPath;	//path to file
+	public ArrayList<String> listContents = new ArrayList<String>();	//contents of file
+	public Boolean useList = new Boolean();	//boolean whether to use file
+	
+	public long ID = 0;
+	public boolean IDWasSet = false;
+	
+	public boolean placeholder = false;
+	
+	public ListFile()
+	{
+		placeholder = true;
+	}
 	
 //	for the int textChange:
 //	0 = do nothing
@@ -102,10 +112,22 @@ public class ListFile
 
 	public Menu toMenu()
 	{
-		BooleanButton bb = new BooleanButton(1, 1, true, listPath.getName());
-		bb.useSetFontSize = true;
-		bb.fontSize = 16;
-		bb.useInvertedText = false;
-		return bb;
+		if(!IDWasSet)
+		{
+			//Make the button
+			BooleanButton bb = new BooleanButton(1, 1, true, listPath.getName());
+			bb.useSetFontSize = true;
+			bb.fontSize = 16;
+			bb.useInvertedText = false;
+			
+			//Set the ID
+			ID = bb.ID;
+			IDWasSet = true;
+			
+			return bb;
+		}
+		
+		//If the menu was already created, return that one instead of making another
+		return Menu.getMenuFromID(ID);
 	}
 }

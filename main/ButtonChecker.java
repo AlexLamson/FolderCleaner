@@ -2,6 +2,8 @@ package main;
 
 import java.util.ArrayList;
 import cleaner.Boolean;
+import cleaner.ListFile;
+import cleaner.Match;
 import menusystem2.*;
 
 public class ButtonChecker
@@ -14,6 +16,22 @@ public class ButtonChecker
 		if(!m.pressed1)
 		{
 //			System.out.println("wow, you pressed "+m.ID+"!");
+			
+			if(m instanceof BooleanButton)
+			{
+				if(((BooleanButton)m).strTrue.charAt(0) == 'O' && ((BooleanButton)m).strFalse.charAt(0) == 'X')
+				{
+					Match match = Updater.getMatchFromID(m.ID);
+					if(!match.isNull())
+						match.shouldDelete = !match.shouldDelete;
+				}
+				else
+				{
+					ListFile listFile = Updater.getListFromID(m.ID);
+					if(!listFile.placeholder)
+						listFile.useList.toggle();
+				}
+			}
 			
 			if(m instanceof Button)
 			{

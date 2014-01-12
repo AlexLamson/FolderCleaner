@@ -1,12 +1,11 @@
 package main;
 /*
- * Alex's awesome ______ program!
+ * Folder Cleaner:
+ * Remove links or other files with blacklists and whitelists
  * 
  * Controls:
- * left click	- ______
- * middle click	- ______
- * right click	- ______
- * space		- ______
+ * Left Click - everything
+ * Scroll - scroll
  */
 
 import java.applet.*;

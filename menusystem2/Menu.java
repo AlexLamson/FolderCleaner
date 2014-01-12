@@ -13,6 +13,8 @@ public class Menu
 	public static long maxID = 0;
 	public long ID = -1;			//id of the menu (use negative numbers for specialized buttons)
 	
+	public static ArrayList<Menu> allMenus = new ArrayList<>();	//each Menu's ID == Menu's position in this list
+	
 	public static int indentation = 0;		//used in the printMenus method
 	
 	public boolean placeholder = false;		//true = should not be considered a Menu to be viewed
@@ -37,6 +39,7 @@ public class Menu
 	//a placeholder menu
 	public Menu()
 	{
+		assignID();
 		placeholder = true;
 		unsized = true;
 		unpositioned = true;
@@ -77,6 +80,7 @@ public class Menu
 		ID = maxID;
 		maxID++;
 		ButtonChecker.addID();
+		allMenus.add(this);
 	}
 	
 	public void setPadding(int xPadding, int yPadding)
@@ -145,6 +149,8 @@ public class Menu
 	//adds an ArrayList of Menus 
 	public void addMenus(ArrayList<Menu> menus)
 	{
+		this.menus.clear();	//NOTE: could improve this later
+		
 		boolean unpositioned = menus.get(0).unpositioned;
 		
 		if(!unpositioned)
@@ -154,11 +160,6 @@ public class Menu
 		}
 		else
 		{
-			if(this instanceof Scroller)			//increase (or decrease) number of rows if its a Scroller
-			{
-				rows = (int)Math.ceil( 1.0 * menus.size() / (cols / menus.get(0).xSize) );
-			}
-			
 			int i = 0;
 			for(int y = 0; y < rows; y+=menus.get(0).ySize)
 			{
@@ -457,6 +458,13 @@ public class Menu
 	{
 		y += deltaY;
 		sizeSubMenus();
+	}
+	
+	public static Menu getMenuFromID(long ID)
+	{
+		if(ID >= 0 && ID < allMenus.size())
+			allMenus.get((int)ID);
+		return new Menu();	//return a placeholder Menu
 	}
 	
 	public void printMenus()

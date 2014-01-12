@@ -29,4 +29,9 @@ public class Boolean
 	{
 		bool = false;
 	}
+	
+	public void toggle()
+	{
+		bool = !bool;
+	}
 }

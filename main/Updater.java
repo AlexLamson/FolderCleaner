@@ -18,7 +18,6 @@ public class Updater
 	public static void startUp()
 	{
 		Lists.loadLists();
-		
 	}
 	
 	public static void setTotalFiles(int total)
@@ -42,8 +41,9 @@ public class Updater
 	
 	public static void scan()
 	{
-		System.out.println("Scanning...");
+		System.out.print("Scanning...");
 		runScan();
+		System.out.println("Scan complete.");
 	}
 	
 	private static void runScan()
@@ -51,7 +51,7 @@ public class Updater
 //		Lists.loadLists();
 		historyMatches = Lists.getMatches(Lists.historyFolders, true);
 		cacheMatches = Lists.getMatches(Lists.cacheFolders, true);
-
+		
 		Updater.finishScan();
 		
 //		for(Match m : historyMatches)
@@ -126,5 +126,27 @@ public class Updater
 			allRecentMenus.add(m);
 		
 		MakeMenu.folderScroller.addMenus(allRecentMenus);
+	}
+	
+	public static ListFile getListFromID(long ID)
+	{
+		for(int i = 0; i < Lists.allLists.size(); i++)
+			if(Lists.allLists.get(i).ID == ID)
+				return Lists.allLists.get(i);
+		
+		return new ListFile();
+	}
+	
+	public static Match getMatchFromID(long ID)
+	{
+		for(int i = 0; i < historyMatches.size(); i++)
+			if(historyMatches.get(i).ID == ID)
+				return historyMatches.get(i);
+		
+		for(int i = 0; i < cacheMatches.size(); i++)
+			if(cacheMatches.get(i).ID == ID)
+				return cacheMatches.get(i);
+		
+		return new Match();
 	}
 }
