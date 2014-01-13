@@ -119,6 +119,13 @@ public class Lists
 	//check all the files in the lists directory, and add them to their corresponding MatchLists
 	public static void loadLists()
 	{
+		if(!listsDir.exists())
+		{
+			System.err.println("Lists folder not found!");
+//			System.exit(0);
+			return;
+		}
+		
 		ArrayList<File> files = SaveNLoad.getFilesRecur(listsDir);
 		for(File file : files)
 		{
