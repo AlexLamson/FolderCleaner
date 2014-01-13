@@ -12,8 +12,10 @@ public class Button extends Menu
 	
 	public boolean useInvertedText = true;	//if false, use textColor
 	public Color textColor =  Color.black;
-	public boolean useSetFontSize = false;
-	public int fontSize = 18;
+	
+	public boolean forceFontSize = false;
+	public boolean preferFontSize = false;
+	public int fontSize = 18, minFontSize = 2, maxFontSize = 72;
 	
 	public int textAlignment = 0;
 	
@@ -84,21 +86,18 @@ public class Button extends Menu
 		return false;
 	}
 	
-	public String getString(Graphics g, String str)
+	public String getString(Graphics g, String str, int fontSize)
 	{
-		if(useSetFontSize)
+		Font f = new Font("Verdana", Font.PLAIN, fontSize);
+		
+		if(!fontFitsInButton(g, f, str))	//if the text doesn't already fit
 		{
-			Font f = new Font("Verdana", Font.PLAIN, fontSize);
-			
-			if(!fontFitsInButton(g, f, str))	//if the text doesn't already fit
+			for(int i = str.length()/2; i > 0; i--)	//keep shortening until it fits
 			{
-				for(int i = str.length()/2; i > 0; i--)	//keep shortening until it fits
-				{
-					String newStr = str.substring(0, i)+"(...)"+str.substring(str.length()-i);
-					
-					if(fontFitsInButton(g, f, newStr))
-						return newStr;
-				}
+				String newStr = str.substring(0, i)+"(...)"+str.substring(str.length()-i);
+				
+				if(fontFitsInButton(g, f, newStr))
+					return newStr;
 			}
 		}
 		
@@ -107,34 +106,37 @@ public class Button extends Menu
 	
 	public int getFontSize(Graphics g)
 	{
+		if(forceFontSize)
+			return fontSize;
+		
 		int fsize = fontSize;
 		
-		if(!useSetFontSize)
+		int increment = 1;
+		for(int i = 1+minFontSize; i < maxFontSize+1; i+=increment)		//grow font until it doesn't fit
 		{
-			int increment = 1;
-			for(int i = 0; i < 72+1; i+=increment)
+			Font f = new Font("Verdana", Font.PLAIN, i);
+			fsize = i-increment;
+			
+			if(!fontFitsInButton(g, f, str) || (preferFontSize && fsize >= fontSize))	//or it reaches set limit
+				break;
+			
+			if(!fontFitsInButton(g, f, str))
+				break;
+			
+			switch(i)
 			{
-				Font f = new Font("Verdana", Font.PLAIN, i);
-				fsize = i-increment;
-				
-				if(!fontFitsInButton(g, f, str))
-					break;
-				
-				switch(fsize)
-				{
-				case 12:
-					increment = 2;
-					break;
-				case 28:
-					increment = 8;
-					break;
-				case 36:
-					increment = 12;
-					break;
-				case 48:
-					increment = 24;
-					break;
-				}
+			case 12:
+				increment = 2;
+				break;
+			case 28:
+				increment = 8;
+				break;
+			case 36:
+				increment = 12;
+				break;
+			case 48:
+				increment = 24;
+				break;
 			}
 		}
 		
@@ -149,8 +151,9 @@ public class Button extends Menu
 	
 	public void drawText(Graphics g, String str, Color textColor, int alignment)
 	{
-		String newStr = getString(g, str);
-		Font f = new Font("Verdana", Font.PLAIN, getFontSize(g));
+		int fsize = getFontSize(g);
+		Font f = new Font("Verdana", Font.PLAIN, fsize);
+		String newStr = getString(g, str, fsize);
 		g.setFont(f);
 		FontMetrics fm = g.getFontMetrics(f);
 		Rectangle2D rect = fm.getStringBounds(newStr, g);

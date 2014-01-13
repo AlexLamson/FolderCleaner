@@ -3,7 +3,6 @@ package cleaner;
 import java.awt.Color;
 import java.io.File;
 
-import main.Updater;
 import menusystem2.*;
 
 public class Match
@@ -95,17 +94,18 @@ public class Match
 			menu.addMenu(shouldDeleteButton);
 			
 			BooleanButton matchButton = new BooleanButton(1, 0, 4, 1, true, matchedTerm);
-			matchButton.useSetFontSize = true;
+			matchButton.preferFontSize = true;
 			matchButton.fontSize = 12;
 			matchButton.useInvertedText = false;
 			matchButton.changeColorWhenClicked = false;
 			matchButton.boolState = !isBlacklisted;
 			menu.addMenu(matchButton);
 			
-			Button pathButton = new Button(5, 0, 15, 1, true, linkedFile.getAbsolutePath());
+			PathButton pathButton = new PathButton(5, 0, 15, 1, true, linkedFile.getAbsolutePath());
 			pathButton.setColor(new Color(0, 170, 255));
-			pathButton.useSetFontSize = true;
+			pathButton.preferFontSize = true;
 			pathButton.fontSize = 18;
+			pathButton.minFontSize = 9;
 			pathButton.textAlignment = -1;
 			pathButton.changeColorWhenClicked = false;
 			pathButton.useInvertedText = false;

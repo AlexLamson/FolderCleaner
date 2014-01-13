@@ -115,8 +115,8 @@ public class ListFile
 		if(!IDWasSet)
 		{
 			//Make the button
-			BooleanButton bb = new BooleanButton(1, 1, true, listPath.getName());
-			bb.useSetFontSize = true;
+			BooleanButton bb = new BooleanButton(1, 1, true, StringParser.cleanEStringRev(listPath.getName()) );
+			bb.preferFontSize = true;
 			bb.fontSize = 16;
 			bb.useInvertedText = false;
 			

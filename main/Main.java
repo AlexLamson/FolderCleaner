@@ -6,16 +6,17 @@ package main;
  * Controls:
  * Left Click - everything
  * Scroll - scroll
+ * Arrow keys - scroll
+ * 
  */
 
 import java.applet.*;
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
-
 import javax.swing.*;
 
 import menusystem2.*;
@@ -110,7 +111,7 @@ public class Main extends Applet implements Runnable
 	public void render()
 	{
 		Graphics g = screen.getGraphics();
-
+		
 //		g.setColor(new Color(0, 150, 255));
 //		g.fillRect(0, 0, pixel.width, pixel.height);
 		

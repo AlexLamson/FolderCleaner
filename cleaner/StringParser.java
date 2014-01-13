@@ -26,7 +26,7 @@ public class StringParser
 		return newStr;
 	}
 	
-	//change to lowercase & replace all special characters with spaces (except last period & first slash)
+	//change to lowercase & replace all special characters with spaces (except last period & last slash)
 	public static String cleanString(String str)
 	{
 //		replace special characters with spaces to avoid bad matches
@@ -81,6 +81,21 @@ public class StringParser
 			}
 		}
 		return str.substring(periodLoc).toLowerCase();
+	}
+	
+	//remove the extension from a filename string
+	public static String cleanEStringRev(String str)
+	{
+		int periodLoc = 0;
+		for(int i = str.length()-1; i > 0; i--)
+		{
+			if(str.charAt(i) == '.')
+			{
+				periodLoc = i;
+				break;
+			}
+		}
+		return str.substring(0, periodLoc);
 	}
 	
 	public static String parseShortcut(String str)

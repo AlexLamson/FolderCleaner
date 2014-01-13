@@ -28,32 +28,32 @@ public class MakeMenu
 		sidebar.setColsRows(4, 8);
 		menu.addMenu(sidebar);
 		
-		cleanButton = new Button(0, 0, 4, 2, true, "Clean");
+		cleanButton = new Button(0, 0, 4, 1, true, "Clean");
 		cleanButton.useInvertedText = false;
 		cleanButton.bgcolor = new Color(255, 77, 0);
 		sidebar.addMenu(cleanButton);
 		
-		scanButton = new Button(0, 2, 4, 1, true, "Scan");
+		scanButton = new Button(0, 1, 4, 1, true, "Scan");
 		scanButton.useInvertedText = false;
 		scanButton.bgcolor = new Color(136, 198, 0);
 		sidebar.addMenu(scanButton);
 		
-		clearHistoryButton = new ScrollerButton(0, 3, 4, 1, true, "Remove last "+ScrollerButton.prettyNumString);
+		clearHistoryButton = new ScrollerButton(0, 2, 4, 1, true, "Remove last "+ScrollerButton.prettyNumString);
 		clearHistoryButton.useInvertedText = false;
 		clearHistoryButton.bgcolor = new Color(0, 170, 255);
 		sidebar.addMenu(clearHistoryButton);
 		
-		folderScroller = new Scroller(0, 4, 4, 2, true);
-		folderScroller.setVisibleRows(3);
+		folderScroller = new Scroller(0, 3, 4, 1, true);
+		folderScroller.setVisibleRows(1);
 		folderScroller.setColsRows(1, 6);
 		folderScroller.setPadding(2, 2);
 		folderScroller.bgcolor = new Color(0, 170, 255);
 		sidebar.addMenu(folderScroller);
 //		folderScroller.fillMenu();
 		
-		listsScroller = new Scroller(0, 6, 4, 2, true);
-		listsScroller.setVisibleRows(3);
-		listsScroller.setColsRows(2, 6);
+		listsScroller = new Scroller(0, 4, 4, 4, true);
+		listsScroller.setVisibleRows(7);
+		listsScroller.setColsRows(1, 6);
 		listsScroller.setPadding(2, 2);
 		listsScroller.bgcolor = new Color(0, 170, 255);
 		sidebar.addMenu(listsScroller);
@@ -70,7 +70,7 @@ public class MakeMenu
 		matchScroller.bgcolor = new Color(0, 109, 193);
 		matchScroller.setPadding(0, 4);
 		matchScroller.setColsRows(10, 20);
-		matchScroller.setVisibleRows(10);
+		matchScroller.setVisibleRows(12);
 		matchbar.addMenu(matchScroller);
 //		matchScroller.fillMenu();
 		
@@ -90,7 +90,7 @@ public class MakeMenu
 		
 		Button btest = new Button(0, 0, 1, 1, true, "abcdefghijklmnopqrstuvwxyz0123456789");
 		btest.fontSize = 18;
-		btest.useSetFontSize = true;
+		btest.forceFontSize = true;
 		menu.addMenu(btest);
 		
 //		blue loader
@@ -112,7 +112,7 @@ public class MakeMenu
 //		menu.addMenu(loader2);
 		
 		Button b1 = new Button(4, 2, 3, 1, true, "This is a test button");
-		b1.useSetFontSize = true;
+		b1.preferFontSize = true;
 		b1.textAlignment = -1;
 		menu.addMenu(b1);
 		Button b2 = new Button(4, 3, 2, 1, true, "Test button");

@@ -19,6 +19,12 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 		case KeyEvent.VK_SPACE:
 			Main.menu.printMenus();
 			break;
+		case KeyEvent.VK_UP:
+			Main.menu.scroll(Main.mse, true);
+			break;
+		case KeyEvent.VK_DOWN:
+			Main.menu.scroll(Main.mse, false);
+			break;
 		}
 	}
 
