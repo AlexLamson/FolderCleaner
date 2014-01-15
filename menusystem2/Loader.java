@@ -137,9 +137,7 @@ public class Loader extends Menu
 			g.drawString(str, sX, sY);
 		}
 		
-		//pass to lower menus
-		for(int i = 0; i < menus.size(); i++)
-			menus.get(i).render(g);
+		renderSubMenus(g);
 	}
 	
 	public String toString()

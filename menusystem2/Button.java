@@ -188,8 +188,8 @@ public class Button extends Menu
 		{
 			if(pressed1)
 				buttonColor = ColorGen.changeColor(buttonColor, 100);
-//			else if(hover)
-//				buttonColor = ColorGen.changeColor(buttonColor, 50);
+			else if(hover)
+				buttonColor = ColorGen.changeColor(buttonColor, 50);
 		}
 		fillBackground(g, buttonColor);
 		
@@ -198,8 +198,7 @@ public class Button extends Menu
 			tColor = ColorGen.invertColor(bgcolor);
 		drawText(g, str, tColor, textAlignment);
 		
-		for(int i = 0; i < menus.size(); i++)
-			menus.get(i).render(g);
+		renderSubMenus(g);
 	}
 	
 	public String toString()

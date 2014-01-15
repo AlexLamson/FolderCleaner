@@ -17,6 +17,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import menusystem2.*;
@@ -127,7 +129,7 @@ public class Main extends Applet implements Runnable
 	{
 		isRunning = false;
 	}
-
+	
 	public void tick()
 	{
 //		if(frame.getWidth() != realSize.width || frame.getHeight() != realSize.height)
@@ -136,11 +138,17 @@ public class Main extends Applet implements Runnable
 		//call tick methods here
 		menu.tick();
 		
+		//get the menu that the cursor is over and set its hover to true
 		Menu hoverMenu = Main.menu.getSubMenu(Main.mse);
 		hoverMenu.hover = true;
 		
+		//set all other menu's hover to false
+		ArrayList<Menu> allMenus = Main.menu.getAllMenus();
+		for(int i = 0; i < allMenus.size(); i++)
+			if(!allMenus.get(i).equals(hoverMenu))
+				allMenus.get(i).hover = false;
 	}
-
+	
 	public void render()
 	{
 		Graphics g = screen.getGraphics();

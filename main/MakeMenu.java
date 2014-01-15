@@ -5,7 +5,7 @@ import menusystem2.*;
 
 public class MakeMenu
 {
-	public static boolean useTestMenu = false;
+	public static boolean useTestMenu = true;
 	
 	public static Menu sidebar = new Menu();
 	public static Button cleanButton = new Button();
@@ -91,7 +91,7 @@ public class MakeMenu
 		menu.setColsRows(10, 6);
 		menu.setColor(Color.darkGray);
 		
-		Button btest = new Button(0, 0, 1, 1, true, "abcdefghijklmnopqrstuvwxyz0123456789");
+		Button btest = new Button(0, 0, 1, 1, true, "abcdefghijklmnopqrstuvwxyz");
 		btest.fontSize = 18;
 		btest.forceFontSize = true;
 		menu.addMenu(btest);
@@ -117,6 +117,8 @@ public class MakeMenu
 		Button b1 = new Button(4, 2, 3, 1, true, "This is a test button");
 		b1.preferFontSize = true;
 		b1.textAlignment = -1;
+		b1.tooltip = "This is a test tooltip";
+		b1.showTooltip = true;
 		menu.addMenu(b1);
 		Button b2 = new Button(4, 3, 2, 1, true, "Test button");
 		menu.addMenu(b2);

@@ -7,6 +7,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.ArrayList;
+
+import menusystem2.Menu;
 
 public class Listening implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener
 {
@@ -136,12 +139,6 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	public void mouseMoved(MouseEvent e)
 	{
 		Main.mse.setLocation(e.getX()/Main.pixelSize, e.getY()/Main.pixelSize);
-		
-//		ArrayList<Menu> allMenus = Main.menu.getAllMenus();
-//		for(int i = 0; i < allMenus.size(); i++)
-//		{
-//			allMenus.get(i).hover = false;
-//		}
 	}
 
 	public void mouseWheelMoved(MouseWheelEvent e)

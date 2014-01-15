@@ -179,15 +179,6 @@ public class Scroller extends Menu
 		g.setColor(bgcolor);
 		g.fillRect((int)x, (int)y, width, height);
 		
-		//draw the submenus
-		for(int i = 0; i < menus.size(); i++)
-		{
-			int yPos = menus.get(i).yPos;
-			
-			if(yPos < pos+visibleRows && yPos >= pos)
-				menus.get(i).render(g);
-		}
-		
 		//draw the scrollbar
 		g.setColor(ColorGen.changeColor(bgcolor, 50));
 		g.fillRect((int)x+width-scrollSize, (int)y, scrollSize, height-1);
@@ -198,6 +189,15 @@ public class Scroller extends Menu
 		g.setColor(Color.black);
 		g.drawRect((int)x+width-scrollSize, (int)y, scrollSize, height-1);
 		g.drawRect((int)x+width-scrollSize, (int)y+(int)(1.0*height*pos/rows), scrollSize, (int)(1.0*height*visibleRows/rows)-1);
+		
+		//draw the submenus
+		for(int i = 0; i < menus.size(); i++)
+		{
+			int yPos = menus.get(i).yPos;
+			
+			if(yPos < pos+visibleRows && yPos >= pos)
+				menus.get(i).render(g);
+		}
 	}
 	
 	public String toString()

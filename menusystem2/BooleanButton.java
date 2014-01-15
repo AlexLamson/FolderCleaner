@@ -114,8 +114,7 @@ public class BooleanButton extends Button
 		
 		drawText(g, str, tColor, textAlignment);
 		
-		for(int i = 0; i < menus.size(); i++)
-			menus.get(i).render(g);
+		renderSubMenus(g);
 	}
 	
 	public String toString()

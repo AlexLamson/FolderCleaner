@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.awt.Graphics;
 
 import main.ButtonChecker;
+import main.Main;
 
 public class Menu
 {
@@ -35,6 +36,9 @@ public class Menu
 	public boolean pressed1 = false, pressed2 = false, pressed3 = false;	//true if mouse is in menu and button is pressed 
 	public boolean hover = false;
 	public boolean isDragging = false;		//will be true if a drag was started in this menu
+	
+	public boolean showTooltip = false;
+	public String tooltip = "This is a tooltip";
 	
 	//a placeholder menu
 	public Menu()
@@ -497,6 +501,37 @@ public class Menu
 	{
 		g.setColor(bgcolor);
 		g.fillRect((int)x, (int)y, width, height);
+		
+//		if(showTooltip)
+//		{
+//			g.setColor(Color.magenta);
+//			g.fillRect(0, 0, 1000, 1000);
+//			
+//			System.out.println("don't watch an anime called YOOOOOO");
+//			
+////			g.setColor(bgcolor);
+////			g.fillRect(Main.mse.x, Main.mse.y, 1000, 100);
+////			g.setColor(Color.black);
+////			g.drawRect(Main.mse.x, Main.mse.y, 1000, 100);
+//			
+//		}
+		
+		renderSubMenus(g);
+	}
+	
+	public void renderSubMenus(Graphics g)
+	{
+//		if(showTooltip && hover)
+//		{
+//			g.setColor(Color.magenta);
+//			g.fillRect(Main.mse.x, Main.mse.y, 200, 50);
+//			
+////			g.setColor(bgcolor);
+////			g.fillRect(Main.mse.x, Main.mse.y, 1000, 100);
+////			g.setColor(Color.black);
+////			g.drawRect(Main.mse.x, Main.mse.y, 1000, 100);
+//			
+//		}
 		
 		for(int i = 0; i < menus.size(); i++)
 			menus.get(i).render(g);
