@@ -37,9 +37,9 @@ public class Main extends Applet implements Runnable
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static int screenWidth = (int)screenSize.getWidth();
 	public static int screenHeight = (int)screenSize.getHeight();
-	public static Dimension realSize;															//size of whole window
-	public static Dimension size = new Dimension(screenWidth*2/3,screenHeight*2/3);				//drawable area
-	public static Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);	//"pixels" in drawable area
+	public static Dimension realSize;  //size of whole window
+	public static Dimension size;      //drawable area
+	public static Dimension pixel;     //"pixels" in drawable area
 	
 	public static Point mse = new Point(0, 0);
 	public static Point prevmse = new Point(0, 0);
@@ -55,6 +55,39 @@ public class Main extends Applet implements Runnable
 	
 	public Main()
 	{
+//		0 = actual screen size
+//		1 = 1024x768
+//		2 = 1280x1024
+//		3 = 1920x1080
+//		4 = 1600x1200
+		int testSize = 0;		//show what it would look like at different screen sizes
+		switch(testSize)
+		{
+		case 0:
+			screenWidth = (int)screenSize.getWidth();
+			screenHeight = (int)screenSize.getHeight();
+			break;
+		case 1:
+			screenWidth = 1024;
+			screenHeight = 768;
+			break;
+		case 2:
+			screenWidth = 1280;
+			screenHeight = 1024;
+			break;
+		case 3:
+			screenWidth = 1920;
+			screenHeight = 1080;
+			break;
+		case 4:
+			screenWidth = 1600;
+			screenHeight = 1200;
+			break;
+		}
+		
+		size = new Dimension(screenWidth*2/3,screenHeight*2/3);				//drawable area
+		pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);	//"pixels" in drawable area
+		
 		setPreferredSize(size);
 	}
 	

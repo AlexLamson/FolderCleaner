@@ -28,23 +28,23 @@ public class MakeMenu
 		sidebar.setColsRows(4, 8);
 		menu.addMenu(sidebar);
 		
-		cleanButton = new Button(0, 0, 4, 1, true, "Clean");
+		cleanButton = new Button(2, 0, 2, 1, true, "Delete");
 		cleanButton.useInvertedText = false;
 		cleanButton.bgcolor = new Color(255, 77, 0);
 		sidebar.addMenu(cleanButton);
 		
-		scanButton = new Button(0, 1, 4, 1, true, "Scan");
+		scanButton = new Button(0, 0, 2, 1, true, "Scan");
 		scanButton.useInvertedText = false;
 		scanButton.bgcolor = new Color(136, 198, 0);
 		sidebar.addMenu(scanButton);
 		
-		clearHistoryButton = new ScrollerButton(0, 2, 4, 1, true, "Remove last "+ScrollerButton.prettyNumString);
+		clearHistoryButton = new ScrollerButton(0, 1, 4, 1, true, "Remove last "+ScrollerButton.prettyNumString);
 		clearHistoryButton.useInvertedText = false;
 		clearHistoryButton.bgcolor = new Color(0, 170, 255);
 		sidebar.addMenu(clearHistoryButton);
 		
-		folderScroller = new Scroller(0, 3, 4, 1, true);
-		folderScroller.setVisibleRows(1);
+		folderScroller = new Scroller(0, 2, 4, 2, true);
+		folderScroller.setVisibleRows(3);
 		folderScroller.setColsRows(1, 6);
 		folderScroller.setPadding(2, 2);
 		folderScroller.bgcolor = new Color(0, 170, 255);
@@ -57,6 +57,9 @@ public class MakeMenu
 		listsScroller.setPadding(2, 2);
 		listsScroller.bgcolor = new Color(0, 170, 255);
 		sidebar.addMenu(listsScroller);
+		
+		if(listsScroller.width > 250)
+			listsScroller.setColsRows(2, listsScroller.rows);
 //		listsScroller.fillMenu();
 		
 		sidebar.fillMenu();
