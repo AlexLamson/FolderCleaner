@@ -9,6 +9,12 @@ public class StringTime
 //		String str = Loader.getTimeFromSeconds(1*365*24*60*60 + 2*30*24*60*60 + 3*24*60*60 + 4*60*60 + 5*60 + 6.7);
 //		System.out.println(str);	//"1 year 2 months 3 days 4 hours 5 minutes 6.7 seconds "
 		
+		if(seconds < 0)
+		{
+			System.err.println("StringTime err: negative seconds");
+			return "Negative time";
+		}
+		
 		if(seconds > 68*365*24*60*60)
 			return "Unknown time";
 		

@@ -87,7 +87,7 @@ public class Updater
 		MakeMenu.matchScroller.addMenus(matchMenus);
 		MakeMenu.matchScroller.sizeSubMenus();
 		
-		MakeMenu.loadingbar.currentVal = 0;
+		MakeMenu.loadingbar.reset();
 	}
 	
 	public static void removeLastNMinutes(int n)

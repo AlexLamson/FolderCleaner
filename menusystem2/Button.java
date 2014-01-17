@@ -59,29 +59,11 @@ public class Button extends Menu
 		this.str = str;
 	}
 	
-//	public boolean fontFitsInButton(Graphics g, Font f, String str)
-//	{
-//		g.setFont(f);
-//		Rectangle2D rect = g.getFontMetrics(f).getStringBounds(str, g);
-//		
-//		if(rect.getMaxX()-rect.getMinX() > width-5)
-//		{
-//			if(ID == 1)
-//				System.out.println(str+" "+(rect.getMaxX()-rect.getMinX())+" kaibutsu "+(width-5));
-//			
-//			return true;
-//		}
-//		if(rect.getMaxY()-rect.getMinY() > height-5)
-//			return true;
-//		return false;
-//	}
-	
 	public boolean fontFitsInButton(Graphics g, Font f, String str)
 	{
 		g.setFont(f);
 		Rectangle2D rect = g.getFontMetrics(f).getStringBounds(str, g);
-		
-		if(rect.getMaxX()-rect.getMinX() <= width-5 && rect.getMaxY()-rect.getMinY() <= height-5)
+		if(rect.getMaxX()-rect.getMinX() <= width-2*getBorder()-2*3 && rect.getMaxY()-rect.getMinY() <= height-2*getBorder()-2*3)
 			return true;
 		return false;
 	}
@@ -92,7 +74,7 @@ public class Button extends Menu
 		
 		if(!fontFitsInButton(g, f, str))	//if the text doesn't already fit
 		{
-			for(int i = str.length()/2; i > 0; i--)	//keep shortening until it fits
+			for(int i = str.length()/2; i >= 0; i--)	//keep shortening until it fits
 			{
 				String newStr = str.substring(0, i)+"(...)"+str.substring(str.length()-i);
 				
@@ -158,19 +140,19 @@ public class Button extends Menu
 		FontMetrics fm = g.getFontMetrics(f);
 		Rectangle2D rect = fm.getStringBounds(newStr, g);
 		
-		int sX = (int)x + (width/2) - (int)(rect.getWidth()/2);
-		int sY = (int)y + (height/2) - (int)(rect.getHeight()/2) + fm.getAscent();
+		int sX = (int)x+getBorder() + ((width-2*getBorder())/2) - (int)(rect.getWidth()/2);
+		int sY = (int)y+getBorder() + ((height-2*getBorder())/2) - (int)(rect.getHeight()/2) + fm.getAscent();
 		
 		switch(alignment)
 		{
 		case -1:
-			sX = (int)x + 5;
+			sX = (int)x + getBorder() + 5;
 			break;
 		case 0:
 			//do nothing
 			break;
 		case 1:
-			sX = (int)(x + width - rect.getWidth() - 5);
+			sX = (int)(x + width - getBorder() - rect.getWidth() - 5);
 			break;
 		default:
 			//do nothing
@@ -179,6 +161,16 @@ public class Button extends Menu
 		
 		g.setColor(textColor);
 		g.drawString(newStr, sX, sY);
+	}
+	
+	public void tick()
+	{
+		super.tick();
+		
+		if(pressed1)
+		{
+			borderWidth = 0;
+		}
 	}
 	
 	public void render(Graphics g)
@@ -198,6 +190,7 @@ public class Button extends Menu
 			tColor = ColorGen.invertColor(bgcolor);
 		drawText(g, str, tColor, textAlignment);
 		
+		renderBorders(g);
 		renderSubMenus(g);
 	}
 	

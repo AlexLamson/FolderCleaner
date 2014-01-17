@@ -58,10 +58,10 @@ public class Scroller extends Menu
 	
 	public void sizeMenu(Menu menu)
 	{
-		menu.x = this.x + (int)(1.0 * (this.width - xPadding - scrollSize) * menu.xPos  / this.cols);
-		menu.y = this.y + (int)(1.0 * (this.height - yPadding)             * menu.yPos  / this.visibleRows);
-		menu.width =      (int)(1.0 * (this.width - xPadding - scrollSize) * menu.xSize / this.cols);
-		menu.height =     (int)(1.0 * (this.height - yPadding)             * menu.ySize / this.visibleRows);
+		menu.width = (int)((this.width - 2.0*getBorder() - scrollSize - xPadding)*menu.xSize/cols) - xPadding;
+		menu.height = (int)((this.height - 2.0*getBorder() - yPadding)*menu.ySize/this.visibleRows) - yPadding;
+		menu.x = this.x + getBorder() + xPadding + 1.0*menu.xPos*(menu.width + xPadding);
+		menu.y = this.y + getBorder() + yPadding + 1.0*menu.yPos*(menu.height + yPadding);
 		menu.unsized = false;
 	}
 	
@@ -106,7 +106,7 @@ public class Scroller extends Menu
 		pos += direction;
 		for(int i = 0; i < menus.size(); i++)
 		{
-			double deltaY = 1.0 * -direction * (this.height - yPadding) * menus.get(i).ySize / this.visibleRows;
+			double deltaY = 1.0 * -direction * (this.height - 2.0*getBorder() - yPadding) * menus.get(i).ySize / this.visibleRows;
 			menus.get(i).move(0, deltaY);
 		}
 	}
@@ -122,10 +122,10 @@ public class Scroller extends Menu
 		
 		if(isDragging)
 		{
-			if(Main.prevmse.x >= (int)x+width-scrollSize && Main.prevmse.x <= (int)x+width)
+			if(Main.prevmse.x >= (int)x+width-getBorder()-scrollSize && Main.prevmse.x <= (int)x+width-getBorder())
 			{
 //				if(Main.prevmse.y >= (int)y+(int)(1.0*height*pos/rows) && Main.prevmse.y <= (int)(y + 1.0*height*pos/rows + 1.0*height*visibleRows/rows))
-				if(Main.prevmse.y >= y && Main.prevmse.y <= y + height)
+				if(Main.prevmse.y >= y+getBorder() && Main.prevmse.y <= y + height - getBorder())
 				{
 					isDraggingScrollbar = true;
 					initScrollPos = pos;
@@ -179,16 +179,21 @@ public class Scroller extends Menu
 		g.setColor(bgcolor);
 		g.fillRect((int)x, (int)y, width, height);
 		
+		//draw the borders
+		renderBorders(g);
+		
 		//draw the scrollbar
 		g.setColor(ColorGen.changeColor(bgcolor, 50));
-		g.fillRect((int)x+width-scrollSize, (int)y, scrollSize, height-1);
+		g.fillRect((int)x+width-getBorder()-scrollSize, (int)y+getBorder(), scrollSize, height-2*getBorder());	//whole bar
 		g.setColor(ColorGen.changeColor(bgcolor, -20));
-		g.fillRect((int)x+width-scrollSize, (int)y+(int)(1.0*height*pos/rows), scrollSize, (int)(1.0*height*visibleRows/rows)-1);
+		g.fillRect((int)x+width-getBorder()-scrollSize, (int)y+getBorder()+(int)(1.0*(height-2*getBorder())*pos/rows), 
+				scrollSize, (int)(1.0*(height-2*getBorder())*visibleRows/rows));	//current position
 		
 		//draw black edging on the scrollbar
 		g.setColor(Color.black);
-		g.drawRect((int)x+width-scrollSize, (int)y, scrollSize, height-1);
-		g.drawRect((int)x+width-scrollSize, (int)y+(int)(1.0*height*pos/rows), scrollSize, (int)(1.0*height*visibleRows/rows)-1);
+		g.drawRect((int)x+width-getBorder()-scrollSize, (int)y+getBorder(), scrollSize, height-2*getBorder()-1);	//whole bar
+		g.drawRect((int)x+width-getBorder()-scrollSize, (int)y+getBorder()+(int)(1.0*(height-2*getBorder())*pos/rows), 
+				scrollSize, (int)(1.0*(height-2*getBorder())*visibleRows/rows));	//current position
 		
 		//draw the submenus
 		for(int i = 0; i < menus.size(); i++)

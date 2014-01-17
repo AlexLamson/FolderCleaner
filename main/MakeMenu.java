@@ -5,7 +5,7 @@ import menusystem2.*;
 
 public class MakeMenu
 {
-	public static boolean useTestMenu = true;
+	public static boolean useTestMenu = false;
 	
 	public static Menu sidebar = new Menu();
 	public static Button cleanButton = new Button();
@@ -38,7 +38,7 @@ public class MakeMenu
 		scanButton.bgcolor = new Color(136, 198, 0);
 		sidebar.addMenu(scanButton);
 		
-		clearHistoryButton = new ScrollerButton(0, 1, 4, 1, true, "Remove last "+ScrollerButton.prettyNumString);
+		clearHistoryButton = new ScrollerButton(0, 1, 4, 1, true, "Retrieve last "+ScrollerButton.prettyNumString);
 		clearHistoryButton.useInvertedText = false;
 		clearHistoryButton.bgcolor = new Color(0, 170, 255);
 		sidebar.addMenu(clearHistoryButton);
@@ -65,6 +65,8 @@ public class MakeMenu
 		sidebar.fillMenu();
 		
 		matchbar = new Menu(1, 0, 2, 1, true);
+		matchbar.borderWidth = 0;
+		matchbar.showBorders = false;
 		matchbar.setPadding(0, 0);
 		matchbar.setColsRows(10, 10);
 		menu.addMenu(matchbar);
@@ -88,6 +90,7 @@ public class MakeMenu
 	
 	public static Menu makeTestMenu(Menu menu)
 	{
+		menu.showBorders = false;
 		menu.setColsRows(10, 6);
 		menu.setColor(Color.darkGray);
 		
@@ -104,7 +107,7 @@ public class MakeMenu
 		
 		Scroller scroller = new Scroller(0, 2, 2, 3, true);
 		scroller.setVisibleRows(3);
-		scroller.setColsRows(1, 10);
+		scroller.setColsRows(1, 8);
 		menu.addMenu(scroller);
 		scroller.fillMenu();
 		

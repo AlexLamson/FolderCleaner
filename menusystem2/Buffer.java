@@ -2,6 +2,9 @@ package menusystem2;
 
 import java.util.ArrayList;
 
+// Try to implement this:
+// http://stackoverflow.com/questions/2779600/how-to-estimate-download-time-remaining-accurately
+
 public class Buffer
 {
 	public int maxBufferSize = 10;
@@ -14,7 +17,7 @@ public class Buffer
 	
 	public Buffer(int size)
 	{
-		maxBufferSize = size;
+		setBufferSize(size);
 	}
 	
 	public void setBufferSize(int size)

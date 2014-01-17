@@ -39,6 +39,12 @@ public class Loader extends Menu
 		super(xSize, ySize, bool);
 	}
 	
+	public void reset()
+	{
+		currentVal = 0;
+		buffer.clear();
+	}
+	
 	public void setMax(double val)
 	{
 		maxVal = val;
@@ -59,10 +65,7 @@ public class Loader extends Menu
 		super.clicked1(beingPressed);
 		
 		if(test && !beingPressed)
-		{
-			currentVal = 0;
-			buffer.clear();
-		}
+			reset();
 	}
 	
 	public void tick()
@@ -129,7 +132,7 @@ public class Loader extends Menu
 			
 			//put a box behind the percentage
 			g.setColor(new Color(200, 200, 200, 200));
-			g.fillRect(sX, sY-fm.getAscent(), (int)rect.getWidth(), (int)rect.getHeight());
+			g.fillRect(sX-3, sY-fm.getAscent()-3, (int)rect.getWidth()+2*3, (int)rect.getHeight()+2*3);
 			
 			//draw the string
 			g.setColor(Color.black);
@@ -137,6 +140,7 @@ public class Loader extends Menu
 			g.drawString(str, sX, sY);
 		}
 		
+		renderBorders(g);
 		renderSubMenus(g);
 	}
 	

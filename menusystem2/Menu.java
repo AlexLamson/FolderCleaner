@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.awt.Graphics;
 
 import main.ButtonChecker;
-import main.Main;
 
 public class Menu
 {
@@ -39,6 +38,9 @@ public class Menu
 	
 	public boolean showTooltip = false;
 	public String tooltip = "This is a tooltip";
+	
+	public boolean showBorders = false;
+	public int borderWidth = 10;
 	
 	//a placeholder menu
 	public Menu()
@@ -202,10 +204,22 @@ public class Menu
 	
 	public void sizeMenu(Menu menu)
 	{
+		//NOTE: FIX THIS
+		
 		menu.x = this.x + (this.width - xPadding)  * (1.0 * menu.xPos  / this.cols);
 		menu.y = this.y + (this.height - yPadding) * (1.0 * menu.yPos  / this.rows);
 		menu.width =      (int)((this.width - xPadding)  * (1.0 * menu.xSize / this.cols));
 		menu.height =     (int)((this.height - yPadding) * (1.0 * menu.ySize / this.rows));
+		
+//		menu.x = this.x + getBorder() + (this.width - xPadding)  * (1.0 * menu.xPos  / this.cols);
+//		menu.y = this.y + getBorder() + (this.height - yPadding) * (1.0 * menu.yPos  / this.rows);
+//		menu.width =      (int)((this.width - 2*getBorder() - xPadding)  * (1.0 * menu.xSize / this.cols));
+//		menu.height =     (int)((this.height - 2*getBorder() - yPadding) * (1.0 * menu.ySize / this.rows));
+		
+//		menu.width = (int)((this.width - 2.0*getBorder() - xPadding)*menu.xSize/cols) - xPadding;
+//		menu.height = (int)((this.height - 2.0*getBorder() - yPadding)*menu.ySize/rows) - yPadding;
+//		menu.x = this.x + getBorder() + xPadding + 1.0*menu.xPos*(menu.width + xPadding);
+//		menu.y = this.y + getBorder() + yPadding + 1.0*menu.yPos*(menu.height + yPadding);
 		menu.unsized = false;
 	}
 	
@@ -471,6 +485,13 @@ public class Menu
 		return new Menu();	//return a placeholder Menu
 	}
 	
+	public int getBorder()
+	{
+		if(showBorders)
+			return borderWidth;
+		return 0;
+	}
+	
 	public void printMenus()
 	{
 		System.out.println(this);
@@ -516,7 +537,21 @@ public class Menu
 //			
 //		}
 		
+		renderBorders(g);
 		renderSubMenus(g);
+	}
+	
+	public void renderBorders(Graphics g)
+	{
+		if(showBorders)
+		{
+//			g.setColor(Color.black);
+			g.setColor(new Color(0, 0, 0, 125));
+			g.fillRect((int)x, (int)y, width, borderWidth); //top
+			g.fillRect((int)x, (int)y+height-borderWidth, width, borderWidth); //bottom
+			g.fillRect((int)x, (int)y+borderWidth, borderWidth, height-2*borderWidth); //left
+			g.fillRect((int)x+width-borderWidth, (int)y+borderWidth, borderWidth, height-2*borderWidth); //right
+		}
 	}
 	
 	public void renderSubMenus(Graphics g)
