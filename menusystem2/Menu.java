@@ -530,12 +530,14 @@ public class Menu
 	
 	public void render(Graphics g)
 	{
+		//render the background
 		if(showBackground)
 		{
 			g.setColor(bgcolor);
 			g.fillRect((int)x, (int)y, width, height);
 		}
 		
+		//self explanatory
 		renderBorders(g);
 		renderTooltip();
 		renderSubMenus(g);
@@ -580,8 +582,8 @@ public class Menu
 	{
 		if(showBorders)
 		{
-//			g.setColor(Color.black);
-			g.setColor(new Color(0, 0, 0, 125));
+			g.setColor(Color.black);
+//			g.setColor(new Color(0, 0, 0, 125));
 			g.fillRect((int)x, (int)y, width, borderWidth); //top
 			g.fillRect((int)x, (int)y+height-borderWidth, width, borderWidth); //bottom
 			g.fillRect((int)x, (int)y+borderWidth, borderWidth, height-2*borderWidth); //left

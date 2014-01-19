@@ -97,23 +97,26 @@ public class BooleanButton extends Button
 	
 	public void render(Graphics g)
 	{
+		//render the color of the current state
 		if(boolState)
 			bgcolor = bgColorTrue;
 		else
 			bgcolor = bgColorFalse;
 		fillBackground(g, bgcolor);
 		
+		//render the appropriate text
 		if(boolState)
 			str = strTrue;
 		else
 			str = strFalse;
-
+		
 		Color tColor = this.textColor;
 		if(useInvertedText)
 			tColor = ColorGen.invertColor(bgcolor);
 		
 		drawText(g, str, tColor, textAlignment);
 		
+		//can't call super.render(g) because that would redirect to Button
 		renderBorders(g);
 		renderTooltip();
 		renderSubMenus(g);

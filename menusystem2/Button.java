@@ -172,6 +172,7 @@ public class Button extends Menu
 	
 	public void render(Graphics g)
 	{
+		//determine button color and render that color
 		Color buttonColor = new Color(bgcolor.getRed(), bgcolor.getGreen(), bgcolor.getBlue());
 		if(changeColorWhenClicked)
 		{
@@ -182,8 +183,10 @@ public class Button extends Menu
 		}
 		fillBackground(g, buttonColor);
 		
+		//draw the text
 		drawText(g, str, getTextColor(), textAlignment);
 		
+		//use Menu's other render methods
 		super.render(g);
 	}
 	

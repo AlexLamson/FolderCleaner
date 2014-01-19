@@ -156,9 +156,10 @@ public class Main extends Applet implements Runnable
 //		g.setColor(new Color(0, 150, 255));
 //		g.fillRect(0, 0, pixel.width, pixel.height);
 		
-		
-		//call render methods here
+		//render all the menus
 		menu.render(g);
+		
+		//render the tooltip
 		Menu.renderGlobalTooltip(g);
 		
 		//testing that dragging works
