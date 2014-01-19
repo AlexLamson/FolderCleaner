@@ -9,11 +9,12 @@ import main.Main;
 
 public class Scroller extends Menu
 {
-	public int pos = 0;	//the currently viewed row
-	public int visibleRows = rows;	//the number of rows visible at any one time
+	public int pos = 0; //the currently viewed row
+	public int visibleRows = rows; //the number of rows visible at any one time
 	
-	public static final int minScrollSize = 10;		//minimum width of the scroll bar
-	public int scrollSize = 0;						//width of the scroll bar
+	public static final int minScrollSize = 10;          //minimum width of the scroll bar
+	public static final int maxScrollSize = 40;         //maximum width of the scroll bar
+	public static final double scrollSizePercent = 0.05; //size of scroll bar in relation to menu size
 	
 	public int initScrollPos = 0;
 	public boolean isDraggingScrollbar = false;
@@ -26,19 +27,11 @@ public class Scroller extends Menu
 	public Scroller(int x, int y, int width, int height)
 	{
 		super(x, y, width, height);
-		
-		setScrollSize(xPadding);
-		if(scrollSize < minScrollSize)
-			scrollSize = minScrollSize;
 	}
 	
 	public Scroller(int xPos, int yPos, int xSize, int ySize, boolean bool)
 	{
 		super(xPos, yPos, xSize, ySize, bool);
-		
-		setScrollSize(xPadding);
-		if(scrollSize < minScrollSize)
-			scrollSize = minScrollSize;
 	}
 	
 	public Scroller(int xSize, int ySize, boolean bool)
@@ -51,14 +44,19 @@ public class Scroller extends Menu
 		this.visibleRows = visibleRows;
 	}
 	
-	public void setScrollSize(int scrollSize)
+	public int getScrollbarSize()
 	{
-		this.scrollSize = scrollSize;
+		int scrollSize = (int)(width*scrollSizePercent);
+		if(scrollSize < minScrollSize)
+			scrollSize = minScrollSize;
+		if(scrollSize > maxScrollSize)
+			scrollSize = maxScrollSize;
+		return scrollSize;
 	}
 	
 	public void sizeMenu(Menu menu)
 	{
-		menu.width = (int)((this.width - 2.0*getBorder() - scrollSize - xPadding)*menu.xSize/cols) - xPadding;
+		menu.width = (int)((this.width - 2.0*getBorder() - getScrollbarSize() - xPadding)*menu.xSize/cols) - xPadding;
 		menu.height = (int)((this.height - 2.0*getBorder() - yPadding)*menu.ySize/this.visibleRows) - yPadding;
 		menu.x = this.x + getBorder() + xPadding + 1.0*menu.xPos*(menu.width + xPadding);
 		menu.y = this.y + getBorder() + yPadding + 1.0*menu.yPos*(menu.height + yPadding);
@@ -122,7 +120,7 @@ public class Scroller extends Menu
 		
 		if(isDragging)
 		{
-			if(Main.prevmse.x >= (int)x+width-getBorder()-scrollSize && Main.prevmse.x <= (int)x+width-getBorder())
+			if(Main.prevmse.x >= (int)x+width-getBorder()-getScrollbarSize() && Main.prevmse.x <= (int)x+width-getBorder())
 			{
 //				if(Main.prevmse.y >= (int)y+(int)(1.0*height*pos/rows) && Main.prevmse.y <= (int)(y + 1.0*height*pos/rows + 1.0*height*visibleRows/rows))
 				if(Main.prevmse.y >= y+getBorder() && Main.prevmse.y <= y + height - getBorder())
@@ -183,6 +181,7 @@ public class Scroller extends Menu
 		renderBorders(g);
 		
 		//draw the scrollbar
+		int scrollSize = getScrollbarSize();
 		g.setColor(ColorGen.changeColor(bgcolor, 50));
 		g.fillRect((int)x+width-getBorder()-scrollSize, (int)y+getBorder(), scrollSize, height-2*getBorder());	//whole bar
 		g.setColor(ColorGen.changeColor(bgcolor, -20));
