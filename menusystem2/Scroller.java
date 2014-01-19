@@ -195,6 +195,9 @@ public class Scroller extends Menu
 		g.drawRect((int)x+width-getBorder()-scrollSize, (int)y+getBorder()+(int)(1.0*(height-2*getBorder())*pos/rows), 
 				scrollSize, (int)(1.0*(height-2*getBorder())*visibleRows/rows));	//current position
 		
+		//render the tooltip
+		renderTooltip();
+		
 		//draw the submenus
 		for(int i = 0; i < menus.size(); i++)
 		{

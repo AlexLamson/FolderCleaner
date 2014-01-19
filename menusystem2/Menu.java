@@ -1,12 +1,16 @@
 package menusystem2;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 
 import main.ButtonChecker;
+import main.Main;
 
 public class Menu
 {
@@ -31,13 +35,19 @@ public class Menu
 	public int xPos = 0, yPos = 0, xSize = 1, ySize = 1;	//dimension in "button units"
 	
 	public Color bgcolor = new Color(255, 0, 255);	//background color of menu
+	public boolean showBackground = false;
 	
 	public boolean pressed1 = false, pressed2 = false, pressed3 = false;	//true if mouse is in menu and button is pressed 
 	public boolean hover = false;
 	public boolean isDragging = false;		//will be true if a drag was started in this menu
 	
+	public boolean useInvertedText = true;	//if false, use textColor
+	public Color textColor =  Color.black;
+	
+	public static Menu tooltipMenu = new Menu();
 	public boolean showTooltip = false;
-	public String tooltip = "This is a tooltip";
+	public String tooltip = "";
+	public int tooltipFontSize = 18;
 	
 	public boolean showBorders = false;
 	public int borderWidth = 10;
@@ -520,25 +530,50 @@ public class Menu
 	
 	public void render(Graphics g)
 	{
-		g.setColor(bgcolor);
-		g.fillRect((int)x, (int)y, width, height);
-		
-//		if(showTooltip)
-//		{
-//			g.setColor(Color.magenta);
-//			g.fillRect(0, 0, 1000, 1000);
-//			
-//			System.out.println("don't watch an anime called YOOOOOO");
-//			
-////			g.setColor(bgcolor);
-////			g.fillRect(Main.mse.x, Main.mse.y, 1000, 100);
-////			g.setColor(Color.black);
-////			g.drawRect(Main.mse.x, Main.mse.y, 1000, 100);
-//			
-//		}
+		if(showBackground)
+		{
+			g.setColor(bgcolor);
+			g.fillRect((int)x, (int)y, width, height);
+		}
 		
 		renderBorders(g);
+		renderTooltip();
 		renderSubMenus(g);
+	}
+	
+	public void renderTooltip()
+	{
+		if(showTooltip && hover)
+			tooltipMenu = this;
+		else if(tooltipMenu == this)
+			tooltipMenu = new Menu();
+	}
+	
+	public static void renderGlobalTooltip(Graphics g)
+	{
+		if(tooltipMenu.showTooltip)
+		{
+			Font f = new Font("Verdana", Font.PLAIN, tooltipMenu.tooltipFontSize);
+			g.setFont(f);
+			FontMetrics fm = g.getFontMetrics(f);
+			Rectangle2D rect = fm.getStringBounds(tooltipMenu.tooltip, g);
+			
+			int xPadding = 10;
+			int yPadding = fm.getAscent()/2;
+			
+			int tX = Main.mse.x+xPadding;
+			int tY = Main.mse.y-rect.getBounds().height-yPadding;
+			int tWidth = rect.getBounds().width+2*xPadding;
+			int tHeight = rect.getBounds().height+yPadding;
+			
+			g.setColor(tooltipMenu.bgcolor);
+			g.fillRect(tX, tY, tWidth, tHeight);
+			g.setColor(Color.black);
+			g.drawRect(tX, tY, tWidth, tHeight);
+			
+			g.setColor(tooltipMenu.getTextColor());
+			g.drawString(tooltipMenu.tooltip, Main.mse.x+2*xPadding, Main.mse.y-yPadding);
+		}
 	}
 	
 	public void renderBorders(Graphics g)
@@ -556,20 +591,16 @@ public class Menu
 	
 	public void renderSubMenus(Graphics g)
 	{
-//		if(showTooltip && hover)
-//		{
-//			g.setColor(Color.magenta);
-//			g.fillRect(Main.mse.x, Main.mse.y, 200, 50);
-//			
-////			g.setColor(bgcolor);
-////			g.fillRect(Main.mse.x, Main.mse.y, 1000, 100);
-////			g.setColor(Color.black);
-////			g.drawRect(Main.mse.x, Main.mse.y, 1000, 100);
-//			
-//		}
-		
 		for(int i = 0; i < menus.size(); i++)
 			menus.get(i).render(g);
+	}
+	
+	public Color getTextColor()
+	{
+		Color tColor = this.textColor;
+		if(useInvertedText)
+			tColor = ColorGen.invertColor(bgcolor);
+		return tColor;
 	}
 	
 	public boolean equals(Object obj)

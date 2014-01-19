@@ -10,9 +10,6 @@ public class Button extends Menu
 {
 	public String str = "Test";
 	
-	public boolean useInvertedText = true;	//if false, use textColor
-	public Color textColor =  Color.black;
-	
 	public boolean forceFontSize = false;
 	public boolean preferFontSize = false;
 	public int fontSize = 18, minFontSize = 2, maxFontSize = 72;
@@ -185,13 +182,9 @@ public class Button extends Menu
 		}
 		fillBackground(g, buttonColor);
 		
-		Color tColor = this.textColor;
-		if(useInvertedText)
-			tColor = ColorGen.invertColor(bgcolor);
-		drawText(g, str, tColor, textAlignment);
+		drawText(g, str, getTextColor(), textAlignment);
 		
-		renderBorders(g);
-		renderSubMenus(g);
+		super.render(g);
 	}
 	
 	public String toString()

@@ -5,7 +5,7 @@ import menusystem2.*;
 
 public class MakeMenu
 {
-	public static boolean useTestMenu = false;
+	public static boolean useTestMenu = true;
 	
 	public static Menu sidebar = new Menu();
 	public static Button cleanButton = new Button();
@@ -19,6 +19,7 @@ public class MakeMenu
 	
 	public static Menu makeMenu(Menu menu)
 	{
+		menu.showBackground = true;
 		menu.setColor(Color.darkGray);
 		menu.setColsRows(3, 1);
 		menu.setPadding(0, 0);
@@ -90,6 +91,7 @@ public class MakeMenu
 	
 	public static Menu makeTestMenu(Menu menu)
 	{
+		menu.showBackground = true;
 		menu.showBorders = false;
 		menu.setColsRows(10, 6);
 		menu.setColor(Color.darkGray);

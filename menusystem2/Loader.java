@@ -140,8 +140,7 @@ public class Loader extends Menu
 			g.drawString(str, sX, sY);
 		}
 		
-		renderBorders(g);
-		renderSubMenus(g);
+		super.render(g);
 	}
 	
 	public String toString()

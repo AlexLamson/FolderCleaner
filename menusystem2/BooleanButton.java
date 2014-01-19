@@ -115,6 +115,7 @@ public class BooleanButton extends Button
 		drawText(g, str, tColor, textAlignment);
 		
 		renderBorders(g);
+		renderTooltip();
 		renderSubMenus(g);
 	}
 	

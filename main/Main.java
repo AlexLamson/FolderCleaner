@@ -159,6 +159,7 @@ public class Main extends Applet implements Runnable
 		
 		//call render methods here
 		menu.render(g);
+		Menu.renderGlobalTooltip(g);
 		
 		//testing that dragging works
 //		if(Main.debugMode)
