@@ -34,9 +34,10 @@ public class Updater
 	
 	public static void clean()
 	{
-		System.out.println("Cleaning...");
-//		Lists.deleteMatchedFiles = true;
-		runScan();
+		System.out.println("Deleting...");
+		
+//		runScan();
+		System.out.println("Deleting not yet implemented.");
 	}
 	
 	public static void scan()
