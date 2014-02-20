@@ -52,7 +52,7 @@ public class PathButton extends Button
 	{
 		System.out.println("Trying to open path...");
 		
-		File file = new File(str);
+		File file = Updater.getMatchFromID(ID).actualFile;
 		if(file.exists())
 		{
 			File dir = new File(file.getAbsolutePath());
