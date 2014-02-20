@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import main.Main;
 
-//left click to open path, right click to copy path to clickboard
+//left click to open path, right click to copy path to clipboard
 
 public class PathButton extends Button
 {
