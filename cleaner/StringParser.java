@@ -175,4 +175,22 @@ public class StringParser
 		}
 		return maxChars;
 	}
+	
+	//returns path in all lowercase, with match in uppercase
+	public static String uppercaseMatch(String path, String match)
+	{
+		String lpath = path.toLowerCase();
+		String lmatch = match.toLowerCase();
+		
+		int pos = lpath.indexOf(lmatch);
+		if(pos == -1)
+			return lpath;	//return the original string if there is no match
+		
+		String outString = lpath.substring(0, pos);
+		for(int i = pos; i < pos+lmatch.length(); i++)
+			outString += Character.toUpperCase(lpath.charAt(i));
+		outString += lpath.substring(pos+lmatch.length());
+		
+		return outString;
+	}
 }
