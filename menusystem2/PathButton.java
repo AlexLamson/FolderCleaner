@@ -45,7 +45,7 @@ public class PathButton extends Button
 	{
 		copyPath();
 		
-		super.clicked1(beingPressed);
+		super.clicked3(beingPressed);
 	}
 	
 	public void openPath()
