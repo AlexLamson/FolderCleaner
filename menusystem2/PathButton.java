@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 import main.Main;
+import main.Updater;
 
 //left click to open path, right click to copy path to clipboard
 

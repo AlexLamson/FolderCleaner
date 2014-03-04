@@ -115,16 +115,16 @@ public class ListFile
 		if(!IDWasSet)
 		{
 			//Make the button
-			BooleanButton bb = new BooleanButton(1, 1, true, StringParser.cleanEStringRev(listPath.getName()) );
-			bb.preferFontSize = true;
-			bb.fontSize = 16;
-			bb.useInvertedText = false;
+			ListFileButton lfb = new ListFileButton(1, 1, true, StringParser.cleanEStringRev(listPath.getName()) );
+			lfb.preferFontSize = true;
+			lfb.fontSize = 16;
+			lfb.useInvertedText = false;
 			
 			//Set the ID
-			ID = bb.ID;
+			ID = lfb.ID;
 			IDWasSet = true;
 			
-			return bb;
+			return lfb;
 		}
 		
 		//If the menu was already created, return that one instead of making another
